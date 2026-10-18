@@ -1,0 +1,92 @@
+[
+ [
+  "Do you have a senior discount today? I am over 60.",
+  "Tem desconto para idosos hoje? Tenho mais de 60 anos.",
+  "Na loja"
+ ],
+ [
+  "I would like the 55 plus Tuesday discount, please.",
+  "Quero o desconto de terça para 55+, por favor. (Ross)",
+  "Na loja"
+ ],
+ [
+  "Can you match the price from your app? It is cheaper there.",
+  "Pode igualar o preço do seu app? Lá está mais barato. (Walmart/Target)",
+  "Na loja"
+ ],
+ [
+  "I am paying with a gift card. Here is the code.",
+  "Vou pagar com gift card. Aqui está o código.",
+  "Na loja"
+ ],
+ [
+  "Could I have the free VIP coupon book, please?",
+  "Pode me dar o livro de cupons VIP grátis? (outlets, Guest Services)",
+  "Na loja"
+ ],
+ [
+  "Where is the clearance section?",
+  "Onde fica a seção de liquidação?",
+  "Na loja"
+ ],
+ [
+  "Do you have this in a different size? Size ___.",
+  "Tem este em outro tamanho? Tamanho ___.",
+  "Na loja"
+ ],
+ [
+  "Can I try this on? Where is the fitting room?",
+  "Posso provar? Onde é o provador?",
+  "Na loja"
+ ],
+ [
+  "Can I return this if it does not fit?",
+  "Posso devolver se não servir?",
+  "Na loja"
+ ],
+ [
+  "Credit, please. And a receipt, please.",
+  "Crédito, por favor. E a nota, por favor.",
+  "Na loja"
+ ],
+ [
+  "Any discounts or coupons today?",
+  "Tem algum desconto ou cupom hoje?",
+  "Na loja"
+ ],
+ [
+  "A cup of ice water, please.",
+  "Um copo de água gelada, por favor. (grátis nos parques)",
+  "Comida e parques"
+ ],
+ [
+  "I do not speak English well. Please speak slowly.",
+  "Não falo inglês bem. Fale devagar, por favor.",
+  "Pedir ajuda"
+ ],
+ [
+  "Where is the restroom?",
+  "Onde é o banheiro?",
+  "Pedir ajuda"
+ ],
+ [
+  "Where is Guest Services?",
+  "Onde fica o balcão de atendimento?",
+  "Pedir ajuda"
+ ],
+ [
+  "I need help, please.",
+  "Preciso de ajuda, por favor.",
+  "Pedir ajuda"
+ ],
+ [
+  "Can you open the trunk, please?",
+  "Pode abrir o porta-malas, por favor? (Uber)",
+  "Transporte"
+ ],
+ [
+  "Is the tip already included?",
+  "A gorjeta já está incluída? (restaurante)",
+  "Comida e parques"
+ ]
+]

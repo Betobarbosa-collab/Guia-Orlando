@@ -1,0 +1,410 @@
+[
+ {
+  "grupo": "Roupas, sapatos e casa com desconto (off-price)",
+  "itens": [
+   {
+    "id": "ross-dress-for-less",
+    "n": "Ross Dress for Less",
+    "tag": "Terça 10% (55+)",
+    "tagc": "sun",
+    "q": "Ross Dress for Less",
+    "perto": "130 E Altamonte Dr, Altamonte Springs",
+    "d": [
+     "Roupa, tênis, bolsa, perfume e casa de marca com preço baixo. Dezenas de lojas em Orlando e Miami; a de Lincoln Road (South Beach) é enorme.",
+     "Remarcações saem na terça à noite → **quarta de manhã** é o melhor dia para achar preço novo baixo. Terça é o dia do desconto 55+.",
+     "A etiqueta amarela/vermelha pequena mostra o preço riscado e o novo. Não tem loja online: o desconto é só presencial.",
+     "Devolução: 30 dias com nota e etiqueta.",
+     "**dd's DISCOUNTS** é a irmã mais barata da Ross (menos lojas; tem em Orlando e Kissimmee)."
+    ]
+   },
+   {
+    "id": "t-j-maxx",
+    "n": "T.J. Maxx",
+    "tag": "Segunda 10% (55+, só Flórida)",
+    "tagc": "sun",
+    "q": "T.J. Maxx",
+    "perto": "380 S State Rd 434, Altamonte Springs",
+    "d": [
+     "Etiquetas: **branca** = preço normal da loja · **vermelha** = liquidação · **amarela** = preço final (não cai mais; leve na hora).",
+     "Melhor dia: quarta de manhã (novidades e remarcações). Janeiro e julho têm liquidação geral.",
+     "Forte em bolsas, cosméticos de marca, roupa fitness e casa. Lojas **Runway** (maiores) têm grifes."
+    ]
+   },
+   {
+    "id": "marshalls",
+    "n": "Marshalls",
+    "tag": "Mesma rede da T.J. Maxx",
+    "tagc": "sky",
+    "q": "Marshalls",
+    "perto": "995 FL-434, Altamonte Springs",
+    "d": [
+     "Mesmas cores de etiqueta (amarela = preço final). Mais roupa masculina, juvenil e sapatos que a T.J. Maxx.",
+     "Pergunte pelo desconto de segunda 55+: não é oficial em todas, mas algumas lojas da Flórida dão.",
+     "Chegue na abertura (9h30): as araras de clearance ficam no fundo e nas pontas de corredor."
+    ]
+   },
+   {
+    "id": "homegoods",
+    "n": "HomeGoods",
+    "tag": "Só casa e cozinha",
+    "tagc": "sky",
+    "q": "HomeGoods",
+    "d": [
+     "Irmã da T.J. Maxx só com casa: panelas, cama, banho, decoração, mala de viagem. Mesmas etiquetas (amarela = final).",
+     "Bom lugar para comprar mala extra barata para trazer as compras."
+    ]
+   },
+   {
+    "id": "burlington",
+    "n": "Burlington",
+    "tag": "Casacos, malas, bebê",
+    "tagc": "sky",
+    "q": "Burlington",
+    "perto": "130 E Altamonte Dr, Altamonte Springs",
+    "d": [
+     "Famosa por casacos (coats), malas, enxoval de bebê e perfumes com desconto.",
+     "Clearance fica em prateleiras no fundo ou nas pontas de corredor; sticker colorido = remarcado.",
+     "Sem desconto por idade; vale comparar com a Ross ao lado."
+    ]
+   },
+   {
+    "id": "nordstrom-rack",
+    "n": "Nordstrom Rack",
+    "tag": "Grifes com desconto",
+    "tagc": "sky",
+    "q": "Nordstrom Rack",
+    "perto": "1090 N Orlando Ave, Winter Park",
+    "d": [
+     "Outlet da Nordstrom: roupa, sapato e bolsa de marca por até 70% menos.",
+     "Etiqueta **vermelha** = clearance; em eventos \"Clear the Rack\" tem 25% extra sobre a vermelha.",
+     "Guarde a nota: devolução costuma ser aceita por várias semanas."
+    ]
+   },
+   {
+    "id": "saks-off-5th",
+    "n": "Saks OFF 5TH",
+    "tag": "Luxo com desconto",
+    "tagc": "sky",
+    "q": "Saks OFF 5TH",
+    "d": [
+     "Outlet da Saks: Michael Kors, Kate Spade, Hugo Boss, perfumes importados. Em Orlando fica no Vineland Premium Outlets; em Miami, no Sawgrass Mills e no Dolphin Mall.",
+     "Procure os cartazes \"extra 30–50% off clearance\" (desconto extra em cima da etiqueta)."
+    ]
+   },
+   {
+    "id": "macy-s-backstage",
+    "n": "Macy's Backstage",
+    "tag": "Dentro da Macy's",
+    "tagc": "sky",
+    "q": "Macy's",
+    "d": [
+     "Seção de preço baixo dentro de várias lojas Macy's (Florida Mall, Dadeland). Pergunte: _\"Where is Backstage?\"_",
+     "A Macy's normal tem araras de clearance com etiqueta amarela e cupons no app (cadastro grátis)."
+    ]
+   },
+   {
+    "id": "bealls",
+    "n": "bealls",
+    "tag": "15% (50+) um dia por semana",
+    "tagc": "sun",
+    "q": "bealls",
+    "perto": "157 FL-436, Fern Park",
+    "d": [
+     "Rede da Flórida (antiga Bealls Outlet / Burkes Outlet): roupa de praia, verão, calçado e casa, bem barato.",
+     "Desconto de 15% para 50+ num dia da semana (segunda na maioria; algumas, terça). Pergunte no caixa qual é o dia.",
+     "Cadastro gratuito no programa de pontos (MORE Rewards) só com e-mail."
+    ]
+   },
+   {
+    "id": "kohl-s",
+    "n": "Kohl's",
+    "tag": "Quarta 15% (60+)",
+    "tagc": "sun",
+    "q": "Kohl's",
+    "perto": "945 W State Rd 436, Altamonte Springs",
+    "d": [
+     "Loja de departamento: roupa, cama, cozinha, tênis, brinquedos. Quarta: 15% para 60+ — peça no caixa.",
+     "Cupons do app somam com o desconto; \"Kohl's Cash\" é crédito para gastar dias depois.",
+     "Araras de clearance no fundo com etiqueta amarela."
+    ]
+   },
+   {
+    "id": "macy-s-jcpenney-dillard-s-belk",
+    "n": "Macy's · JCPenney · Dillard's · Belk",
+    "tag": "Lojas de departamento",
+    "tagc": "sky",
+    "q": "Macy's",
+    "d": [
+     "**Macy's (Florida Mall, Millenia, Altamonte Mall):** leve o passaporte e peça o **desconto de visitante** no balcão de atendimento (\"Visitor Savings Pass\", costuma ser 10%). Macy's Backstage é a seção de preço baixo dentro da loja.",
+     "Ficam dentro dos shoppings. Vale ir direto nas araras **Clearance** (etiqueta vermelha/amarela), onde o desconto chega a 70–80%.",
+     "JCPenney: cupom de 10–30% no app. Belk: alguns dias de desconto para 60+ na terça — pergunte.",
+     "Lençóis, toalhas e panelas costumam ser muito mais baratos que no Brasil."
+    ]
+   },
+   {
+    "id": "primark",
+    "n": "Primark",
+    "tag": "Roupa muito barata",
+    "tagc": "sky",
+    "q": "Primark",
+    "d": [
+     "Roupa básica a partir de US$ 3–10, estilo Renner/C&A. Em Orlando: Florida Mall. Em Miami: Sawgrass Mills e Dadeland.",
+     "Não aceita devolução sem nota; prove antes."
+    ]
+   }
+  ]
+ },
+ {
+  "grupo": "Mercado, farmácia e utilidades",
+  "itens": [
+   {
+    "id": "walmart",
+    "n": "Walmart",
+    "tag": "Escaneie no app",
+    "tagc": "leaf",
+    "q": "Walmart Supercenter",
+    "perto": "200 S State Rd 434, Altamonte Springs (unidade pequena)",
+    "d": [
+     "**Truque do app:** baixe o app Walmart, toque no scanner e aponte para o código de barras. Se o preço do app for menor que o da prateleira, mostre no caixa: _\"Can you match the Walmart.com price?\"_ Vale para item idêntico e em estoque no site.",
+     "O scanner revela \"liquidação escondida\": produto mais barato no sistema do que na etiqueta.",
+     "Walmart NÃO iguala preço de Target/Amazon (só o próprio site). Não aceita cartão por aproximação: insira o chip.",
+     "Aceita gift card Walmart (Banco Inter). Os **Supercenters** (maiores) ficam em Kissimmee, Sanford, Winter Garden, OBT; têm mercado completo, farmácia e roupa."
+    ]
+   },
+   {
+    "id": "target",
+    "n": "Target",
+    "tag": "App Target Circle",
+    "tagc": "leaf",
+    "q": "Target",
+    "perto": "886 W State Rd 436, Altamonte Springs",
+    "d": [
+     "Conta grátis no app **Target Circle** (só e-mail): ofertas extras no app e no caixa com o código da carteira.",
+     "Escaneie o produto no app: se o preço do Target.com for menor, peça para igualar no caixa ou no Guest Services. Desde jan/2026 as ofertas Circle somam com a igualação.",
+     "Target não iguala mais Walmart/Amazon (desde jul/2025). Se o preço cair em até 14 dias, leve a nota e peça a diferença.",
+     "Clearance nas pontas de corredor com etiqueta vermelha (30/50/70% no canto). Aceita gift card Target (Inter)."
+    ]
+   },
+   {
+    "id": "best-buy",
+    "n": "Best Buy",
+    "tag": "Eletrônicos · iguala preço",
+    "tagc": "leaf",
+    "q": "Best Buy",
+    "d": [
+     "Único grande varejista que ainda **iguala preço de concorrentes** (Amazon, Walmart, Target, Costco…): mostre o preço no celular antes de pagar.",
+     "Produtos \"Open-Box\" (caixa aberta, devolvido) saem 10–30% mais baratos com garantia.",
+     "Atenção à voltagem (110 V) e à garantia, que vale só nos EUA."
+    ]
+   },
+   {
+    "id": "five-below",
+    "n": "Five Below",
+    "tag": "Quase tudo até US$ 5",
+    "tagc": "leaf",
+    "q": "Five Below",
+    "d": [
+     "Presentes, capinhas, fones, doces, maquiagem, brinquedos, decoração: quase tudo entre US$ 1 e 5 (alguns até US$ 10).",
+     "Ótimo para lembrancinhas em quantidade."
+    ]
+   },
+   {
+    "id": "dollar-tree",
+    "n": "Dollar Tree",
+    "tag": "Tudo a partir de US$ 1,25",
+    "tagc": "leaf",
+    "q": "Dollar Tree",
+    "perto": "945 W State Rd 436, Altamonte Springs",
+    "d": [
+     "Sacolas de presente, papel, itens de cozinha, doces, produtos de limpeza por US$ 1,25–5.",
+     "Tem em toda esquina de Orlando e Miami."
+    ]
+   },
+   {
+    "id": "ollie-s-bargain-outlet",
+    "n": "Ollie's Bargain Outlet",
+    "tag": "Ponta de estoque",
+    "tagc": "sky",
+    "q": "Ollie's Bargain Outlet",
+    "d": [
+     "Loja de sobras de estoque (\"Good stuff cheap\"): tapetes, panelas, livros, brinquedos, ferramentas até 70% mais baratos. Bagunçada, mas tem achados.",
+     "Cadastro grátis \"Ollie's Army\" dá 10–15% em dias especiais."
+    ]
+   },
+   {
+    "id": "walgreens",
+    "n": "Walgreens",
+    "tag": "1ª terça do mês 20% (55+)",
+    "tagc": "sun",
+    "q": "Walgreens",
+    "perto": "200 W State Rd 436, Altamonte Springs",
+    "d": [
+     "Cadastro grátis **myWalgreens** no app (e-mail + telefone). Sem ele, a maioria dos preços promocionais não vale.",
+     "No app, toque em \"Clip\" nos cupons antes de pagar; no caixa, informe o telefone ou mostre o QR.",
+     "Seniors Day: 1ª terça do mês, 20% em itens de preço normal (remédios, vitaminas, cosméticos, chocolates). Aceita gift card Walgreens (Inter)."
+    ]
+   },
+   {
+    "id": "cvs-pharmacy",
+    "n": "CVS Pharmacy",
+    "tag": "ExtraCare + quiosque",
+    "tagc": "leaf",
+    "q": "CVS Pharmacy",
+    "perto": "277 W State Rd 436, Altamonte Springs",
+    "d": [
+     "Cadastro grátis **ExtraCare** no app. Dá cupons e \"ExtraBucks\" (crédito para a próxima compra).",
+     "**Quiosque vermelho** perto da entrada: escaneie o QR do app e ele imprime cupons na hora.",
+     "Vitaminas, remédios sem receita e cosméticos costumam ter 2 por 1 (BOGO). Aceita gift card CVS (Inter)."
+    ]
+   },
+   {
+    "id": "publix-aldi-trader-joe-s",
+    "n": "Publix · Aldi · Trader Joe's",
+    "tag": "Mercado",
+    "tagc": "leaf",
+    "q": "Publix",
+    "perto": "482 E Altamonte Dr, Altamonte Springs",
+    "d": [
+     "**Publix**: toda semana dezenas de itens **BOGO** (leve 2 pague 1) com cartaz amarelo; sanduíche \"Pub Sub\" barato para almoço; cadastro Club Publix grátis.",
+     "**Aldi**: mercado mais barato da região; leve sacola e uma moeda de 25 centavos para o carrinho.",
+     "**Trader Joe's** (Winter Park, Orlando, Miami): snacks, chocolates, molhos e temperos que dão ótimos presentes."
+    ]
+   }
+  ]
+ },
+ {
+  "grupo": "Beleza, criança e esporte",
+  "itens": [
+   {
+    "id": "ulta-beauty-sephora",
+    "n": "Ulta Beauty · Sephora",
+    "tag": "Cadastro grátis dá pontos",
+    "tagc": "leaf",
+    "q": "Ulta Beauty",
+    "perto": "375 E Altamonte Dr, Altamonte Springs",
+    "d": [
+     "Cadastro grátis (e-mail) dá pontos e amostras. Ulta tem cupom de 20% com frequência e marcas de farmácia + luxo juntas.",
+     "Perfumes e maquiagem de marca saem mais baratos ainda na T.J. Maxx, Marshalls e Ross (originais)."
+    ]
+   },
+   {
+    "id": "bath-body-works",
+    "n": "Bath & Body Works",
+    "tag": "Cupons no app",
+    "tagc": "leaf",
+    "q": "Bath & Body Works",
+    "d": [
+     "Sabonetes, cremes, velas e aromatizadores. No app aparecem cupons tipo \"US$ 10 off US$ 30\"; promoções \"buy 3 get 3\".",
+     "Liquidação semestral em janeiro e junho (até 75%)."
+    ]
+   },
+   {
+    "id": "carter-s-oshkosh-the-children-s-place",
+    "n": "Carter's · OshKosh · The Children's Place",
+    "tag": "Roupa de criança",
+    "tagc": "leaf",
+    "q": "Carter's",
+    "d": [
+     "Roupa infantil muito barata, principalmente nos outlets. Cadastro grátis no app dá cupom extra de 20–25%.",
+     "Tamanhos por idade (2T, 3T, 4, 5…) — veja a tabela na aba Lista."
+    ]
+   },
+   {
+    "id": "old-navy-gap-factory",
+    "n": "Old Navy · Gap Factory",
+    "tag": "Básicos baratos",
+    "tagc": "sky",
+    "q": "Old Navy",
+    "d": [
+     "Camisetas, jeans, pijamas e roupa de criança. Clearance no fundo com desconto extra.",
+     "App Old Navy dá \"Super Cash\" (crédito para a próxima compra)."
+    ]
+   },
+   {
+    "id": "nike-adidas-new-balance-asics-skechers-outlets",
+    "n": "Nike · adidas · New Balance · ASICS · Skechers (outlets)",
+    "tag": "Tênis",
+    "tagc": "sky",
+    "q": "Nike Factory Store",
+    "d": [
+     "Nos outlets. Procure a **parede de clearance** no fundo (cartazes \"extra 20–30% off\"). Nike app: cadastro grátis dá desconto de membro.",
+     "Tênis de corrida e caminhada costumam custar metade do preço do Brasil. Skechers é ótima para pés sensíveis.",
+     "**Nike Clearance Store** (The Loop West, Kissimmee) é a loja só de sobras da Nike: preço mais baixo que o outlet. **Dick's Sporting Goods** e **Bass Pro Shops** (I-Drive) para esporte, camping e pesca.",
+     "**Truque do tamanho infantil:** quem calça até 38 no Brasil cabe na seção **Big Kids / Grade School (GS)**, com os mesmos modelos mais baratos. Veja a tabela \"Tênis na ala infantil\" na aba Lista.",
+     "New Balance, ASICS, Puma e Reebok também têm loja nos Premium Outlets: confira o mapa na entrada ou no app Simon. Para modelo específico, veja a lista de pedidos da loja (aparece ao abrir)."
+    ]
+   },
+   {
+    "id": "disney-s-character-warehouse",
+    "n": "Disney's Character Warehouse",
+    "tag": "Produto Disney com desconto",
+    "tagc": "sun",
+    "q": "Disney's Character Warehouse",
+    "d": [
+     "Outlet oficial da Disney: canecas, camisetas, pelúcias e orelhas por 50–75% menos que nos parques. Fica nos dois Premium Outlets (International Drive e Vineland).",
+     "O estoque muda todo dia: vá cedo.",
+     "**Atenção:** desde fev/2026 **toda venda é final** — não aceita troca nem devolução. Confira tamanho e defeitos antes de pagar. A unidade do Sawgrass Mills (Miami) fechou em 2026; só existem as duas de Orlando."
+    ]
+   },
+   {
+    "id": "michaels-hobby-lobby",
+    "n": "Michaels · Hobby Lobby",
+    "tag": "Michaels: 10% todo dia (55+)",
+    "tagc": "sun",
+    "q": "Michaels",
+    "d": [
+     "Artesanato, scrapbook, decoração de festa e de Natal. **Michaels dá 10% todo dia para 55+**, inclusive em promoção — peça no caixa.",
+     "Hobby Lobby: tudo de decoração de casa com cupons semanais de 40% em um item (no app)."
+    ]
+   },
+   {
+    "id": "macrobaby-enxoval-de-bebe",
+    "n": "MacroBaby (enxoval de bebê)",
+    "tag": "Atendimento em português",
+    "tagc": "sky",
+    "q": "MacroBaby Orlando",
+    "d": [
+     "Loja gigante de enxoval perto do Florida Mall, preferida dos brasileiros, com vendedores que falam português. Carrinhos, cadeirinhas, mamadeiras, roupinhas.",
+     "Antes de fechar, compare o preço com Target, Walmart e Carter's/OshKosh dos outlets — muitas vezes sai mais barato lá."
+    ]
+   },
+   {
+    "id": "lembrancinhas-e-souvenirs",
+    "n": "Lembrancinhas e souvenirs",
+    "tag": "Onde compensa",
+    "tagc": "leaf",
+    "q": "World of Disney Disney Springs",
+    "d": [
+     "**Barato:** produto oficial Disney/Universal na Target, no Walmart e no Character Warehouse (outlets) sai bem mais barato que dentro dos parques.",
+     "**Para passear:** Disney Springs tem a **World of Disney** (maior loja Disney), LEGO Store, Coca-Cola Store, Days of Christmas (Natal o ano todo), M&M'S e a Galactic Outpost (Star Wars). Preço cheio, mas vale o passeio.",
+     "**Harry Potter:** varinhas (Ollivanders), doces (Honeydukes) e Weasleys só existem dentro dos parques da Universal — se quiser, compre na hora.",
+     "**Evite** as lojas de souvenir enormes e chamativas da I-Drive e da US-192: qualidade duvidosa e preço alto. Para lembrancinha em quantidade: Five Below e Dollar Tree."
+    ]
+   },
+   {
+    "id": "goodwill-brecho",
+    "n": "Goodwill (brechó)",
+    "tag": "Brechó de caridade",
+    "tagc": "sky",
+    "q": "Goodwill",
+    "d": [
+     "Roupa e objetos usados, muito baratos e organizados. Algumas unidades dão 10–30% para 55+ num dia da semana (varia) — pergunte.",
+     "Bom para achar jeans, livros e louça por US$ 2–5."
+    ]
+   },
+   {
+    "id": "sunglass-hut-oakley-vault-oculos",
+    "n": "Sunglass Hut · Oakley Vault (óculos)",
+    "tag": "Óculos de sol",
+    "tagc": "sky",
+    "q": "Oakley Vault",
+    "d": [
+     "**Oakley Vault** é o outlet da Oakley: fica nos dois Premium Outlets (International Drive e Vineland), com modelos de coleções passadas 30–50% mais baratos.",
+     "**Sunglass Hut** (shoppings e outlets) vende Oakley, Ray-Ban, Persol e outras marcas; costuma ter promoção progressiva (2º par com desconto) — pergunte: _\"Any promotion on a second pair?\"_",
+     "Leve a referência do modelo (número que começa com OO/PO) e mostre ao vendedor: a mesma armação tem várias cores.",
+     "No Brasil os mesmos óculos custam de 5 a 8 vezes mais; guarde a nota para a alfândega."
+    ]
+   }
+  ]
+ }
+]

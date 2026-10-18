@@ -1,0 +1,341 @@
+[
+ {
+  "grupo": "Regiões de Orlando (para organizar os dias)",
+  "itens": [
+   {
+    "id": "altamonte-springs-winter-park-maitland-sua-base",
+    "n": "Altamonte Springs · Winter Park · Maitland (sua base)",
+    "tag": "Norte",
+    "tagc": "sky",
+    "d": [
+     "Lojas de desconto concentradas na **SR-436** (Altamonte Dr) e **SR-434**: Ross, Burlington, T.J. Maxx, Marshalls, Target, Walmart, Kohl's, bealls — tudo a 5–10 min de carro.",
+     "**Altamonte Mall** (451 E Altamonte Dr): shopping fechado com Macy's, JCPenney, Dillard's, Bath & Body Works, Apple.",
+     "**Winter Park** (15 min): Park Avenue é uma rua charmosa para passear, cafés e o Nordstrom Rack. Feira aos sábados de manhã.",
+     "Estação **SunRail** de Altamonte Springs leva ao centro de Orlando em ~25 min (dias úteis)."
+    ]
+   },
+   {
+    "id": "international-drive-i-drive",
+    "n": "International Drive (I-Drive)",
+    "tag": "Outlets + atrações",
+    "tagc": "sun",
+    "d": [
+     "Avenida turística com o **Orlando International Premium Outlets** (ponta norte), **ICON Park** (roda-gigante, museus, restaurantes), Pointe Orlando e dezenas de lojas de lembrancinha.",
+     "**I-Ride Trolley** (ônibus turístico) liga os dois Premium Outlets passando por SeaWorld: tarifa US$ 2; **65+ paga US$ 0,25**. Passa a cada ~20 min.",
+     "Perto do Universal (CityWalk é grátis para entrar à noite)."
+    ]
+   },
+   {
+    "id": "lake-buena-vista-disney-springs",
+    "n": "Lake Buena Vista · Disney Springs",
+    "tag": "Disney",
+    "tagc": "sun",
+    "d": [
+     "**Disney Springs**: entrada e estacionamento grátis. World of Disney (maior loja Disney), LEGO, Uniqlo, restaurantes, shows de rua. Ótimo passeio sem ingresso.",
+     "Na mesma região: **Orlando Vineland Premium Outlets** e **Lake Buena Vista Factory Stores** (5 min um do outro).",
+     "Os 4 parques da Disney ficam aqui; ônibus gratuitos da Disney ligam Disney Springs aos hotéis Disney.",
+     "**Almoço com cupom:** o **Laçador Grill** (churrascaria brasileira por quilo, 15771 Kissimmee Vineland Rd, 11h30–16h) fica ao lado do Lake Buena Vista Factory Stores — a família indica almoçar lá e pedir o livro de cupons de desconto do outlet."
+    ]
+   },
+   {
+    "id": "kissimmee-us-192-celebration",
+    "n": "Kissimmee · US-192 · Celebration",
+    "tag": "Sul",
+    "tagc": "sky",
+    "d": [
+     "**Old Town**: ruazinha com lojas, brinquedos e, aos sábados à noite, desfile de carros antigos — grátis.",
+     "**Celebration**: cidadezinha planejada pela Disney, bonita para caminhar e tomar café.",
+     "Muitos Walmart Supercenter, Ross e Target ao longo da 192; **The Loop** (Kissimmee) tem Kohl's, Ross, Ulta, Best Buy juntos."
+    ]
+   },
+   {
+    "id": "sul-de-orlando-millenia-florida-mall",
+    "n": "Sul de Orlando (Millenia · Florida Mall)",
+    "tag": "Shoppings",
+    "tagc": "sky",
+    "d": [
+     "**Florida Mall**: maior shopping, com Primark, Macy's (com Backstage), Dillard's, JCPenney, H&M, Zara, Sephora. Simon Guest Services dá livro de cupons grátis.",
+     "**Mall at Millenia**: luxo (Louis Vuitton, Chanel, Apple, Bloomingdale's, Neiman Marcus). Bom para passear em dia de chuva."
+    ]
+   },
+   {
+    "id": "centro-de-orlando-lake-eola",
+    "n": "Centro de Orlando · Lake Eola",
+    "tag": "Passeio",
+    "tagc": "sky",
+    "d": [
+     "**Lake Eola**: lago com fonte, cisnes e pedalinhos; feira aos domingos. Chega-se de SunRail (estação Church Street).",
+     "Restaurantes e bares em Church Street e Thornton Park."
+    ]
+   },
+   {
+    "id": "bate-volta-12-h",
+    "n": "Bate-volta (1–2 h)",
+    "tag": "Passeios",
+    "tagc": "sky",
+    "d": [
+     "**Mount Dora** (45 min): cidadezinha de antiguidades e lago. **Cocoa Beach** (1 h): praia mais perto. **Kennedy Space Center** (1 h): centro espacial da NASA.",
+     "**St. Augustine** (2 h): cidade mais antiga dos EUA, estilo colonial espanhol. **Tampa** (1h30): Busch Gardens e aquário."
+    ]
+   }
+  ]
+ },
+ {
+  "grupo": "Centros de barganha (várias lojas de desconto no mesmo estacionamento)",
+  "itens": [
+   {
+    "id": "international-drive-value-center",
+    "n": "International Drive Value Center",
+    "tag": "I-Drive · ao lado do Premium Outlets",
+    "tagc": "sun",
+    "d": [
+     "Ross, T.J. Maxx, Five Below e Dollar Tree num lugar só (5295 International Dr). Combina com o dia do Orlando International Premium Outlets, que fica do outro lado da rua.",
+     "Faça o centro de manhã e o outlet depois do almoço."
+    ]
+   },
+   {
+    "id": "vineland-pointe",
+    "n": "Vineland Pointe",
+    "tag": "Ao lado do Vineland Premium Outlets",
+    "tagc": "sun",
+    "d": [
+     "Ross, Burlington, Marshalls, Five Below, Sephora, Target e Aldi, com Chipotle e Panda Express para almoçar (Regency Village Dr / Daryl Carter Pkwy).",
+     "Perfeito para emendar com o Vineland outlet e o Lake Buena Vista Factory Stores no mesmo dia."
+    ]
+   },
+   {
+    "id": "the-loop-e-the-loop-west",
+    "n": "The Loop e The Loop West",
+    "tag": "Kissimmee",
+    "tagc": "sun",
+    "d": [
+     "Dois centros, um de cada lado da avenida (Osceola Pkwy × John Young Pkwy): Nike Clearance Store, Kohl's, JCPenney, Michaels, Ross, Ulta, Best Buy e várias lojas de desconto.",
+     "Grande demais para fazer a pé: vá de carro/Uber de um lado para o outro."
+    ]
+   },
+   {
+    "id": "the-crosslands",
+    "n": "The Crosslands",
+    "tag": "Kissimmee · ao lado do The Loop",
+    "tagc": "sun",
+    "d": [
+     "Marshalls & HomeGoods, Ross, Five Below, Dollar Tree e restaurantes (Centerview Blvd). Dá para fazer junto com o The Loop numa manhã.",
+     "Bom para quem vai à região da Disney/Kissimmee no mesmo dia."
+    ]
+   }
+  ]
+ },
+ {
+  "grupo": "Outlets e shoppings de Orlando",
+  "itens": [
+   {
+    "id": "orlando-international-premium-outlets",
+    "n": "Orlando International Premium Outlets",
+    "tag": "Simon · 4951 International Dr",
+    "tagc": "sun",
+    "d": [
+     "O maior e mais popular: Nike, adidas, Coach, Polo, Tommy, Calvin Klein, Columbia, Levi's, Character Warehouse (Disney).",
+     "**Livro de cupons VIP grátis:** vá ao **Simon Guest Services** e peça o \"VIP Coupon Book\"; mostre o app Simon (Simon+). Descontos extras em dezenas de lojas, por cima da promoção.",
+     "App **Simon** + **Simon+** (grátis): cupons digitais e cashback. Vá em dia de semana de manhã (10h–12h). ~30–40 min de Altamonte pela I-4."
+    ]
+   },
+   {
+    "id": "orlando-vineland-premium-outlets",
+    "n": "Orlando Vineland Premium Outlets",
+    "tag": "Simon · 8200 Vineland Ave",
+    "tagc": "sun",
+    "d": [
+     "Mais chique: Gucci, Prada, Burberry, Tory Burch, Kate Spade, Michael Kors, Saks OFF 5TH, lululemon, Character Warehouse.",
+     "Mesmo livro de cupons VIP grátis no Guest Services (praça de alimentação ou Promenade) e app Simon+.",
+     "Perto da Disney (~45 min de Altamonte). Estacionamento difícil à tarde e no fim de semana."
+    ]
+   },
+   {
+    "id": "lake-buena-vista-factory-stores",
+    "n": "Lake Buena Vista Factory Stores",
+    "tag": "15657 State Rd 535",
+    "tagc": "sky",
+    "d": [
+     "Menor e tranquilo: Old Navy Outlet, Carter's/OshKosh, Nike, Reebok, Gap, Tommy, Under Armour, Vans, The North Face.",
+     "Fica a 5 min do Vineland: dá para fazer os dois no mesmo dia.",
+     "Passe no **Welcome Center** na entrada e peça os cupons de desconto antes de começar.",
+     "Almoço: o Laçador Grill (brasileiro, por quilo) é vizinho — peça lá o livro de cupons do outlet."
+    ]
+   },
+   {
+    "id": "the-florida-mall",
+    "n": "The Florida Mall",
+    "tag": "8001 S Orange Blossom Trl",
+    "tagc": "sky",
+    "d": [
+     "Maior shopping da região (Primark, Macy's Backstage, Dillard's, JCPenney, Zara, H&M, Sephora).",
+     "Simon Guest Services dá livro de cupons grátis também aqui. Praça de alimentação enorme com amostras grátis."
+    ]
+   },
+   {
+    "id": "the-mall-at-millenia",
+    "n": "The Mall at Millenia",
+    "tag": "4200 Conroy Rd",
+    "tagc": "sky",
+    "d": [
+     "Shopping de luxo, bonito para passear. Preço cheio na maioria das lojas; Apple e Cheesecake Factory."
+    ]
+   },
+   {
+    "id": "altamonte-mall",
+    "n": "Altamonte Mall",
+    "tag": "451 E Altamonte Dr",
+    "tagc": "sky",
+    "d": [
+     "O shopping da sua região: Macy's, JCPenney, Dillard's, Bath & Body Works, Victoria's Secret, Apple. Seg–Qui 11h–20h, Sex/Sáb 10h–21h, Dom 11h–19h."
+    ]
+   }
+  ]
+ },
+ {
+  "grupo": "Parques",
+  "itens": [
+   {
+    "id": "qual-parque-disney-em-cada-dia-multidao",
+    "n": "Qual parque Disney em cada dia (multidão)",
+    "tag": "Tabela da semana",
+    "tagc": "leaf",
+    "d": [
+     "Análise geral de multidões por dia da semana (fonte: @orlandocomavan). 🟢 muito bom (pouca fila) · 🔵 bom · 🟡 intermediário · 🔴 mais cheio. Feriados e eventos mudam tudo: confira as filas no app no dia.",
+     "Resumo: **quarta e quinta** são os melhores dias; **sábado** é o pior em todos. Domingo é bom no Magic Kingdom e no Hollywood Studios; terça, no EPCOT."
+    ]
+   },
+   {
+    "id": "antes-de-qualquer-parque",
+    "n": "Antes de qualquer parque",
+    "tag": "Vale para todos",
+    "tagc": "leaf",
+    "d": [
+     "**Compre o ingresso antes**, no site oficial ou em agência brasileira conhecida. Nunca compre \"ingresso usado\" de pessoas na rua ou em anúncios — não funciona e é golpe.",
+     "Ingresso com data marcada: não precisa mais de reserva de parque na Disney. Chegue 45–60 min antes da abertura (\"rope drop\"): a primeira hora e meia tem as menores filas.",
+     "**Água gelada é grátis** em qualquer lanchonete (quick service): peça _\"a cup of ice water, please\"_. Leve garrafinha, boné, protetor e capa de chuva (chove à tarde).",
+     "Pessoas 60+ podem alugar **cadeira motorizada (ECV)** ou cadeira de rodas na entrada (pago; chegue cedo que acaba). Sentar-se nos shows e andar devagar ajuda muito no calor.",
+     "Não há desconto por idade na Disney/Universal; SeaWorld às vezes tem — pergunte. Estacionamento é pago (~US$ 30); Uber deixa na entrada.",
+     "Leve lanche e pequenas garrafas na bolsa: é permitido."
+    ]
+   },
+   {
+    "id": "walt-disney-world",
+    "n": "Walt Disney World",
+    "tag": "4 parques",
+    "tagc": "sun",
+    "d": [
+     "**Magic Kingdom** (castelo, clássicos), **EPCOT** (países, comida), **Hollywood Studios** (Star Wars, Toy Story), **Animal Kingdom** (safári, Avatar).",
+     "Baixe o app **My Disney Experience**, crie conta e vincule o ingresso ANTES de viajar (precisa internet). Nele: mapa, filas em tempo real, Mobile Order (pedir comida sem fila) e Lightning Lane.",
+     "**Lightning Lane Multi Pass** (US$ 15–39 por pessoa/dia): fura fila em várias atrações; compra às 7h da manhã no dia. Vale se as filas estiverem acima de 60 min. **Single Pass** (US$ 12–25) é para 1–2 atrações top por parque.",
+     "Transporte Disney (ônibus, monotrilho, Skyliner, barcos) é **grátis** entre parques, Disney Springs e hotéis Disney.",
+     "Fogos: Magic Kingdom e EPCOT à noite. Chegue 40 min antes para pegar lugar."
+    ]
+   },
+   {
+    "id": "universal-orlando",
+    "n": "Universal Orlando",
+    "tag": "3 parques",
+    "tagc": "sun",
+    "d": [
+     "**Universal Studios** (Harry Potter – Beco Diagonal, Simpsons), **Islands of Adventure** (Hogwarts, Marvel, Jurassic), **Epic Universe** (novo, 2025: Super Nintendo, Harry Potter Ministério, Dragões).",
+     "App **Universal Orlando**: mapa, filas e pedido de comida. **Express Pass** (fura-fila) é caro (US$ 100+); compensa só em dia cheio.",
+     "O trem Hogwarts Express liga os dois parques antigos — precisa ingresso \"park-to-park\".",
+     "**CityWalk** (restaurantes, lojas) é grátis para entrar; estacionamento fica grátis depois das 18h."
+    ]
+   },
+   {
+    "id": "seaworld-aquatica-discovery-cove",
+    "n": "SeaWorld · Aquatica · Discovery Cove",
+    "tag": "I-Drive",
+    "tagc": "sky",
+    "d": [
+     "SeaWorld: orcas, golfinhos, aquários e montanhas-russas; mais tranquilo que Disney. Combos com Aquatica (parque aquático) e Busch Gardens (Tampa) saem mais baratos.",
+     "**Discovery Cove**: nado com golfinhos, tudo incluso (comida e bebida); precisa reservar o dia com antecedência.",
+     "Dá para chegar de I-Ride Trolley."
+    ]
+   },
+   {
+    "id": "passeios-baratos-ou-gratis",
+    "n": "Passeios baratos ou grátis",
+    "tag": "Sem ingresso caro",
+    "tagc": "leaf",
+    "d": [
+     "**Disney Springs**, **CityWalk** e **Disney's BoardWalk**: grátis. **Gatorland** (~US$ 35): parque de jacarés, bem \"Flórida\". **Lake Eola** e **Winter Park** (barco pelos canais, ~US$ 20).",
+     "**ICON Park**: a roda-gigante é paga, mas a praça e os restaurantes são livres. **Old Town** (Kissimmee): grátis, sábado à noite tem carros antigos.",
+     "**Kennedy Space Center** (1 h): ingresso ~US$ 80, vale o dia inteiro."
+    ]
+   }
+  ]
+ },
+ {
+  "grupo": "Miami (uns dias)",
+  "itens": [
+   {
+    "id": "como-ir-e-voltar-trem-brightline",
+    "n": "Como ir e voltar: trem Brightline",
+    "tag": "MCO ↔ Miami",
+    "tagc": "leaf",
+    "d": [
+     "Trem rápido e confortável: sai da estação ao lado do **Terminal C do aeroporto de Orlando (MCO)** e chega na **MiamiCentral** (centro de Miami) em ~3h30, com paradas em West Palm Beach, Boca Raton, Fort Lauderdale e **Aventura** (colado no Aventura Mall!).",
+     "Compre com antecedência no app/site Brightline (a partir de ~US$ 54–79 no \"Smart\"; \"Premium\" tem lounge e comida). Chegue 20 min antes. Bagagem: 2 malas de mão + 2 despachadas.",
+     "De Altamonte ao MCO são ~35 min de Uber. Alternativa: ônibus (RedCoach, FlixBus) mais barato porém mais lento (4–5 h)."
+    ]
+   },
+   {
+    "id": "sawgrass-mills-sunrise",
+    "n": "Sawgrass Mills (Sunrise)",
+    "tag": "Maior outlet dos EUA",
+    "tagc": "sun",
+    "d": [
+     "12801 W Sunrise Blvd, Sunrise — ~40 min do centro de Miami. Mais de 350 lojas, **fechado e com ar-condicionado**: Nike, Tommy, Polo, Gap, Marshalls, Target, Primark, Saks OFF 5TH, Disney Outlet, BrandsMart (eletrônicos) e a ala de luxo **Colonnade Outlets** (Gucci, Prada, Burberry).",
+     "**Livro de cupons grátis**: imprima/salve o voucher \"Boarding Pass for Savings\" do site do Sawgrass (ou mostre o app Simon) no **Simon Guest Services**.",
+     "Shuttle oficial sai de hotéis de Miami Beach e Downtown (pago, inclui livro de cupons). Use tênis: é enorme — faça uma ala por vez."
+    ]
+   },
+   {
+    "id": "dolphin-mall",
+    "n": "Dolphin Mall",
+    "tag": "Outlet perto do aeroporto",
+    "tagc": "sun",
+    "d": [
+     "11401 NW 12th St, Miami (ao lado do aeroporto MIA). Outlets + Marshalls, Burlington, Ross, Saks OFF 5TH, Bloomingdale's Outlet, Polo, Nike, adidas. Menor e mais fácil que o Sawgrass.",
+     "Guest Services também tem cupons para turistas (pergunte: _\"Do you have a tourist coupon book?\"_)."
+    ]
+   },
+   {
+    "id": "aventura-mall-bal-harbour",
+    "n": "Aventura Mall · Bal Harbour",
+    "tag": "Shoppings",
+    "tagc": "sky",
+    "d": [
+     "**Aventura Mall**: maior shopping da Flórida (Nordstrom, Macy's, Bloomingdale's, Apple, Zara, 300+ lojas). A estação **Aventura do Brightline** fica ao lado — dá para descer do trem direto.",
+     "**Bal Harbour Shops**: luxo (Chanel, Dior) — só para olhar e passear."
+    ]
+   },
+   {
+    "id": "lincoln-road-bayside-brickell",
+    "n": "Lincoln Road · Bayside · Brickell",
+    "tag": "Passeio + compras",
+    "tagc": "sky",
+    "d": [
+     "**Lincoln Road** (South Beach): rua de pedestres com lojas, cafés e uma **Ross grande** e Marshalls perto (Collins Ave).",
+     "**Bayside Marketplace** (Downtown): lojinhas turísticas, passeio de barco pela baía (casas de famosos).",
+     "**Brickell City Centre**: shopping moderno; o **Metromover** (trenzinho elevado) é **grátis** e passa por Brickell e Downtown — bom para ver a cidade."
+    ]
+   },
+   {
+    "id": "passeios-em-miami",
+    "n": "Passeios em Miami",
+    "tag": "O que ver",
+    "tagc": "sky",
+    "d": [
+     "**South Beach / Ocean Drive**: praia e prédios art déco (vá de manhã; à noite evite andar sozinha).",
+     "**Little Havana** (Calle Ocho): café cubano, Domino Park, lojas de charuto. **Wynwood Walls**: grafites (ingresso ~US$ 12).",
+     "**Vizcaya**: mansão com jardins à beira-mar (~US$ 25). **Everglades**: passeio de aerobarco com jacarés (1 h de Miami).",
+     "Imposto de venda em Miami: 7%. Uber funciona bem; gorjeta de 18–20% em restaurantes já vem na conta muitas vezes — confira para não pagar duas vezes."
+    ]
+   }
+  ]
+ }
+]

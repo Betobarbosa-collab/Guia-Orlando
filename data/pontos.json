@@ -1,0 +1,1201 @@
+{
+ "regioes": [
+  {
+   "g": "Orlando",
+   "id": "alt",
+   "n": "Altamonte Springs (casa)",
+   "la": 28.661,
+   "lo": -81.39,
+   "al": [
+    "altamonte",
+    "casa",
+    "fern park",
+    "maitland"
+   ]
+  },
+  {
+   "g": "Orlando",
+   "id": "wp",
+   "n": "Winter Park",
+   "la": 28.598,
+   "lo": -81.351,
+   "al": [
+    "winter park",
+    "park avenue",
+    "park ave"
+   ]
+  },
+  {
+   "g": "Orlando",
+   "id": "idr",
+   "n": "International Drive / Universal",
+   "la": 28.465,
+   "lo": -81.455,
+   "al": [
+    "universal",
+    "i-drive",
+    "international drive",
+    "icon park",
+    "seaworld",
+    "citywalk",
+    "epic universe",
+    "premium outlets international"
+   ]
+  },
+  {
+   "g": "Orlando",
+   "id": "mil",
+   "n": "Millenia / Florida Mall",
+   "la": 28.47,
+   "lo": -81.41,
+   "al": [
+    "millenia",
+    "florida mall",
+    "mall at millenia",
+    "macrobaby"
+   ]
+  },
+  {
+   "g": "Orlando",
+   "id": "lbv",
+   "n": "Lake Buena Vista / Disney / Vineland",
+   "la": 28.385,
+   "lo": -81.49,
+   "al": [
+    "lake buena vista",
+    "lbv",
+    "disney",
+    "vineland",
+    "disney springs",
+    "magic kingdom",
+    "epcot",
+    "hollywood studios",
+    "animal kingdom",
+    "laçador",
+    "premium outlets vineland"
+   ]
+  },
+  {
+   "g": "Orlando",
+   "id": "kis",
+   "n": "Kissimmee / US-192 / The Loop",
+   "la": 28.33,
+   "lo": -81.44,
+   "al": [
+    "kissimmee",
+    "192",
+    "the loop",
+    "crosslands",
+    "old town",
+    "celebration"
+   ]
+  },
+  {
+   "g": "Orlando",
+   "id": "dt",
+   "n": "Centro de Orlando",
+   "la": 28.542,
+   "lo": -81.379,
+   "al": [
+    "centro",
+    "downtown orlando",
+    "lake eola",
+    "church street"
+   ]
+  },
+  {
+   "g": "Miami",
+   "id": "mdt",
+   "n": "Miami — Downtown / Brickell",
+   "la": 25.772,
+   "lo": -80.193,
+   "al": [
+    "downtown miami",
+    "brickell",
+    "bayside",
+    "miamicentral"
+   ]
+  },
+  {
+   "g": "Miami",
+   "id": "mb",
+   "n": "Miami Beach / South Beach",
+   "la": 25.785,
+   "lo": -80.135,
+   "al": [
+    "south beach",
+    "miami beach",
+    "lincoln road",
+    "ocean drive"
+   ]
+  },
+  {
+   "g": "Miami",
+   "id": "mid",
+   "n": "Midtown / Wynwood",
+   "la": 25.805,
+   "lo": -80.195,
+   "al": [
+    "wynwood",
+    "midtown miami"
+   ]
+  },
+  {
+   "g": "Miami",
+   "id": "ave",
+   "n": "Aventura / North Miami Beach",
+   "la": 25.955,
+   "lo": -80.143,
+   "al": [
+    "aventura",
+    "bal harbour",
+    "north miami beach",
+    "aventura mall"
+   ]
+  },
+  {
+   "g": "Miami",
+   "id": "dor",
+   "n": "Doral / Dolphin Mall",
+   "la": 25.79,
+   "lo": -80.35,
+   "al": [
+    "doral",
+    "dolphin",
+    "dolphin mall",
+    "aeroporto de miami"
+   ]
+  },
+  {
+   "g": "Miami",
+   "id": "saw",
+   "n": "Sunrise / Sawgrass Mills",
+   "la": 26.15,
+   "lo": -80.32,
+   "al": [
+    "sawgrass",
+    "sunrise",
+    "sawgrass mills"
+   ]
+  }
+ ],
+ "tipos": {
+  "ross": {
+   "n": "Ross Dress for Less",
+   "b": "Ter 10% (55+)",
+   "bc": "sun"
+  },
+  "tjmaxx": {
+   "n": "T.J. Maxx",
+   "b": "Seg 10% (55+)",
+   "bc": "sun"
+  },
+  "th": {
+   "n": "T.J. Maxx & HomeGoods",
+   "b": "Seg 10% (55+)",
+   "bc": "sun"
+  },
+  "marshalls": {
+   "n": "Marshalls",
+   "b": "Pergunte seg 55+",
+   "bc": "sky"
+  },
+  "mh": {
+   "n": "Marshalls & HomeGoods",
+   "b": "Roupa + casa",
+   "bc": "sky"
+  },
+  "burlington": {
+   "n": "Burlington",
+   "b": "Casacos/malas/bebê",
+   "bc": "sky"
+  },
+  "nrack": {
+   "n": "Nordstrom Rack",
+   "b": "Grifes com desconto",
+   "bc": "sky"
+  },
+  "bealls": {
+   "n": "bealls",
+   "b": "15% (50+) 1 dia/semana",
+   "bc": "sun"
+  },
+  "kohls": {
+   "n": "Kohl's",
+   "b": "Qua 15% (60+)",
+   "bc": "sun"
+  },
+  "walmart": {
+   "n": "Walmart Supercenter",
+   "b": "Escaneie no app",
+   "bc": "leaf"
+  },
+  "walmartp": {
+   "n": "Walmart (unidade pequena)",
+   "b": "Escaneie no app",
+   "bc": "leaf"
+  },
+  "target": {
+   "n": "Target",
+   "b": "App Target Circle",
+   "bc": "leaf"
+  },
+  "walgreens": {
+   "n": "Walgreens",
+   "b": "1ª ter 20% (55+)",
+   "bc": "sun"
+  },
+  "cvs": {
+   "n": "CVS Pharmacy",
+   "b": "ExtraCare",
+   "bc": "leaf"
+  },
+  "publix": {
+   "n": "Publix",
+   "b": "Mercado · BOGO",
+   "bc": "leaf"
+  },
+  "dollartree": {
+   "n": "Dollar Tree",
+   "b": "US$ 1,25",
+   "bc": "leaf"
+  },
+  "ulta": {
+   "n": "Ulta Beauty",
+   "b": "Beleza",
+   "bc": "leaf"
+  },
+  "outlet": {
+   "n": "",
+   "b": "Outlet",
+   "bc": "sun"
+  },
+  "mall": {
+   "n": "",
+   "b": "Shopping",
+   "bc": "sky"
+  },
+  "park": {
+   "n": "",
+   "b": "Parque / passeio",
+   "bc": "gray"
+  },
+  "train": {
+   "n": "",
+   "b": "Trem",
+   "bc": "gray"
+  },
+  "barg": {
+   "n": "",
+   "b": "Centro de barganha",
+   "bc": "sun"
+  },
+  "comida": {
+   "n": "",
+   "b": "Comida",
+   "bc": "coral"
+  }
+ },
+ "pontos": [
+  {
+   "c": "ross",
+   "a": "130 E Altamonte Dr, Altamonte Springs, FL 32701",
+   "la": 28.6602,
+   "lo": -81.3864,
+   "h": "10h–22h (sex/sáb 9h30–23h)",
+   "r": 4.2,
+   "v": 1304,
+   "hd": [
+    "10:00-22:00",
+    "10:00-22:00",
+    "10:00-22:00",
+    "10:00-22:00",
+    "10:00-22:00",
+    "09:30-23:00",
+    "09:30-23:00"
+   ]
+  },
+  {
+   "c": "burlington",
+   "a": "130 E Altamonte Dr, Altamonte Springs, FL 32701",
+   "la": 28.66,
+   "lo": -81.3858,
+   "h": "9h–0h",
+   "r": 4.2,
+   "v": 680,
+   "hd": [
+    "09:00-23:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00"
+   ]
+  },
+  {
+   "c": "tjmaxx",
+   "a": "380 S State Rd 434, Altamonte Springs, FL 32714",
+   "la": 28.6571,
+   "lo": -81.4208,
+   "h": "9h30–21h30",
+   "r": 4.4,
+   "v": 538,
+   "hd": [
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30"
+   ]
+  },
+  {
+   "c": "marshalls",
+   "a": "995 FL-434, Altamonte Springs, FL 32714",
+   "la": 28.6841,
+   "lo": -81.4163,
+   "h": "9h30–21h30",
+   "r": 4.3,
+   "v": 1095,
+   "hd": [
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30",
+    "09:30-21:30"
+   ]
+  },
+  {
+   "c": "walmartp",
+   "a": "200 S State Rd 434, Altamonte Springs, FL 32714",
+   "la": 28.6599,
+   "lo": -81.4206,
+   "h": "6h–23h",
+   "r": 3.9,
+   "v": 5911,
+   "hd": [
+    "06:00-23:00",
+    "06:00-23:00",
+    "06:00-23:00",
+    "06:00-23:00",
+    "06:00-23:00",
+    "06:00-23:00",
+    "06:00-23:00"
+   ]
+  },
+  {
+   "c": "target",
+   "a": "886 W State Rd 436, Altamonte Springs, FL 32714",
+   "la": 28.6629,
+   "lo": -81.4176,
+   "h": "8h–22h",
+   "r": 4.2,
+   "v": 1399,
+   "hd": [
+    "08:00-22:00",
+    "08:00-22:00",
+    "08:00-22:00",
+    "08:00-22:00",
+    "08:00-22:00",
+    "08:00-22:00",
+    "08:00-22:00"
+   ]
+  },
+  {
+   "c": "walgreens",
+   "a": "200 W State Rd 436, Altamonte Springs, FL 32714",
+   "la": 28.6615,
+   "lo": -81.3908,
+   "h": "7h–22h"
+  },
+  {
+   "c": "walgreens",
+   "a": "113 Maitland Ave, Altamonte Springs, FL 32701",
+   "la": 28.6626,
+   "lo": -81.3656,
+   "h": "7h–0h"
+  },
+  {
+   "c": "cvs",
+   "a": "277 W State Rd 436, Altamonte Springs, FL 32714",
+   "la": 28.6627,
+   "lo": -81.3941,
+   "h": "7h–0h"
+  },
+  {
+   "c": "bealls",
+   "a": "157 FL-436, Fern Park, FL 32730",
+   "la": 28.6586,
+   "lo": -81.3399,
+   "h": "9h–21h (dom 10h–20h)",
+   "r": 4.3,
+   "v": 412,
+   "hd": [
+    "10:00-20:00",
+    "09:00-21:00",
+    "09:00-21:00",
+    "09:00-21:00",
+    "09:00-21:00",
+    "09:00-21:30",
+    "09:00-21:30"
+   ]
+  },
+  {
+   "c": "kohls",
+   "a": "945 W State Rd 436 Ste 1155, Altamonte Springs, FL 32714",
+   "la": 28.6675,
+   "lo": -81.422,
+   "h": "9h–21h",
+   "r": 4.3,
+   "v": 2574,
+   "hd": [
+    "09:00-20:00",
+    "09:00-21:00",
+    "09:00-21:00",
+    "09:00-21:00",
+    "09:00-21:00",
+    "09:00-21:00",
+    "09:00-21:00"
+   ]
+  },
+  {
+   "c": "dollartree",
+   "a": "945 W State Rd 436 Ste 1145, Altamonte Springs, FL 32714",
+   "la": 28.6676,
+   "lo": -81.4211,
+   "h": "8h–22h"
+  },
+  {
+   "c": "publix",
+   "a": "482 E Altamonte Dr, Altamonte Springs, FL 32701",
+   "la": 28.6618,
+   "lo": -81.3743,
+   "h": "7h–22h"
+  },
+  {
+   "c": "ulta",
+   "a": "375 E Altamonte Dr, Altamonte Springs, FL 32701",
+   "la": 28.665,
+   "lo": -81.381,
+   "h": "10h–21h"
+  },
+  {
+   "c": "mall",
+   "a": "451 E Altamonte Dr, Altamonte Springs, FL 32701",
+   "la": 28.6666,
+   "lo": -81.3774,
+   "h": "11h–20h (sex/sáb 10h–21h, dom 11h–19h)",
+   "n": "Altamonte Mall",
+   "r": 4.4,
+   "v": 13955,
+   "hd": [
+    "11:00-19:00",
+    "11:00-20:00",
+    "11:00-20:00",
+    "11:00-20:00",
+    "11:00-20:00",
+    "10:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "nrack",
+   "a": "1090 N Orlando Ave, Winter Park, FL 32789",
+   "la": 28.6076,
+   "lo": -81.3639,
+   "h": "10h–21h (dom 11h–19h)",
+   "r": 4.2,
+   "v": 1275,
+   "hd": [
+    "11:00-19:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "ross",
+   "a": "501 Orlando Ave, Winter Park, FL 32789",
+   "la": 28.6035,
+   "lo": -81.3678,
+   "h": "9h–22h30"
+  },
+  {
+   "c": "park",
+   "a": "Park Ave, Winter Park, FL 32789",
+   "la": 28.5985,
+   "lo": -81.3512,
+   "h": "Rua de passeio, cafés",
+   "n": "Park Avenue (Winter Park)"
+  },
+  {
+   "c": "train",
+   "a": "2741 S Ronald Reagan Blvd, Altamonte Springs, FL 32714",
+   "la": 28.6552,
+   "lo": -81.3862,
+   "h": "Dias úteis",
+   "n": "SunRail — estação Altamonte Springs"
+  },
+  {
+   "c": "park",
+   "a": "512 E Washington St, Orlando, FL 32801",
+   "la": 28.5437,
+   "lo": -81.3726,
+   "h": "Lago, cisnes, feira dom",
+   "n": "Lake Eola Park"
+  },
+  {
+   "c": "outlet",
+   "a": "4951 International Dr, Orlando, FL 32819",
+   "la": 28.4737,
+   "lo": -81.4514,
+   "h": "10h–21h (dom até 19h)",
+   "n": "Orlando International Premium Outlets",
+   "r": 4.6,
+   "v": 11419,
+   "hd": [
+    "11:00-19:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "ross",
+   "a": "5295 International Dr, Orlando, FL 32819",
+   "la": 28.4658,
+   "lo": -81.4523,
+   "h": "9h–0h",
+   "r": 4.3,
+   "v": 5006,
+   "hd": [
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00",
+    "09:00-24:00"
+   ]
+  },
+  {
+   "c": "tjmaxx",
+   "a": "6716 Grand National Dr, Orlando, FL 32819",
+   "la": 28.4643,
+   "lo": -81.4569,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "marshalls",
+   "a": "4648 Millenia Plaza Way, Orlando, FL 32839",
+   "la": 28.4954,
+   "lo": -81.4304,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "target",
+   "a": "4750 Millenia Plaza Way, Orlando, FL 32839",
+   "la": 28.4933,
+   "lo": -81.4301,
+   "h": "8h–23h (grande, com mercado)"
+  },
+  {
+   "c": "walmart",
+   "a": "8990 Turkey Lake Rd, Orlando, FL 32819",
+   "la": 28.4399,
+   "lo": -81.4765,
+   "h": "6h–0h (muito produto Disney)"
+  },
+  {
+   "c": "mall",
+   "a": "4200 Conroy Rd, Orlando, FL 32839",
+   "la": 28.4859,
+   "lo": -81.4311,
+   "h": "11h–21h (dom até 19h)",
+   "n": "The Mall at Millenia",
+   "r": 4.6,
+   "v": 30488,
+   "hd": [
+    "11:00-19:00",
+    "11:00-21:00",
+    "11:00-21:00",
+    "11:00-21:00",
+    "11:00-21:00",
+    "11:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "park",
+   "a": "8375 International Dr, Orlando, FL 32819",
+   "la": 28.4433,
+   "lo": -81.4683,
+   "h": "Roda-gigante, restaurantes",
+   "n": "ICON Park"
+  },
+  {
+   "c": "park",
+   "a": "6000 Universal Blvd, Orlando, FL 32819",
+   "la": 28.4743,
+   "lo": -81.4678,
+   "h": "CityWalk grátis",
+   "n": "Universal Orlando / CityWalk"
+  },
+  {
+   "c": "park",
+   "a": "7007 Sea World Dr, Orlando, FL 32821",
+   "la": 28.4115,
+   "lo": -81.462,
+   "h": "",
+   "n": "SeaWorld Orlando"
+  },
+  {
+   "c": "mall",
+   "a": "8001 S Orange Blossom Trl, Orlando, FL 32809",
+   "la": 28.4459,
+   "lo": -81.3955,
+   "h": "10h–20h (sex/sáb até 21h, dom 11h–19h)",
+   "n": "The Florida Mall",
+   "r": 4.5,
+   "v": 48313,
+   "hd": [
+    "11:00-19:00",
+    "10:00-20:00",
+    "10:00-20:00",
+    "10:00-20:00",
+    "10:00-20:00",
+    "10:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "ross",
+   "a": "1736 Sand Lake Rd, Orlando, FL 32809",
+   "la": 28.4481,
+   "lo": -81.4036,
+   "h": "9h30–23h (dom 10h–22h)"
+  },
+  {
+   "c": "marshalls",
+   "a": "7911 S Orange Blossom Trl, Orlando, FL 32809",
+   "la": 28.4515,
+   "lo": -81.3989,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "walmart",
+   "a": "5734 S Orange Blossom Trl, Orlando, FL 32839",
+   "la": 28.4749,
+   "lo": -81.3992,
+   "h": "6h–23h"
+  },
+  {
+   "c": "target",
+   "a": "880 Sand Lake Rd, Orlando, FL 32809",
+   "la": 28.4496,
+   "lo": -81.3911,
+   "h": "8h–23h (pequena)"
+  },
+  {
+   "c": "outlet",
+   "a": "8200 Vineland Ave, Orlando, FL 32821",
+   "la": 28.3878,
+   "lo": -81.4913,
+   "h": "10h–21h (dom até 19h)",
+   "n": "Orlando Vineland Premium Outlets",
+   "r": 4.5,
+   "v": 42959,
+   "hd": [
+    "11:00-19:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "outlet",
+   "a": "15657 State Rd 535, Orlando, FL 32821",
+   "la": 28.3504,
+   "lo": -81.4873,
+   "h": "10h–20h (dom 11h–19h)",
+   "n": "Lake Buena Vista Factory Stores",
+   "r": 4.5,
+   "v": 7861,
+   "hd": [
+    "11:00-19:00",
+    "10:00-20:00",
+    "10:00-20:00",
+    "10:00-20:00",
+    "10:00-20:00",
+    "10:00-20:00",
+    "10:00-20:00"
+   ]
+  },
+  {
+   "c": "ross",
+   "a": "11625 Regency Village Dr, Orlando, FL 32821",
+   "la": 28.3924,
+   "lo": -81.4851,
+   "h": "9h–23h30",
+   "r": 4.3,
+   "v": 2325,
+   "hd": [
+    "09:00-23:30",
+    "09:00-23:30",
+    "09:00-23:30",
+    "09:00-23:30",
+    "09:00-23:30",
+    "09:00-24:00",
+    "09:00-24:00"
+   ]
+  },
+  {
+   "c": "burlington",
+   "a": "11643 Regency Village Dr, Orlando, FL 32821",
+   "la": 28.3924,
+   "lo": -81.4838,
+   "h": "9h30–0h"
+  },
+  {
+   "c": "target",
+   "a": "11619 Daryl Carter Pkwy, Orlando, FL 32821",
+   "la": 28.3968,
+   "lo": -81.4848,
+   "h": "8h–23h"
+  },
+  {
+   "c": "tjmaxx",
+   "a": "3215 Vineland Rd, Kissimmee, FL 34746",
+   "la": 28.346,
+   "lo": -81.4826,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "ross",
+   "a": "3231 Vineland Rd Ste 300, Kissimmee, FL 34746",
+   "la": 28.3462,
+   "lo": -81.484,
+   "h": "9h–0h"
+  },
+  {
+   "c": "park",
+   "a": "1486 Buena Vista Dr, Lake Buena Vista, FL 32830",
+   "la": 28.3705,
+   "lo": -81.519,
+   "h": "Entrada e estacionamento grátis",
+   "n": "Disney Springs",
+   "r": 4.7,
+   "v": 241264,
+   "hd": [
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:30",
+    "10:00-23:30"
+   ]
+  },
+  {
+   "c": "park",
+   "a": "Magic Kingdom Park, Lake Buena Vista, FL 32830",
+   "la": 28.4177,
+   "lo": -81.5812,
+   "h": "",
+   "n": "Magic Kingdom"
+  },
+  {
+   "c": "park",
+   "a": "EPCOT, Lake Buena Vista, FL 32830",
+   "la": 28.3747,
+   "lo": -81.5494,
+   "h": "",
+   "n": "EPCOT"
+  },
+  {
+   "c": "park",
+   "a": "Disney's Hollywood Studios, Lake Buena Vista, FL 32830",
+   "la": 28.3575,
+   "lo": -81.5583,
+   "h": "",
+   "n": "Hollywood Studios"
+  },
+  {
+   "c": "park",
+   "a": "Disney's Animal Kingdom, Lake Buena Vista, FL 32830",
+   "la": 28.3553,
+   "lo": -81.5901,
+   "h": "",
+   "n": "Animal Kingdom"
+  },
+  {
+   "c": "barg",
+   "a": "5295 International Dr, Orlando, FL 32819",
+   "la": 28.4655,
+   "lo": -81.452,
+   "h": "Ross, T.J. Maxx, Five Below, Dollar Tree",
+   "n": "International Drive Value Center"
+  },
+  {
+   "c": "barg",
+   "a": "Regency Village Dr & Daryl Carter Pkwy, Orlando, FL 32821",
+   "la": 28.394,
+   "lo": -81.485,
+   "h": "Ross, Burlington, Marshalls, Five Below, Target, Aldi",
+   "n": "Vineland Pointe"
+  },
+  {
+   "c": "barg",
+   "a": "3208 W Vine St, Kissimmee, FL 34741",
+   "la": 28.343,
+   "lo": -81.42,
+   "h": "Nike Clearance, Kohl's, JCPenney, Michaels, Ross, Best Buy",
+   "n": "The Loop / The Loop West"
+  },
+  {
+   "c": "barg",
+   "a": "Centerview Blvd & W Osceola Pkwy, Kissimmee, FL 34741",
+   "la": 28.342,
+   "lo": -81.408,
+   "h": "Marshalls & HomeGoods, Ross, Five Below, Dollar Tree",
+   "n": "The Crosslands"
+  },
+  {
+   "c": "mall",
+   "a": "MacroBaby, S Orange Blossom Trl, Orlando, FL 32809",
+   "la": 28.447,
+   "lo": -81.397,
+   "h": "Perto do Florida Mall — confira o endereço no Maps",
+   "n": "MacroBaby (enxoval de bebê)"
+  },
+  {
+   "c": "mh",
+   "a": "731 Centerview Blvd, Kissimmee, FL 34741 (The Loop)",
+   "la": 28.342,
+   "lo": -81.4102,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "kohls",
+   "a": "3200 John Young Pkwy, Kissimmee, FL 34741 (The Loop)",
+   "la": 28.3435,
+   "lo": -81.4236,
+   "h": "9h–22h"
+  },
+  {
+   "c": "walmart",
+   "a": "4444 W Vine St, Kissimmee, FL 34746",
+   "la": 28.3017,
+   "lo": -81.4591,
+   "h": "6h–23h"
+  },
+  {
+   "c": "park",
+   "a": "5770 W Irlo Bronson Memorial Hwy, Kissimmee, FL 34746",
+   "la": 28.333,
+   "lo": -81.5077,
+   "h": "Grátis; sáb à noite carros antigos",
+   "n": "Old Town Kissimmee"
+  },
+  {
+   "c": "park",
+   "a": "Market St, Celebration, FL 34747",
+   "la": 28.3186,
+   "lo": -81.541,
+   "h": "Cidadezinha da Disney",
+   "n": "Celebration (Market St)"
+  },
+  {
+   "c": "train",
+   "a": "Orlando International Airport Terminal C, Orlando, FL 32824",
+   "la": 28.4312,
+   "lo": -81.3078,
+   "h": "Trem para Miami",
+   "n": "Brightline — estação Orlando (MCO Terminal C)"
+  },
+  {
+   "c": "ross",
+   "a": "230 Lincoln Rd, Miami Beach, FL 33139",
+   "la": 25.7905,
+   "lo": -80.1307,
+   "h": "9h–22h30 (grande)"
+  },
+  {
+   "c": "tjmaxx",
+   "a": "1149 5th St, Miami Beach, FL 33139",
+   "la": 25.7749,
+   "lo": -80.1404,
+   "h": "9h30–21h30 (pequena)"
+  },
+  {
+   "c": "target",
+   "a": "1045 5th St, Miami Beach, FL 33139",
+   "la": 25.7749,
+   "lo": -80.1392,
+   "h": "8h–22h"
+  },
+  {
+   "c": "park",
+   "a": "Lincoln Rd, Miami Beach, FL 33139",
+   "la": 25.7905,
+   "lo": -80.137,
+   "h": "Rua de pedestres",
+   "n": "Lincoln Road Mall"
+  },
+  {
+   "c": "park",
+   "a": "Ocean Dr, Miami Beach, FL 33139",
+   "la": 25.78,
+   "lo": -80.13,
+   "h": "Praia e art déco",
+   "n": "Ocean Drive / South Beach"
+  },
+  {
+   "c": "ross",
+   "a": "22 E Flagler St, Miami, FL 33131",
+   "la": 25.7738,
+   "lo": -80.1933,
+   "h": "9h30–20h (dom 10h30–20h)"
+  },
+  {
+   "c": "tjmaxx",
+   "a": "1420 NW N River Dr, Miami, FL 33125 (River Landing)",
+   "la": 25.7853,
+   "lo": -80.2194,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "burlington",
+   "a": "1420 NW N River Dr Suite 315, Miami, FL 33125 (River Landing)",
+   "la": 25.7855,
+   "lo": -80.2193,
+   "h": "9h–23h"
+  },
+  {
+   "c": "target",
+   "a": "3401 N Miami Ave, Miami, FL 33127 (Midtown)",
+   "la": 25.8101,
+   "lo": -80.1937,
+   "h": "7h–23h"
+  },
+  {
+   "c": "park",
+   "a": "401 Biscayne Blvd, Miami, FL 33132",
+   "la": 25.7784,
+   "lo": -80.1865,
+   "h": "Lojinhas e passeio de barco",
+   "n": "Bayside Marketplace"
+  },
+  {
+   "c": "mall",
+   "a": "701 S Miami Ave, Miami, FL 33131",
+   "la": 25.7667,
+   "lo": -80.1927,
+   "h": "Metromover grátis ao lado",
+   "n": "Brickell City Centre"
+  },
+  {
+   "c": "train",
+   "a": "600 NW 1st Ave, Miami, FL 33136",
+   "la": 25.7797,
+   "lo": -80.1979,
+   "h": "Trem para Orlando",
+   "n": "Brightline — MiamiCentral"
+  },
+  {
+   "c": "park",
+   "a": "2516 NW 2nd Ave, Miami, FL 33127",
+   "la": 25.801,
+   "lo": -80.1994,
+   "h": "Grafites (~US$ 12)",
+   "n": "Wynwood Walls"
+  },
+  {
+   "c": "park",
+   "a": "801 SW 15th Ave, Miami, FL 33135",
+   "la": 25.7657,
+   "lo": -80.2193,
+   "h": "Café cubano, charutos",
+   "n": "Little Havana — Calle Ocho / Domino Park"
+  },
+  {
+   "c": "mall",
+   "a": "19501 Biscayne Blvd, Aventura, FL 33180",
+   "la": 25.957,
+   "lo": -80.1428,
+   "h": "Maior shopping da Flórida",
+   "n": "Aventura Mall"
+  },
+  {
+   "c": "train",
+   "a": "19796 W Dixie Hwy, Aventura, FL 33180",
+   "la": 25.9566,
+   "lo": -80.1526,
+   "h": "Ao lado do Aventura Mall",
+   "n": "Brightline — estação Aventura"
+  },
+  {
+   "c": "ross",
+   "a": "18495 Biscayne Blvd, Aventura, FL 33160",
+   "la": 25.9462,
+   "lo": -80.1465,
+   "h": "9h–23h30"
+  },
+  {
+   "c": "target",
+   "a": "21265 Biscayne Blvd, Aventura, FL 33180",
+   "la": 25.9715,
+   "lo": -80.1404,
+   "h": "7h–23h"
+  },
+  {
+   "c": "mh",
+   "a": "20515 Biscayne Blvd, Aventura, FL 33180",
+   "la": 25.9656,
+   "lo": -80.1443,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "th",
+   "a": "3809 NE 163rd St, North Miami Beach, FL 33160",
+   "la": 25.9316,
+   "lo": -80.1332,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "marshalls",
+   "a": "16800 Collins Ave, North Miami Beach, FL 33160",
+   "la": 25.9316,
+   "lo": -80.123,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "mall",
+   "a": "9700 Collins Ave, Bal Harbour, FL 33154",
+   "la": 25.888,
+   "lo": -80.125,
+   "h": "Só para olhar",
+   "n": "Bal Harbour Shops (luxo)"
+  },
+  {
+   "c": "outlet",
+   "a": "11401 NW 12th St, Miami, FL 33172",
+   "la": 25.7893,
+   "lo": -80.3822,
+   "h": "10h–21h (dom 11h–19h) — confira",
+   "n": "Dolphin Mall",
+   "r": 4.6,
+   "v": 65822,
+   "hd": [
+    "11:00-20:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "ross",
+   "a": "8700 NW 36th St Ste 201, Doral, FL 33166",
+   "la": 25.8093,
+   "lo": -80.3364,
+   "h": "9h–21h30 (pequena)"
+  },
+  {
+   "c": "walmart",
+   "a": "8651 NW 13th Terrace, Doral, FL 33126",
+   "la": 25.7869,
+   "lo": -80.3354,
+   "h": "6h–23h"
+  },
+  {
+   "c": "target",
+   "a": "10101 W Flagler St, Miami, FL 33174",
+   "la": 25.7717,
+   "lo": -80.3601,
+   "h": "8h–0h (enorme)"
+  },
+  {
+   "c": "tjmaxx",
+   "a": "7520 NW 104th Ave, Doral, FL 33178",
+   "la": 25.8421,
+   "lo": -80.3672,
+   "h": "9h30–21h30"
+  },
+  {
+   "c": "outlet",
+   "a": "12801 W Sunrise Blvd, Sunrise, FL 33323",
+   "la": 26.1517,
+   "lo": -80.321,
+   "h": "10h–21h (dom 11h–20h) — confira",
+   "n": "Sawgrass Mills",
+   "r": 4.6,
+   "v": 69023,
+   "hd": [
+    "11:00-20:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00",
+    "10:00-21:00"
+   ]
+  },
+  {
+   "c": "ross",
+   "a": "12680 W Sunrise Blvd, Sunrise, FL 33323",
+   "la": 26.1438,
+   "lo": -80.3189,
+   "h": "8h30–23h30 (uma das maiores)"
+  },
+  {
+   "c": "walmart",
+   "a": "12555 W Sunrise Blvd, Sunrise, FL 33323",
+   "la": 26.1479,
+   "lo": -80.3179,
+   "h": "6h–23h"
+  },
+  {
+   "c": "target",
+   "a": "12801 W Sunrise Blvd, Sunrise, FL 33323",
+   "la": 26.1542,
+   "lo": -80.3191,
+   "h": "7h–23h (Super Target, colado no Sawgrass)"
+  },
+  {
+   "c": "comida",
+   "a": "15771 Kissimmee Vineland Rd, Orlando, FL 32837",
+   "la": 28.3493,
+   "lo": -81.4879,
+   "h": "Só almoço: 11h30–16h · buffet por quilo",
+   "n": "Laçador Grill (churrascaria brasileira)",
+   "r": 4.6,
+   "v": 356,
+   "dica": "Dica da família: almoce aqui (comida brasileira, barato, donos atendem em português) e peça o livro de cupons de desconto do outlet. O Lake Buena Vista Factory Stores é vizinho e o Vineland Premium Outlets fica a 5 min.",
+   "hd": [
+    "11:30-16:00",
+    "11:30-16:00",
+    "11:30-16:00",
+    "11:30-16:00",
+    "11:30-16:00",
+    "11:30-16:00",
+    "11:30-16:00"
+   ]
+  }
+ ]
+}

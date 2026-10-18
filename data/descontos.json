@@ -1,0 +1,97 @@
+{
+ "senior": [
+  {
+   "dia": 1,
+   "loja": "T.J. Maxx",
+   "idade": 55,
+   "desc": "10%",
+   "nota": "Só nas lojas da Flórida. Marshalls e HomeGoods são da mesma rede: pergunte, algumas dão também.",
+   "pedir": "Do you have the senior discount today? I am over 55."
+  },
+  {
+   "dia": 1,
+   "loja": "bealls",
+   "idade": 50,
+   "desc": "15%",
+   "nota": "Rede da Flórida. Fontes divergem entre segunda e terça — confirme na loja.",
+   "pedir": "Which day is the 50 plus discount? Is it today?"
+  },
+  {
+   "dia": 2,
+   "loja": "Ross Dress for Less",
+   "idade": 55,
+   "desc": "10%",
+   "nota": "\"55+ Tuesday Club\". Vale em quase tudo, inclusive sobre o preço já reduzido. Peça ANTES de pagar.",
+   "pedir": "I would like the 55 plus Tuesday discount, please."
+  },
+  {
+   "dia": 2,
+   "loja": "Walgreens",
+   "idade": 55,
+   "desc": "20%",
+   "nota": "Só na 1ª terça de cada mês, em itens de preço normal. Precisa estar cadastrada no myWalgreens (grátis, pelo app).",
+   "pedir": "Today is Seniors Day. I am a myWalgreens member, 55 plus.",
+   "first": true
+  },
+  {
+   "dia": 3,
+   "loja": "Kohl's",
+   "idade": 60,
+   "desc": "15%",
+   "nota": "Toda quarta, 60+. Soma com cupons da loja na maioria dos casos.",
+   "pedir": "Do you have the senior discount today? I am over 60."
+  },
+  {
+   "dia": -1,
+   "loja": "Michaels (artesanato)",
+   "idade": 55,
+   "desc": "10%",
+   "nota": "Todo dia, inclusive em promoção.",
+   "pedir": "I am over 55. Do you have the senior discount?"
+  }
+ ],
+ "parques_semana": {
+  "0": [
+   "🟢",
+   "🟡",
+   "🟡",
+   "🟢"
+  ],
+  "1": [
+   "🔴",
+   "🔴",
+   "🟡",
+   "🟡"
+  ],
+  "2": [
+   "🟡",
+   "🟢",
+   "🟡",
+   "🔴"
+  ],
+  "3": [
+   "🔴",
+   "🟢",
+   "🟢",
+   "🟢"
+  ],
+  "4": [
+   "🔵",
+   "🔵",
+   "🟢",
+   "🔵"
+  ],
+  "5": [
+   "🟡",
+   "🟡",
+   "🟡",
+   "🔴"
+  ],
+  "6": [
+   "🔴",
+   "🔴",
+   "🔴",
+   "🔴"
+  ]
+ }
+}
