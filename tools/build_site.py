@@ -19,6 +19,10 @@ js = (A / "vendor/leaflet/leaflet.js").read_text(encoding="utf-8") + "\n" + (A /
 assert "</script" not in js.lower(), "o JS não pode conter </script"
 h = lambda t: "'sha256-" + base64.b64encode(hashlib.sha256(t.encode("utf-8")).digest()).decode() + "'"
 tpl = (ROOT / "src/index.template.html").read_text(encoding="utf-8")
+from urllib.parse import urlparse
+hosts = sorted({"https://" + urlparse(x.get("fotoUrl", "")).netloc for x in data["pedidos"].get("pedidos", []) if x.get("fotoUrl")} | {"https://" + urlparse(x.get("fotoUrl", "")).netloc for x in data["pedidos"].get("pessoas", []) if x.get("fotoUrl")})
+img_src = "img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org" + ("".join(" " + hst for hst in hosts if hst != "https://")) + ";"
+tpl = tpl.replace("img-src 'self' data: blob: https:;", img_src)
 html = tpl.replace("{{CSS}}", css).replace("{{DATA}}", data_js).replace("{{JS}}", js).replace("{{CSP_SCRIPT}}", h(js)).replace("{{CSP_STYLE}}", h(css))
 (ROOT / "index.html").write_text(html, encoding="utf-8")
 ver = hashlib.sha256(html.encode("utf-8")).hexdigest()[:10]
@@ -34,7 +38,7 @@ self.addEventListener("fetch", e => {{
   const url = new URL(req.url);
   if (url.origin !== location.origin) {{
     if (req.destination === "image" || url.pathname.match(/\.(png|jpe?g|webp|gif|avif)(\?|$)/i)) {{
-      e.respondWith(caches.open(IMG).then(c => c.match(req, {{ ignoreVary: true }}).then(hit => hit || fetch(req).then(r => {{ if (r && (r.ok || r.type === "opaque")) c.put(req, r.clone()); return r; }}))));
+      e.respondWith(caches.open(IMG).then(c => c.match(req, {{ ignoreVary: true }}).then(hit => hit || fetch(req).then(r => {{ if (r && (r.ok || r.type === "opaque")) {{ c.put(req, r.clone()); c.keys().then(ks => {{ if (ks.length > 150) ks.slice(0, ks.length - 150).forEach(k => c.delete(k)); }}); }} return r; }}))));
     }}
     return;
   }}

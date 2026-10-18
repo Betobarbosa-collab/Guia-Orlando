@@ -4,6 +4,16 @@
    "id": "base-sp",
    "nome": "Base SP",
    "tam": "Tênis masculino: US 9.5 (BR 42) e US 10.5 (BR 43). Tênis feminino: US 7 / 7.5."
+  },
+  {
+   "id": "sorocaba",
+   "nome": "Sorocaba",
+   "tam": ""
+  },
+  {
+   "id": "boituva",
+   "nome": "Boituva",
+   "tam": ""
   }
  ],
  "pedidos": [
@@ -228,7 +238,7 @@
    "link": "https://www.oakley.com/en-us/product/W0OO9102",
    "obs": "EUA ~US$ 160 · Brasil ~R$ 1.430 → vale MUITO a pena.",
    "onde": "Oakley; Sunglass Hut; Premium Outlets",
-   "fotoUrl": "",
+   "fotoUrl": "https://assets2.oakley.com/prod-onecp-record-files/pieyewear/1f72ef2f-ec05-4ccc-b594-b35f0080ecab/0OO9102__9102E8__P21__shad__qt.png",
    "foto": ""
   },
   {

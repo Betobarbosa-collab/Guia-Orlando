@@ -1,6 +1,6 @@
 /* Service worker gerado por tools/build_site.py — não edite à mão.
    O app é um arquivo só (index.html). Com internet, pega sempre a versão nova; sem internet, usa a guardada. */
-const CACHE = "guia-52746cfcf5";
+const CACHE = "guia-5c8d4b8377";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/icon-512-maskable.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.svg"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 const IMG = "guia-img"; // fotos dos pedidos: ficam guardadas entre versões
@@ -10,7 +10,7 @@ self.addEventListener("fetch", e => {
   const url = new URL(req.url);
   if (url.origin !== location.origin) {
     if (req.destination === "image" || url.pathname.match(/\.(png|jpe?g|webp|gif|avif)(\?|$)/i)) {
-      e.respondWith(caches.open(IMG).then(c => c.match(req, { ignoreVary: true }).then(hit => hit || fetch(req).then(r => { if (r && (r.ok || r.type === "opaque")) c.put(req, r.clone()); return r; }))));
+      e.respondWith(caches.open(IMG).then(c => c.match(req, { ignoreVary: true }).then(hit => hit || fetch(req).then(r => { if (r && (r.ok || r.type === "opaque")) { c.put(req, r.clone()); c.keys().then(ks => { if (ks.length > 150) ks.slice(0, ks.length - 150).forEach(k => c.delete(k)); }); } return r; }))));
     }
     return;
   }

@@ -7,6 +7,7 @@
    - Fotos só data:image/* e com tamanho máximo. */
 (() => {
 "use strict";
+try { if (window.top !== window.self) { window.top.location = window.location; } } catch { document.documentElement.style.display = "none"; }
 
 /* ---------------- helpers ---------------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -87,7 +88,13 @@ function load() {
     state.done = {}; if (o.done && typeof o.done === "object") for (const k of Object.keys(o.done).slice(0, 2000)) if (o.done[k] === true) state.done[str(k, 60)] = true;
   } catch { /* dados corrompidos: começa do zero */ }
 }
-function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { toast("Não consegui salvar (memória cheia?)"); } }
+function save() {
+  try {
+    let json = JSON.stringify(state);
+    if (json.length > 3.5e6) { state.items.forEach(i => { if (i.foto) i.foto = ""; }); json = JSON.stringify(state); toast("Fotos locais removidas para liberar espaço"); }
+    localStorage.setItem(KEY, json);
+  } catch { toast("Não consegui salvar (memória cheia?)"); }
+}
 function cleanPlan(a) { return Array.isArray(a) ? a.slice(0, 30).map(s => ({ id: str(s.id, 80), n: str(s.n, 120), a: str(s.a, 200) })).filter(s => s.id && s.n) : []; }
 function cleanPeople(a) { return Array.isArray(a) ? a.slice(0, 50).map(p => ({ id: str(p.id, 40), nome: str(p.nome, 60), tam: str(p.tam, 500) })).filter(p => p.id && p.nome) : []; }
 function cleanItems(a) {
@@ -118,16 +125,25 @@ function go(view, push = true) {
   window.scrollTo({ top: 0 });
 }
 $("#nav").addEventListener("click", e => { const b = e.target.closest("button[data-go]"); if (b) go(b.dataset.go); });
-window.addEventListener("hashchange", () => go(location.hash.replace("#", "") || "hoje", false));
 window.addEventListener("scroll", () => $("#topbar").classList.toggle("scrolled", window.scrollY > 8), { passive: true });
 
 /* ---------------- bottom sheet ---------------- */
 const scrim = $("#scrim"), sheet = $("#sheet");
-function openSheet(...nodes) { sheet.replaceChildren(h("div", { class: "handle" }), ...nodes.flat()); scrim.classList.add("open"); sheet.scrollTop = 0; document.body.style.overflow = "hidden"; }
-function closeSheet() { scrim.classList.remove("open"); document.body.style.overflow = ""; }
+let sheetOpen = false;
+function openSheet(...nodes) {
+  sheet.replaceChildren(h("div", { class: "sheethead" }, h("div", { class: "handle" }), h("button", { class: "iconbtn close", "aria-label": "Fechar", onClick: () => closeSheet() }, icon("x"))), ...nodes.flat());
+  scrim.classList.add("open"); sheet.scrollTop = 0; document.body.classList.add("noscroll");
+  if (!sheetOpen) { sheetOpen = true; try { history.pushState({ sheet: true }, ""); } catch { /* sem histórico */ } }
+}
+function closeSheet(fromHistory) {
+  scrim.classList.remove("open"); document.body.classList.remove("noscroll");
+  if (sheetOpen && !fromHistory) { sheetOpen = false; try { if (history.state && history.state.sheet) history.back(); } catch { /* ignora */ } }
+  sheetOpen = false;
+}
 scrim.addEventListener("click", e => { if (e.target === scrim) closeSheet(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && scrim.classList.contains("open")) closeSheet(); });
-const closeBtn = () => h("button", { class: "btn block", onClick: closeSheet }, "Fechar");
+window.addEventListener("popstate", () => { if (scrim.classList.contains("open")) { closeSheet(true); return; } go(location.hash.replace("#", "") || "hoje", false); });
+const closeBtn = () => h("button", { class: "btn block", onClick: () => closeSheet() }, "Fechar");
 function sheetBig(text) { openSheet(h("div", { class: "bigtext", text }), closeBtn()); }
 
 /* ---------------- HOJE ---------------- */
@@ -445,7 +461,7 @@ function pedidosSection(list, rerender) {
 function allPeople() { return [...(D.pedidos.pessoas || []).map(p => ({ id: str(p.id, 40), nome: str(p.nome, 60), tam: str(p.tam, 500), seed: true })), ...state.people]; }
 function allItems() { return [...cleanItems(D.pedidos.pedidos || []).map(i => Object.assign(i, { seed: true })), ...state.items]; }
 function personName(id) { const p = allPeople().find(x => x.id === id); return p ? p.nome : ""; }
-let filterPerson = "";
+let filterPerson = "", filterStatus = "";
 function renderLista() {
   const v = $("#view-lista"); v.replaceChildren(h("h2", { text: "Lista da família" }));
   const items = allItems(); const tot = items.filter(i => state.done[i.id]).reduce((s, i) => s + i.preco, 0); const cota = D.config.cota_usd || 1000;
@@ -461,9 +477,11 @@ function renderLista() {
     v.appendChild(h("div", { class: "list" }, ...people.map(p => h("button", { class: "row", onClick: () => p.seed ? sheetBig(p.nome + "\n" + (p.tam || "")) : sheetPersonForm(p) }, h("span", { class: "ico", text: p.nome.slice(0, 1).toUpperCase() }), h("span", { class: "t" }, h("b", { text: p.nome }), h("span", { text: p.tam || "sem tamanhos" })), icon("chev", "chev")))));
   }
   v.appendChild(h("h3", { text: "Pedidos" }));
-  const sel = h("select", { onChange: e => { filterPerson = e.target.value; renderLista(); } }, h("option", { value: "", text: "Todas as pessoas" }), ...people.map(p => h("option", { value: p.id, text: p.nome })));
-  sel.value = filterPerson; v.appendChild(sel);
-  const list = items.filter(i => !filterPerson || i.pessoa === filterPerson);
+  const cnt = id => items.filter(i => (!id || i.pessoa === id) && !state.done[i.id]).length;
+  const chip = (lab, on, fn) => h("button", { class: "chip" + (on ? " on" : ""), onClick: () => { fn(); renderLista(); } }, lab);
+  v.appendChild(h("div", { class: "filters" }, chip("Todos (" + cnt("") + ")", !filterPerson, () => filterPerson = ""), ...people.map(p => chip(p.nome + " (" + cnt(p.id) + ")", filterPerson === p.id, () => filterPerson = filterPerson === p.id ? "" : p.id))));
+  v.appendChild(h("div", { class: "filters" }, chip("Pendentes", filterStatus === "open", () => filterStatus = filterStatus === "open" ? "" : "open"), chip("Comprados", filterStatus === "done", () => filterStatus = filterStatus === "done" ? "" : "done")));
+  const list = items.filter(i => (!filterPerson || i.pessoa === filterPerson) && (filterStatus !== "open" || !state.done[i.id]) && (filterStatus !== "done" || state.done[i.id]));
   const box = h("div", { class: "list" });
   if (!list.length) box.appendChild(h("div", { class: "empty", text: "Nenhum pedido ainda. Toque em “+ Pedido”, ou preencha a planilha do site." }));
   list.forEach(i => {
@@ -483,7 +501,7 @@ function sheetPersonForm(p) {
   const tam = h("textarea", { placeholder: "Ex.: camiseta M, calça 34x32, tênis US 10 / BR 42, pé 27 cm", maxlength: 500 }); if (p) tam.value = p.tam;
   openSheet(h("h2", { text: p ? "Editar pessoa" : "Nova pessoa" }), h("label", { text: "Nome" }), nome, h("label", { text: "Tamanhos" }), tam,
     h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: () => { const n = str(nome.value, 60); if (!n) { toast("Escreva o nome"); return; } if (p) { p.nome = n; p.tam = str(tam.value, 500); } else state.people.push({ id: uid(), nome: n, tam: str(tam.value, 500) }); save(); closeSheet(); renderLista(); } }, "Salvar"),
-      h("button", { class: "btn", onClick: closeSheet }, "Cancelar"), p ? h("button", { class: "btn danger sm", onClick: () => { if (!confirm("Excluir esta pessoa?")) return; state.people = state.people.filter(x => x.id !== p.id); save(); closeSheet(); renderLista(); } }, "Excluir") : null));
+      h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar"), p ? h("button", { class: "btn danger sm", onClick: () => { if (!confirm("Excluir esta pessoa?")) return; state.people = state.people.filter(x => x.id !== p.id); save(); closeSheet(); renderLista(); } }, "Excluir") : null));
 }
 let fotoTemp = "";
 function sheetItemForm(i) {
@@ -509,7 +527,7 @@ function sheetItemForm(i) {
       if (link.value.trim() && !data.link) { toast("Link inválido: use http ou https"); return; }
       if (i) Object.assign(i, data); else state.items.push(Object.assign({ id: uid() }, data));
       save(); closeSheet(); renderLista(); toast("Salvo"); } }, "Salvar"),
-      h("button", { class: "btn", onClick: closeSheet }, "Cancelar"), i ? h("button", { class: "btn danger sm", onClick: () => { if (!confirm("Excluir este pedido?")) return; state.items = state.items.filter(x => x.id !== i.id); delete state.done[i.id]; save(); closeSheet(); renderLista(); } }, "Excluir") : null));
+      h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar"), i ? h("button", { class: "btn danger sm", onClick: () => { if (!confirm("Excluir este pedido?")) return; state.items = state.items.filter(x => x.id !== i.id); delete state.done[i.id]; save(); closeSheet(); renderLista(); } }, "Excluir") : null));
 }
 function pickFoto(inp, prev) {
   const f = inp.files && inp.files[0]; if (!f || !f.type.startsWith("image/")) return;
@@ -572,7 +590,10 @@ async function refreshWeather(force) {
   try {
     const u = "https://api.open-meteo.com/v1/forecast?latitude=" + pt.la + "&longitude=" + pt.lo + "&current=temperature_2m,weather_code,uv_index&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=1";
     const j = await getJSON(u);
-    state.wx = { at: Date.now(), la: pt.la, t: Math.round(j.current.temperature_2m), code: j.current.weather_code, uv: Math.round(j.current.uv_index || 0), max: Math.round(j.daily.temperature_2m_max[0]), min: Math.round(j.daily.temperature_2m_min[0]), rain: Math.round(j.daily.precipitation_probability_max[0] || 0), where: pt.n };
+    if (!j || !j.current || !j.daily || !Array.isArray(j.daily.temperature_2m_max)) throw new Error("formato");
+    const t = Number(j.current.temperature_2m), mx = Number(j.daily.temperature_2m_max[0]), mn = Number(j.daily.temperature_2m_min[0]);
+    if (![t, mx, mn].every(Number.isFinite) || t < -60 || t > 60) throw new Error("valor");
+    state.wx = { at: Date.now(), la: pt.la, t: Math.round(t), code: Number(j.current.weather_code) | 0, uv: Math.max(0, Math.min(15, Math.round(Number(j.current.uv_index) || 0))), max: Math.round(mx), min: Math.round(mn), rain: Math.max(0, Math.min(100, Math.round(Number(j.daily.precipitation_probability_max[0]) || 0))), where: str(pt.n, 60) };
     save(); if (currentView === "hoje") renderHoje();
   } catch { /* mantém o último clima guardado */ }
 }
@@ -589,8 +610,14 @@ function sheetWeather() {
     h("p", { class: "small muted", text: "Atualizado " + new Date(w.at).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) + " (Open-Meteo). Chuva à tarde é comum: leve capa leve." }),
     h("div", { class: "btns" }, h("button", { class: "btn tonal", onClick: () => { refreshWeather(true); closeSheet(); } }, "Atualizar"), closeBtn()));
 }
+let geoBusy = false, geoLast = 0;
 async function geocode(q) {
   q = str(q, 160); if (!q) return null;
+  if (geoBusy || Date.now() - geoLast < 1100) throw new Error("rate");
+  geoBusy = true; geoLast = Date.now();
+  try { return await geocodeNow(q); } finally { geoBusy = false; }
+}
+async function geocodeNow(q) {
   const j = await getJSON("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&accept-language=pt-BR&q=" + encodeURIComponent(q), 10000);
   if (!Array.isArray(j) || !j.length) return null;
   const la = coord(j[0].lat, 90), lo = coord(j[0].lon, 180); if (la == null || lo == null) return null;
@@ -617,9 +644,9 @@ function showMap(container, list) {
   let box = $("#mapbox"); if (!box) { box = h("div", { id: "mapbox", class: "mapbox" }); container.appendChild(box); }
   if (!map) { map = L.map(box, { zoomControl: true, attributionControl: true }); L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(map); }
   if (mapLayer) mapLayer.remove(); mapLayer = L.layerGroup().addTo(map);
-  if (here) L.circleMarker([here.la, here.lo], { radius: 9, color: "#fff", weight: 2, fillColor: "#D94E2B", fillOpacity: 1 }).bindTooltip("Você / ponto de partida").addTo(mapLayer);
+  if (here) L.circleMarker([here.la, here.lo], { radius: 9, color: "#fff", weight: 2, fillColor: "#D94E2B", fillOpacity: 1 }).bindTooltip(h("span", { text: "Você / ponto de partida" })).addTo(mapLayer);
   const pts = [];
-  list.forEach(p => { const m = L.circleMarker([p.la, p.lo], { radius: 8, color: "#fff", weight: 2, fillColor: pinColor(p.c), fillOpacity: .95 }).addTo(mapLayer); m.bindTooltip(placeName(p)); m.on("click", () => sheetPlace(p)); pts.push([p.la, p.lo]); });
+  list.forEach(p => { const m = L.circleMarker([p.la, p.lo], { radius: 8, color: "#fff", weight: 2, fillColor: pinColor(p.c), fillOpacity: .95 }).addTo(mapLayer); m.bindTooltip(h("span", { text: placeName(p) })); m.on("click", () => sheetPlace(p)); pts.push([p.la, p.lo]); });
   if (here) pts.push([here.la, here.lo]);
   setTimeout(() => { map.invalidateSize(); if (pts.length) map.fitBounds(pts, { padding: [24, 24], maxZoom: 14 }); }, 50);
 }
@@ -638,7 +665,7 @@ function sheetSettings() {
       if (changed) { state.homeLat = null; state.homeLng = null; save(); }
       if (newHome && state.homeLat == null && navigator.onLine) { try { const g = await geocode(newHome); if (g) { state.homeLat = g.la; state.homeLng = g.lo; save(); toast("Endereço localizado no mapa"); refreshWeather(true); renderPerto(); } else toast("Não achei o endereço no mapa; confira a grafia"); } catch { /* offline ou falha: fica sem coordenadas */ } }
       if (!state.rateManual) refreshRate(true);
-    } }, "Salvar"), h("button", { class: "btn", onClick: closeSheet }, "Cancelar")),
+    } }, "Salvar"), h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar")),
     h("h3", { text: "Instalar como app" }), h("p", { class: "small muted", text: "Android/Chrome: menu ⋮ → “Instalar app” (ou “Adicionar à tela inicial”). iPhone/Safari: Compartilhar → “Adicionar à Tela de Início”. Depois disso funciona sem internet." }),
     h("h3", { text: "Privacidade" }), h("p", { class: "small muted", text: "Nome, endereço, cotação, roteiro e lista ficam somente neste aparelho. Com internet, o app consulta três serviços públicos: OpenStreetMap (mapa e localização do endereço), Open-Meteo (clima) e Frankfurter (cotação). Nenhum deles recebe seu nome ou sua lista." }),
     h("div", { class: "btns" }, h("button", { class: "btn danger sm", onClick: () => { if (confirm("Apagar todos os dados guardados neste celular?")) { localStorage.removeItem(KEY); location.reload(); } } }, "Apagar meus dados")),

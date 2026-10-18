@@ -39,9 +39,11 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
-html,body{height:100%;margin:0}
+html,body{margin:0}
+body{min-height:100vh;min-height:100dvh}
+body.noscroll{overflow:hidden}
 body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.5;
-  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 16px)}
+  padding-bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 40px)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
 a{color:var(--primary)}
 button{font:inherit;color:inherit}
@@ -69,7 +71,7 @@ svg.ic{width:22px;height:22px;flex:none;stroke:currentColor;fill:none;stroke-wid
 svg.ic.chev{width:18px;height:18px;color:var(--muted);opacity:.7}
 .sprite{position:absolute;width:0;height:0;overflow:hidden}
 
-main{padding:8px 18px 12px;max-width:680px;margin:0 auto}
+main{padding:8px 18px 32px;max-width:680px;margin:0 auto}
 .view{display:none}
 .view.active{display:block;animation:fade .18s ease-out}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
@@ -158,9 +160,11 @@ textarea{min-height:88px;resize:vertical}
 /* ---------- bottom sheet ---------- */
 .scrim{position:fixed;inset:0;background:rgba(10,14,13,.55);z-index:40;display:none;align-items:flex-end;justify-content:center}
 .scrim.open{display:flex}
-.sheet{background:var(--bg);width:100%;max-width:680px;max-height:92dvh;overflow:auto;border-radius:22px 22px 0 0;padding:8px 18px calc(22px + env(safe-area-inset-bottom,0px));animation:up .22s ease-out}
+.sheet{background:var(--bg);width:100%;max-width:680px;max-height:92vh;max-height:92dvh;overflow:auto;border-radius:22px 22px 0 0;padding:8px 18px calc(22px + env(safe-area-inset-bottom,0px));animation:up .22s ease-out}
 @keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
-.sheet .handle{width:40px;height:4px;border-radius:2px;background:var(--line);margin:4px auto 14px}
+.sheethead{position:sticky;top:0;z-index:2;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:6px 0 10px;margin:0 -2px}
+.sheethead .handle{width:40px;height:4px;border-radius:2px;background:var(--line)}
+.sheethead .close{position:absolute;right:0;top:4px;width:40px;height:40px}
 .sheet h2{font-size:22px;margin-bottom:4px}
 .sheet .tags{margin:4px 0 10px}
 .sheet ul{padding-left:18px;margin:8px 0}

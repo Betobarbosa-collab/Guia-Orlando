@@ -84,6 +84,8 @@ Para gerar localmente: `python tools/build_data.py && python tools/build_site.py
 
 ## Segurança (o que foi feito)
 
+Relatório completo de red team, com modelo de ameaça, achados corrigidos e riscos residuais: **[SECURITY.md](SECURITY.md)**.
+
 - **CSP estrita** no `index.html`: o script e o estilo embutidos são autorizados por **hash SHA-256** (sem `unsafe-inline`); fontes embutidas; requisições de rede apenas aos quatro serviços públicos listados acima; `object-src 'none'`,
   `base-uri 'none'`, `form-action 'none'`. Nenhum CDN, nenhum script de terceiro, nenhum tracker.
 - **Sem `innerHTML` com dados.** Tudo é montado via DOM; o texto curado aceita apenas `**` e `_`.
