@@ -20,9 +20,9 @@
    "la": 28.598,
    "lo": -81.351,
    "al": [
-    "park ave",
+    "winter park",
     "park avenue",
-    "winter park"
+    "park ave"
    ]
   },
   {
@@ -32,17 +32,14 @@
    "la": 28.465,
    "lo": -81.455,
    "al": [
+    "universal",
+    "i-drive",
+    "international drive",
+    "icon park",
+    "seaworld",
     "citywalk",
     "epic universe",
-    "i-drive",
-    "icon park",
-    "international drive",
-    "marketplace",
-    "outlet marketplace",
-    "premium outlets international",
-    "seaworld",
-    "universal",
-    "value center"
+    "premium outlets international"
    ]
   },
   {
@@ -52,10 +49,10 @@
    "la": 28.47,
    "lo": -81.41,
    "al": [
+    "millenia",
     "florida mall",
-    "macrobaby",
     "mall at millenia",
-    "millenia"
+    "macrobaby"
    ]
   },
   {
@@ -65,17 +62,17 @@
    "la": 28.385,
    "lo": -81.49,
    "al": [
-    "animal kingdom",
+    "lake buena vista",
+    "lbv",
     "disney",
+    "vineland",
     "disney springs",
+    "magic kingdom",
     "epcot",
     "hollywood studios",
-    "lake buena vista",
+    "animal kingdom",
     "laçador",
-    "lbv",
-    "magic kingdom",
-    "premium outlets vineland",
-    "vineland"
+    "premium outlets vineland"
    ]
   },
   {
@@ -85,13 +82,12 @@
    "la": 28.33,
    "lo": -81.44,
    "al": [
-    "192",
-    "celebration",
-    "crosslands",
     "kissimmee",
-    "loop west",
+    "192",
+    "the loop",
+    "crosslands",
     "old town",
-    "the loop"
+    "celebration"
    ]
   },
   {
@@ -102,13 +98,9 @@
    "lo": -81.379,
    "al": [
     "centro",
-    "church street",
     "downtown orlando",
-    "farmers market",
-    "feira",
-    "kia center",
     "lake eola",
-    "orlando magic"
+    "church street"
    ]
   },
   {
@@ -118,9 +110,9 @@
    "la": 25.772,
    "lo": -80.193,
    "al": [
-    "bayside",
-    "brickell",
     "downtown miami",
+    "brickell",
+    "bayside",
     "miamicentral"
    ]
   },
@@ -131,10 +123,10 @@
    "la": 25.785,
    "lo": -80.135,
    "al": [
-    "lincoln road",
+    "south beach",
     "miami beach",
-    "ocean drive",
-    "south beach"
+    "lincoln road",
+    "ocean drive"
    ]
   },
   {
@@ -144,8 +136,8 @@
    "la": 25.805,
    "lo": -80.195,
    "al": [
-    "midtown miami",
-    "wynwood"
+    "wynwood",
+    "midtown miami"
    ]
   },
   {
@@ -156,9 +148,9 @@
    "lo": -80.143,
    "al": [
     "aventura",
-    "aventura mall",
     "bal harbour",
-    "north miami beach"
+    "north miami beach",
+    "aventura mall"
    ]
   },
   {
@@ -168,10 +160,10 @@
    "la": 25.79,
    "lo": -80.35,
    "al": [
-    "aeroporto de miami",
+    "doral",
     "dolphin",
     "dolphin mall",
-    "doral"
+    "aeroporto de miami"
    ]
   },
   {
@@ -182,22 +174,8 @@
    "lo": -80.32,
    "al": [
     "sawgrass",
-    "sawgrass mills",
-    "sunrise"
-   ]
-  },
-  {
-   "g": "Orlando",
-   "id": "nona",
-   "n": "Lake Nona / aeroporto",
-   "la": 28.368,
-   "lo": -81.304,
-   "al": [
-    "aeroporto de orlando",
-    "homesense",
-    "lake nona",
-    "lake nona west",
-    "mco"
+    "sunrise",
+    "sawgrass mills"
    ]
   }
  ],
@@ -316,21 +294,6 @@
    "n": "",
    "b": "Comida",
    "bc": "coral"
-  },
-  "homesense": {
-   "n": "HomeSense",
-   "b": "Casa (rede T.J. Maxx)",
-   "bc": "sky"
-  },
-  "marca": {
-   "n": "",
-   "b": "Loja da marca (outlet)",
-   "bc": "sky"
-  },
-  "clearance": {
-   "n": "",
-   "b": "Clearance da marca (mais barato)",
-   "bc": "sun"
   }
  },
  "pontos": [
@@ -597,7 +560,6 @@
    "n": "Orlando International Premium Outlets",
    "r": 4.6,
    "v": 11419,
-   "cupom": "Simon Guest Services: no Food Court ou no balcão do Management Office (perto da Old Navy), 9h–18h. Livro VIP digital grátis no app Simon (VIP Club); o impresso sai no balcão — pode ser grátis com voucher de hotel/agência ou pago.",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -645,36 +607,14 @@
    "a": "4750 Millenia Plaza Way, Orlando, FL 32839",
    "la": 28.4933,
    "lo": -81.4301,
-   "h": "8h–23h (grande, com mercado e área Disney)",
-   "r": 4.4,
-   "v": 2013,
-   "hd": [
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00"
-   ]
+   "h": "8h–23h (grande, com mercado)"
   },
   {
    "c": "walmart",
    "a": "8990 Turkey Lake Rd, Orlando, FL 32819",
    "la": 28.4399,
    "lo": -81.4765,
-   "h": "6h–0h (muito produto Disney/Universal)",
-   "r": 4.3,
-   "v": 30854,
-   "hd": [
-    "06:00-24:00",
-    "06:00-24:00",
-    "06:00-24:00",
-    "06:00-24:00",
-    "06:00-24:00",
-    "06:00-24:00",
-    "06:00-24:00"
-   ]
+   "h": "6h–0h (muito produto Disney)"
   },
   {
    "c": "mall",
@@ -728,7 +668,6 @@
    "n": "The Florida Mall",
    "r": 4.5,
    "v": 48313,
-   "cupom": "Simon Guest Services: pergunte pelos cupons e ofertas da semana (também na página \"Deals\" do Florida Mall no app Simon).",
    "hd": [
     "11:00-19:00",
     "10:00-20:00",
@@ -758,36 +697,14 @@
    "a": "5734 S Orange Blossom Trl, Orlando, FL 32839",
    "la": 28.4749,
    "lo": -81.3992,
-   "h": "6h–23h",
-   "r": 4.1,
-   "v": 8433,
-   "hd": [
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00"
-   ]
+   "h": "6h–23h"
   },
   {
    "c": "target",
    "a": "880 Sand Lake Rd, Orlando, FL 32809",
    "la": 28.4496,
    "lo": -81.3911,
-   "h": "8h–23h (pequena)",
-   "r": 4.2,
-   "v": 845,
-   "hd": [
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00"
-   ]
+   "h": "8h–23h (pequena)"
   },
   {
    "c": "outlet",
@@ -798,7 +715,6 @@
    "n": "Orlando Vineland Premium Outlets",
    "r": 4.5,
    "v": 42959,
-   "cupom": "Simon Guest Services no Food Court (entrada da adidas), 11h–19h. O balcão do Promenade está fechado temporariamente. Livro VIP digital grátis no app Simon.",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -818,7 +734,6 @@
    "n": "Lake Buena Vista Factory Stores",
    "r": 4.5,
    "v": 7861,
-   "cupom": "Welcome Center na entrada: peça os cupons antes de entrar nas lojas. Dica da família: no Laçador Grill (vizinho) também pedem o livro.",
    "hd": [
     "11:00-19:00",
     "10:00-20:00",
@@ -859,18 +774,7 @@
    "a": "11619 Daryl Carter Pkwy, Orlando, FL 32821",
    "la": 28.3968,
    "lo": -81.4848,
-   "h": "8h–23h (muito produto Disney/Universal)",
-   "r": 4.2,
-   "v": 1457,
-   "hd": [
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00"
-   ]
+   "h": "8h–23h"
   },
   {
    "c": "tjmaxx",
@@ -954,6 +858,22 @@
    "n": "Vineland Pointe"
   },
   {
+   "c": "barg",
+   "a": "3208 W Vine St, Kissimmee, FL 34741",
+   "la": 28.343,
+   "lo": -81.42,
+   "h": "Nike Clearance, Kohl's, JCPenney, Michaels, Ross, Best Buy",
+   "n": "The Loop / The Loop West"
+  },
+  {
+   "c": "barg",
+   "a": "Centerview Blvd & W Osceola Pkwy, Kissimmee, FL 34741",
+   "la": 28.342,
+   "lo": -81.408,
+   "h": "Marshalls & HomeGoods, Ross, Five Below, Dollar Tree",
+   "n": "The Crosslands"
+  },
+  {
    "c": "mall",
    "a": "MacroBaby, S Orange Blossom Trl, Orlando, FL 32809",
    "la": 28.447,
@@ -980,18 +900,7 @@
    "a": "4444 W Vine St, Kissimmee, FL 34746",
    "la": 28.3017,
    "lo": -81.4591,
-   "h": "6h–23h (muito produto Disney)",
-   "r": 4.2,
-   "v": 17146,
-   "hd": [
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00"
-   ]
+   "h": "6h–23h"
   },
   {
    "c": "park",
@@ -1190,7 +1099,6 @@
    "n": "Dolphin Mall",
    "r": 4.6,
    "v": 65822,
-   "cupom": "Guest Services: pergunte pelo livro de cupons para turistas (\"tourist coupon book\").",
    "hd": [
     "11:00-20:00",
     "10:00-21:00",
@@ -1238,7 +1146,6 @@
    "n": "Sawgrass Mills",
    "r": 4.6,
    "v": 69023,
-   "cupom": "Simon Guest Services: troque o voucher \"Boarding Pass for Savings\" (site do Sawgrass) pelo livro de cupons.",
    "hd": [
     "11:00-20:00",
     "10:00-21:00",
@@ -1280,7 +1187,6 @@
    "r": 4.6,
    "v": 356,
    "dica": "Dica da família: almoce aqui (comida brasileira, barato, donos atendem em português) e peça o livro de cupons de desconto do outlet. O Lake Buena Vista Factory Stores é vizinho e o Vineland Premium Outlets fica a 5 min.",
-   "cupom": "Peça o livro de cupons do Lake Buena Vista Factory Stores aqui no restaurante (dica da família).",
    "hd": [
     "11:30-16:00",
     "11:30-16:00",
@@ -1290,818 +1196,6 @@
     "11:30-16:00",
     "11:30-16:00"
    ]
-  },
-  {
-   "c": "walmart",
-   "a": "8101 S John Young Pkwy, Orlando, FL 32819",
-   "la": 28.4478,
-   "lo": -81.4252,
-   "h": "6h–23h",
-   "r": 4.3,
-   "v": 14783,
-   "hd": [
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00"
-   ]
-  },
-  {
-   "c": "walmart",
-   "a": "3250 Vineland Rd, Kissimmee, FL 34746",
-   "la": 28.3416,
-   "lo": -81.4864,
-   "h": "6h–1h (perto do Vineland outlet; muito produto Disney)",
-   "r": 4.3,
-   "v": 30013,
-   "hd": [
-    "06:00-01:00",
-    "06:00-01:00",
-    "06:00-01:00",
-    "06:00-01:00",
-    "06:00-01:00",
-    "06:00-01:00",
-    "06:00-01:00"
-   ]
-  },
-  {
-   "c": "walmart",
-   "a": "1471 Osceola Pkwy, Kissimmee, FL 34744",
-   "la": 28.3433,
-   "lo": -81.3865,
-   "h": "6h–23h",
-   "r": 4.2,
-   "v": 13434,
-   "hd": [
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00"
-   ]
-  },
-  {
-   "c": "walmart",
-   "a": "5991 S Goldenrod Rd, Orlando, FL 32822",
-   "la": 28.4739,
-   "lo": -81.2868,
-   "h": "6h–23h (perto do aeroporto)",
-   "r": 4.2,
-   "v": 11388,
-   "hd": [
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00"
-   ]
-  },
-  {
-   "c": "walmart",
-   "a": "2500 S Kirkman Rd, Orlando, FL 32811",
-   "la": 28.5155,
-   "lo": -81.4627,
-   "h": "6h–23h",
-   "r": 4.0,
-   "v": 11522,
-   "hd": [
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00",
-    "06:00-23:00"
-   ]
-  },
-  {
-   "c": "target",
-   "a": "2155 Town Center Blvd, Orlando, FL 32837 (Hunter’s Creek)",
-   "la": 28.3698,
-   "lo": -81.4072,
-   "h": "8h–23h (Super Target, com Starbucks)",
-   "r": 4.3,
-   "v": 1743,
-   "hd": [
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00"
-   ]
-  },
-  {
-   "c": "target",
-   "a": "3200 Rolling Oaks Blvd, Kissimmee, FL 34747",
-   "la": 28.3437,
-   "lo": -81.6139,
-   "h": "8h–23h (perto da Disney, lado oeste)",
-   "r": 4.4,
-   "v": 2875,
-   "hd": [
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00"
-   ]
-  },
-  {
-   "c": "target",
-   "a": "4795 W Irlo Bronson Memorial Hwy, Kissimmee, FL 34746",
-   "la": 28.3321,
-   "lo": -81.4712,
-   "h": "8h–23h (área Disney na loja)",
-   "r": 4.3,
-   "v": 757,
-   "hd": [
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00"
-   ]
-  },
-  {
-   "c": "target",
-   "a": "6065 Lake Nona Blvd, Orlando, FL 32827 (Lake Nona West)",
-   "la": 28.3681,
-   "lo": -81.3033,
-   "h": "8h–23h (loja nova)",
-   "r": 4.4,
-   "v": 134,
-   "hd": [
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00",
-    "08:00-23:00"
-   ]
-  },
-  {
-   "c": "homesense",
-   "a": "6023 Lake Nona Blvd, Orlando, FL 32827 (Lake Nona West)",
-   "la": 28.3673,
-   "lo": -81.3066,
-   "h": "9h30–21h30",
-   "r": 4.5,
-   "v": 55,
-   "hd": [
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30"
-   ]
-  },
-  {
-   "c": "homesense",
-   "a": "7600 Dr Phillips Blvd, Orlando, FL 32819",
-   "la": 28.4515,
-   "lo": -81.4895,
-   "h": "9h30–21h30",
-   "r": 4.4,
-   "v": 76,
-   "hd": [
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30",
-    "09:30-21:30"
-   ]
-  },
-  {
-   "c": "barg",
-   "a": "6065 Lake Nona Blvd, Orlando, FL 32827",
-   "la": 28.3678,
-   "lo": -81.3045,
-   "h": "Centro novo, fora da rota turística",
-   "n": "Lake Nona West (Target, HomeSense)",
-   "dica": "Centro de compras novo em Lake Nona (perto do aeroporto e da Hwy 417): Target novinha e HomeSense (casa e decoração, da mesma rede da T.J. Maxx). Menos lotado que as lojas da I-Drive."
-  },
-  {
-   "c": "barg",
-   "a": "3208 John Young Pkwy, Kissimmee, FL 34741",
-   "la": 28.3434,
-   "lo": -81.4234,
-   "h": "10h–21h30 (dom 11h–18h)",
-   "n": "The Loop (Kissimmee)",
-   "r": 4.5,
-   "v": 15316,
-   "dica": "Centro grande com Kohl’s, JCPenney, Ross, Ulta, Best Buy e cinema. Do outro lado da avenida fica o Loop West (Nike Clearance, Burlington, T.J. Maxx). Vá cedo e em dia de semana: no fim de semana as filas dos caixas são longas.",
-   "hd": [
-    "11:00-18:00",
-    "10:00-21:30",
-    "10:00-21:30",
-    "10:00-21:30",
-    "10:00-21:30",
-    "10:00-21:30",
-    "10:00-21:30"
-   ]
-  },
-  {
-   "c": "barg",
-   "a": "2001 Osceola Pkwy, Kissimmee, FL 34741",
-   "la": 28.3432,
-   "lo": -81.4253,
-   "h": "10h–21h (dom 11h–18h)",
-   "n": "Loop West (Kissimmee)",
-   "dica": "Nike Clearance Store, Burlington, T.J. Maxx e Ross. Na Nike Clearance chegue na abertura: revendedores levam os tamanhos bons cedo.",
-   "hd": [
-    "11:00-18:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "barg",
-   "a": "1100 Osceola Pkwy, Kissimmee, FL 34741",
-   "la": 28.3406,
-   "lo": -81.4089,
-   "h": "8h–22h (dom 11h–20h)",
-   "n": "The Crosslands (Kissimmee)",
-   "r": 4.5,
-   "v": 5320,
-   "dica": "Ao lado do The Loop: Marshalls & HomeGoods, Kohl’s, JCPenney, Hobby Lobby, Academy Sports e restaurantes. Dá para emendar com o Loop na mesma manhã.",
-   "hd": [
-    "11:00-20:00",
-    "08:00-22:00",
-    "08:00-22:00",
-    "08:00-22:00",
-    "08:00-22:00",
-    "08:00-22:00",
-    "08:00-21:00"
-   ]
-  },
-  {
-   "c": "outlet",
-   "a": "5269 International Dr, Orlando, FL 32819",
-   "la": 28.4681,
-   "lo": -81.4521,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Orlando Outlet Marketplace",
-   "dica": "Centro de outlets menor e mais fácil de andar, na ponta sul da I-Drive, colado no International Drive Value Center (Ross, T.J. Maxx, Five Below). Bom para começar o dia de compras antes do Premium Outlets.",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "park",
-   "a": "20 N Eola Dr, Orlando, FL 32801",
-   "la": 28.5426,
-   "lo": -81.3708,
-   "h": "Domingos 10h–15h",
-   "n": "Orlando Farmers Market (Lake Eola)",
-   "r": 4.5,
-   "v": 939,
-   "dica": "Feira de domingo em volta do lago: barracas de comida, pães, artesanato e a limonada famosa. Mais comida que hortifrúti. Vá de manhã, antes do calor.",
-   "hd": [
-    "10:00-15:00",
-    "fechado",
-    "fechado",
-    "fechado",
-    "fechado",
-    "fechado",
-    "fechado"
-   ]
-  },
-  {
-   "c": "clearance",
-   "a": "5209 International Dr Ste A-C, Orlando, FL 32819",
-   "la": 28.4685,
-   "lo": -81.451,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Nike Clearance Store — Outlet Marketplace (I-Drive)",
-   "r": 4.4,
-   "v": 4815,
-   "dica": "Sobras da Nike com preço abaixo do outlet. Fica ao lado do International Drive Value Center (Ross, T.J. Maxx). Chegue na abertura.",
-   "marca": "Nike",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "clearance",
-   "a": "2671 Osceola Pkwy, Kissimmee, FL 34741",
-   "la": 28.3441,
-   "lo": -81.429,
-   "h": "10h–21h (dom 10h–19h)",
-   "n": "Nike Clearance Store — Kissimmee (Loop West)",
-   "r": 4.4,
-   "v": 5599,
-   "dica": "Uma das maiores lojas de sobras da Nike: preço abaixo do outlet. Chegue na abertura (revendedores levam os tamanhos bons cedo) e veja a ala Big Kids se calça até 38.",
-   "marca": "Nike",
-   "hd": [
-    "10:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4977 International Dr #3B13, Orlando, FL 32819",
-   "la": 28.4763,
-   "lo": -81.4491,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Nike Factory Store — International Premium Outlets",
-   "r": 4.4,
-   "v": 2931,
-   "marca": "Nike",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8200 Vineland Ave Ste 600, Orlando, FL 32821",
-   "la": 28.3861,
-   "lo": -81.4938,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Nike Factory Store — Vineland Premium Outlets",
-   "r": 4.4,
-   "v": 6194,
-   "dica": "Uma das maiores Factory Stores da Nike: muita variedade, inclusive corrida e Jordan. Lota à tarde.",
-   "marca": "Nike",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "15609 Kissimmee Vineland Rd, Orlando, FL 32821",
-   "la": 28.3503,
-   "lo": -81.4858,
-   "h": "10h–20h (dom 11h–19h)",
-   "n": "Nike Factory Store — Lake Buena Vista Factory Stores",
-   "r": 4.4,
-   "v": 1512,
-   "dica": "Mais tranquila que as dos Premium Outlets; estaciona na porta.",
-   "marca": "Nike",
-   "hd": [
-    "11:00-19:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "5253 International Dr Ste C, Orlando, FL 32819",
-   "la": 28.4683,
-   "lo": -81.4535,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "adidas Outlet — Outlet Marketplace (I-Drive)",
-   "r": 4.3,
-   "v": 583,
-   "dica": "A mais elogiada pelas promoções (clientes relatam até 70% na loja toda). Vá de manhã e confira o valor no caixa: há relatos de cobrança diferente da etiqueta.",
-   "marca": "adidas",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4973 International Dr, Orlando, FL 32819",
-   "la": 28.4763,
-   "lo": -81.45,
-   "h": "10h–20h (sex/sáb até 21h, dom 11h–18h)",
-   "n": "adidas Outlet — International Premium Outlets",
-   "r": 4.4,
-   "v": 1290,
-   "marca": "adidas",
-   "hd": [
-    "11:00-18:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8200 Vineland Ave, Orlando, FL 32821",
-   "la": 28.3878,
-   "lo": -81.4928,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "adidas Outlet — Vineland Premium Outlets",
-   "r": 4.5,
-   "v": 4075,
-   "dica": "A maior e mais bem avaliada; muita coisa de futebol.",
-   "marca": "adidas",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8200 Vineland Ave Ste 200, Orlando, FL 32821",
-   "la": 28.3887,
-   "lo": -81.4922,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Tommy Hilfiger — Vineland Premium Outlets",
-   "r": 4.5,
-   "v": 2054,
-   "dica": "A maior Tommy de Orlando e a mais elogiada por clientes. Peça o desconto por cadastro de e-mail (clientes relatam 10% extra) e use o cupom do app Simon.",
-   "marca": "Tommy Hilfiger",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4953 International Dr Ste 124, Orlando, FL 32819",
-   "la": 28.4751,
-   "lo": -81.4522,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Tommy Hilfiger — International Premium Outlets",
-   "r": 4.5,
-   "v": 1134,
-   "dica": "Tem leitor de preço na loja para conferir quanto sai cada peça com desconto.",
-   "marca": "Tommy Hilfiger",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "5269 International Dr Spc A1, Orlando, FL 32819",
-   "la": 28.4673,
-   "lo": -81.452,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Tommy Hilfiger — Outlet Marketplace (I-Drive)",
-   "r": 4.1,
-   "v": 513,
-   "dica": "Loja menor; clientes reclamam de provador fechado e atendimento. Prefira as dos Premium Outlets.",
-   "marca": "Tommy Hilfiger",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4961 International Dr Ste 4A-01, Orlando, FL 32819",
-   "la": 28.4729,
-   "lo": -81.4513,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "The North Face — International Premium Outlets",
-   "r": 4.5,
-   "v": 1785,
-   "dica": "Clientes citam jaquetas com 50% off. Confira na etiqueta se o desconto extra vale para aquela peça antes de ir ao caixa.",
-   "marca": "The North Face",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8225 Vineland Ave, Orlando, FL 32821",
-   "la": 28.3908,
-   "lo": -81.4907,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "The North Face — Vineland Premium Outlets",
-   "r": 4.4,
-   "v": 911,
-   "dica": "Há relatos de promoção extra (20% em mochilas) honrada na loja da International e negada nesta: pergunte antes de pegar as peças.",
-   "marca": "The North Face",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4973 International Dr #3F47, Orlando, FL 32819",
-   "la": 28.4761,
-   "lo": -81.4502,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Vans Outlet — International Premium Outlets",
-   "r": 4.5,
-   "v": 505,
-   "marca": "Vans",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8200 Vineland Ave Ste 1743, Orlando, FL 32821",
-   "la": 28.3876,
-   "lo": -81.492,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Vans Outlet — Vineland Premium Outlets",
-   "r": 4.4,
-   "v": 671,
-   "marca": "Vans",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4969 International Dr Ste 3E05, Orlando, FL 32819",
-   "la": 28.4754,
-   "lo": -81.4514,
-   "h": "10h–21h (dom 11h–20h)",
-   "n": "Gap Factory — International Premium Outlets",
-   "r": 4.4,
-   "v": 1566,
-   "marca": "Gap",
-   "hd": [
-    "11:00-20:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "15807 S Apopka Vineland Rd, Orlando, FL 32821",
-   "la": 28.3492,
-   "lo": -81.4887,
-   "h": "10h–20h (dom 11h–19h)",
-   "n": "Gap Factory — Lake Buena Vista Factory Stores",
-   "r": 4.5,
-   "v": 540,
-   "dica": "Loja espaçosa e mais tranquila; boa para básicos e roupa infantil.",
-   "marca": "Gap",
-   "hd": [
-    "11:00-19:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00",
-    "10:00-20:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4953 International Dr Ste 2A-08, Orlando, FL 32819",
-   "la": 28.4749,
-   "lo": -81.4525,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "New Balance Factory — International Premium Outlets",
-   "r": 4.4,
-   "v": 599,
-   "marca": "New Balance",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "5263 International Dr, Orlando, FL 32819",
-   "la": 28.4676,
-   "lo": -81.4528,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "New Balance Factory — Outlet Marketplace (I-Drive)",
-   "r": 4.5,
-   "v": 480,
-   "dica": "Bem avaliada pelo atendimento; se não tiver o tamanho, clientes relatam envio sem frete para o endereço nos EUA.",
-   "marca": "New Balance",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8174 Vineland Ave #1537, Orlando, FL 32821",
-   "la": 28.3872,
-   "lo": -81.4908,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "New Balance Factory — Vineland Premium Outlets",
-   "r": 4.4,
-   "v": 587,
-   "dica": "Loja menor, com boas ofertas de clearance segundo clientes.",
-   "marca": "New Balance",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8174 Vineland Ave #1575, Orlando, FL 32821",
-   "la": 28.387,
-   "lo": -81.4909,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "ASICS Outlet — Vineland Premium Outlets",
-   "r": 4.3,
-   "v": 487,
-   "dica": "Tem scanner de pé que indica o modelo certo; clientes relatam promoções leve 2 pague 1.",
-   "marca": "ASICS",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4973 International Dr Ste 3F03, Orlando, FL 32819",
-   "la": 28.4763,
-   "lo": -81.45,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "ASICS Outlet — International Premium Outlets",
-   "r": 4.2,
-   "v": 279,
-   "dica": "Clientes dizem que os descontos aqui são pequenos: compare com a da Vineland.",
-   "marca": "ASICS",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "4971 International Dr Ste 3D.01A, Orlando, FL 32819",
-   "la": 28.4752,
-   "lo": -81.4506,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Oakley Vault — International Premium Outlets",
-   "r": 4.7,
-   "v": 516,
-   "dica": "Outlet da Oakley. Leve a referência do modelo (OO…) para o vendedor achar a cor certa.",
-   "marca": "Oakley",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
-  },
-  {
-   "c": "marca",
-   "a": "8200 Vineland Ave #1735, Orlando, FL 32821",
-   "la": 28.3873,
-   "lo": -81.4911,
-   "h": "10h–21h (dom 11h–19h)",
-   "n": "Oakley Vault — Vineland Premium Outlets",
-   "r": 4.8,
-   "v": 503,
-   "dica": "Outlet da Oakley, a mais bem avaliada. Leve a referência do modelo.",
-   "marca": "Oakley",
-   "hd": [
-    "11:00-19:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00",
-    "10:00-21:00"
-   ]
   }
- ],
- "marcas": {
-  "Nike": "Mais barato: as duas **Nike Clearance** (Outlet Marketplace na I-Drive e Loop West em Kissimmee), com sobras abaixo do preço do outlet. As Factory Stores têm mais variedade; a da Vineland é a maior.",
-  "adidas": "A do **Outlet Marketplace** (I-Drive) é a mais elogiada pelas promoções. A da Vineland é a maior e mais bem avaliada.",
-  "Tommy Hilfiger": "O preço de etiqueta é o mesmo nas três; o que muda é a promoção do dia. A da **Vineland** é a maior e a mais elogiada. Cadastre o e-mail na loja (10% extra, segundo clientes) e use o cupom do app Simon.",
-  "The North Face": "Duas lojas com bons descontos em jaquetas. Promoções extras variam entre elas: pergunte antes de ir ao caixa.",
-  "Vans": "Duas lojas outlet, International e Vineland, com preços parecidos.",
-  "Gap": "Gap Factory na International e no Lake Buena Vista (mais tranquila).",
-  "New Balance": "Três Factory Stores: International, Outlet Marketplace e Vineland.",
-  "ASICS": "Prefira a da **Vineland** (scanner de pé e promoções melhores, segundo clientes).",
-  "Oakley": "**Oakley Vault** = outlet da Oakley, nos dois Premium Outlets. Leve a referência do modelo."
- }
+ ]
 }

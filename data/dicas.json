@@ -16,19 +16,6 @@
   "src": ""
  },
  {
-  "id": "do-mais-barato-ao-mais-caro",
-  "t": "Do mais barato ao mais caro",
-  "icon": "tag",
-  "resumo": "A ordem das lojas que faz o dinheiro render, e a lista do que não abre mão.",
-  "b": [
-   "**1º lojas de clearance** (Ross, T.J. Maxx, Marshalls, Burlington, Nike Clearance, Outlet Marketplace) → **2º lojas de departamento** (Macy’s, Kohl’s, JCPenney, com desconto de visitante e clearance no fundo) → **3º hipermercados** (Walmart, Target) → **4º outlets** (Premium Outlets, Lake Buena Vista) → **5º shoppings** (Florida Mall, Millenia).",
-   "Antes de sair, olhe a aba **Lista**: tenha claro o que não abre mão de comprar e em que loja achar, para não gastar o orçamento em outras coisas.",
-   "**O preço da etiqueta não é o final**: some o imposto no caixa (6,5% em Orlando, 7% em Altamonte, 7,5% em Kissimmee).",
-   "Converta antes de comprar: um preço baixo em dólar pode não compensar em reais com câmbio e IOF. Use o conversor da aba Hoje."
-  ],
-  "src": "Fonte: @isaferreiravm (nov/2026)."
- },
- {
   "id": "gift-cards-do-banco-inter-cashback-em-dolar",
   "t": "Gift cards do Banco Inter (cashback em dólar)",
   "icon": "gift",
@@ -198,18 +185,5 @@
    "Bolsa na frente do corpo em lugares cheios; não deixe sacolas visíveis no carro; em Miami, evite andar sozinha à noite fora das áreas movimentadas."
   ],
   "src": ""
- },
- {
-  "id": "aniversario-na-viagem",
-  "t": "Aniversário na viagem",
-  "icon": "gift",
-  "resumo": "Broche grátis da Disney e o que ele pode render nos parques.",
-  "b": [
-   "Na Disney, peça o **broche “Happy Birthday”** grátis no Guest Relations, nas bilheterias ou em lojas dos parques (no EPCOT, por exemplo). O funcionário escreve o nome. Também dá para pegar no Disney Springs ou na recepção de um hotel Disney.",
-   "Pegue o broche **logo na chegada** e use o dia todo: funcionários e personagens dão parabéns, e às vezes restaurantes oferecem uma sobremesa ou um mimo.",
-   "São surpresas possíveis, **não garantidas**: depende da equipe do dia.",
-   "Diga: _\"It's my birthday today!\"_ — eles adoram."
-  ],
-  "src": "Fonte: Disney (programa de comemorações), conferido em 2026."
  }
 ]
