@@ -76,7 +76,7 @@ let toastT; function toast(m) { const t = $("#toast"); t.textContent = m; t.clas
 
 /* ---------------- estado local ---------------- */
 const KEY = "guia.v2";
-const state = { name: "", home: "", homeLat: null, homeLng: null, rate: 0, rateAuto: 0, rateAt: 0, rateManual: false, pos: null, tax: 0.07, theme: "auto", region: "", tripStart: "", tripEnd: "", plan: [], people: [], items: [], done: {}, wx: null, agenda: [] };
+const state = { name: "", home: "", homeLat: null, homeLng: null, rate: 0, rateAuto: 0, rateAt: 0, rateManual: false, pos: null, tax: 0.07, theme: "auto", region: "", tripStart: "", tripEnd: "", routeDate: "", routeOrder: {}, plan: [], people: [], items: [], done: {}, wx: null, agenda: [] };
 function load() {
   try {
     const raw = localStorage.getItem(KEY); if (!raw) return;
@@ -85,6 +85,7 @@ function load() {
     state.homeLat = coord(o.homeLat, 90); state.homeLng = coord(o.homeLng, 180); state.wx = (o.wx && typeof o.wx === "object") ? o.wx : null; state.pos = (o.pos && coord(o.pos.la, 90) != null && coord(o.pos.lo, 180) != null) ? { la: o.pos.la, lo: o.pos.lo, at: num(o.pos.at) } : null; state.tax = [0.065, 0.07, 0.075].includes(o.tax) ? o.tax : 0.07;
     state.theme = ["auto", "light", "dark"].includes(o.theme) ? o.theme : "auto"; state.region = str(o.region, 10);
     state.tripStart = ISO.test(str(o.tripStart, 10)) ? str(o.tripStart, 10) : ""; state.tripEnd = ISO.test(str(o.tripEnd, 10)) ? str(o.tripEnd, 10) : "";
+    state.routeDate = ISO.test(str(o.routeDate, 10)) ? str(o.routeDate, 10) : ""; state.routeOrder = cleanRouteOrder(o.routeOrder);
     state.agenda = cleanAgenda(o.agenda);
     state.plan = cleanPlan(o.plan); state.people = cleanPeople(o.people); state.items = cleanItems(o.items);
     state.done = {}; if (o.done && typeof o.done === "object") for (const k of Object.keys(o.done).slice(0, 2000)) if (o.done[k] === true) state.done[str(k, 60)] = true;
@@ -99,7 +100,8 @@ function save() {
 }
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 function cleanAgenda(a) { return Array.isArray(a) ? a.slice(0, 300).map(x => ({ d: str(x.d, 10), k: ["ev", "pl", "nota"].includes(x.k) ? x.k : "nota", id: str(x.id, 90), n: str(x.n, 160), a: str(x.a, 200) })).filter(x => ISO.test(x.d) && x.n) : []; }
-function cleanPlan(a) { return Array.isArray(a) ? a.slice(0, 30).map(s => ({ id: str(s.id, 80), n: str(s.n, 120), a: str(s.a, 200) })).filter(s => s.id && s.n) : []; }
+function cleanRouteOrder(o) { const out = {}; if (!o || typeof o !== "object") return out; Object.entries(o).slice(0, 60).forEach(([d, ids]) => { if (ISO.test(d) && Array.isArray(ids)) out[d] = ids.slice(0, 40).map(x => str(x, 100)).filter(Boolean); }); return out; }
+function cleanPlan(a) { return Array.isArray(a) ? a.slice(0, 60).map(s => ({ id: str(s.id, 80), n: str(s.n, 120), a: str(s.a, 200), d: ISO.test(str(s.d, 10)) ? str(s.d, 10) : agendaToday() })).filter(s => s.id && s.n) : []; }
 function cleanPeople(a) { return Array.isArray(a) ? a.slice(0, 50).map(p => ({ id: str(p.id, 40), nome: str(p.nome, 60), tam: str(p.tam, 500) })).filter(p => p.id && p.nome) : []; }
 function cleanItems(a) {
   return Array.isArray(a) ? a.slice(0, 500).map(i => ({ id: str(i.id, 40), pessoa: str(i.pessoa, 40), nome: str(i.nome, 120), loja: str(i.loja, 80), cor: str(i.cor, 40), tam: str(i.tam, 40), preco: num(i.preco), link: safeUrl(i.link) || "", obs: str(i.obs, 300), onde: str(i.onde, 160), fotoUrl: safeUrl(i.fotoUrl) || "", foto: safeImg(i.foto) || "" })).filter(i => i.id && i.nome) : [];
@@ -326,24 +328,33 @@ function renderAgenda() {
   if (!mine.length) mbox.appendChild(h("div", { class: "empty", text: "Nada programado para este dia ainda." }));
   mine.forEach(x => mbox.appendChild(h("div", { class: "stop" }, h("span", { class: "num", text: x.k === "ev" ? "★" : x.k === "pl" ? "📍" : "✎" }), h("div", { class: "n" }, x.n, x.a ? h("small", { text: x.a }) : null),
     h("button", { class: "iconbtn", "aria-label": "remover", onClick: () => { state.agenda = state.agenda.filter(y => y !== x); save(); renderAgenda(); } }, icon("x")))));
-  v.appendChild(h("div", { class: "card flat" }, h("b", {}, "Minha programação"), mbox, h("div", { class: "btns" }, h("button", { class: "btn sm tonal", onClick: () => sheetNota(agSel) }, icon("plus"), "Anotar algo"), h("button", { class: "btn sm", onClick: () => go("lojas") }, icon("bag"), "Programar uma loja"))));
+  v.appendChild(h("div", { class: "card flat" }, h("b", {}, "Minha programação"), mbox, h("div", { class: "btns" }, h("button", { class: "btn sm primary", onClick: () => openDayRoute(agSel) }, icon("route"), "Montar rota deste dia"), h("button", { class: "btn sm tonal", onClick: () => sheetNota(agSel) }, icon("plus"), "Anotar algo"), h("button", { class: "btn sm", onClick: () => go("lojas") }, icon("bag"), "Programar uma loja"))));
   // eventos do dia
-  let evs = eventosDoDia(agSel);
+  const allEvs = eventosDoDia(agSel);
+  let evs = allEvs.slice();
   const cats = [...new Set(evs.map(e => e.cat))];
   if (agCat && !cats.includes(agCat) && !(agCat === "gratis")) agCat = "";
+  const filterBox = h("div", { class: "filters agenda-filters" });
+  const list = h("div", { class: "list", id: "agenda-events" });
+  const renderEvents = () => {
+    let filtered = allEvs.slice();
+    if (agCat === "gratis") filtered = filtered.filter(e => e.gratis); else if (agCat) filtered = filtered.filter(e => e.cat === agCat);
+    const order = ["compras", "feira", "gratis", "natal", "parque", "batevolta", "esporte", "show", "tampa"];
+    filtered.sort((a, b) => order.indexOf(a.cat) - order.indexOf(b.cat) || (a.fim.localeCompare(b.fim)));
+    list.replaceChildren();
+    if (!filtered.length) list.appendChild(h("div", { class: "empty" }, h("b", { text: "Nenhum evento cadastrado neste dia." }), h("p", { class: "small muted", text: "Pode ser um bom dia para compras, parque ou uma anotação sua." }), h("button", { class: "btn sm tonal", onClick: () => go("lista") }, icon("bag"), "Abrir lista de compras")));
+    filtered.forEach(e => { const on = state.agenda.some(x => x.d === agSel && x.id === e.id);
+      list.appendChild(h("button", { class: "row", onClick: () => sheetEvento(e) }, h("span", { class: "ico" }, icon(e.cat === "esporte" ? "sale" : e.cat === "compras" ? "bag" : e.cat === "parque" ? "park" : e.cat === "feira" ? "fork" : "cal")),
+        h("span", { class: "t" }, h("b", { text: e.t }), h("span", { text: [e.hora, e.onde, e.gratis ? "grátis" : "", e.ini !== e.fim ? "até " + fmtDia(e.fim, { day: "numeric", month: "short" }) : ""].filter(Boolean).join(" · ") })),
+        on ? h("span", { class: "badge leaf", text: "no meu dia" }) : e.previsto ? h("span", { class: "badge gray", text: "previsto" }) : h("span", { class: "badge " + (CATC[e.cat] || "gray"), text: (CATS[e.cat] || "").split(" ")[0] }), icon("chev", "chev"))); });
+  };
   if (evs.length) {
-    const chip = (lab, on, fn) => h("button", { class: "chip" + (on ? " on" : ""), onClick: () => { fn(); renderAgenda(); } }, lab);
-    v.appendChild(h("div", { class: "filters" }, chip("Todos (" + evs.length + ")", !agCat, () => agCat = ""), chip("Grátis", agCat === "gratis", () => agCat = agCat === "gratis" ? "" : "gratis"), ...cats.filter(c => c !== "gratis").map(c => chip(CATS[c] || c, agCat === c, () => agCat = agCat === c ? "" : c))));
+    const chip = (lab, val) => h("button", { class: "chip" + (!val ? " on" : ""), onClick: () => { agCat = val === "gratis" && agCat === val ? "" : (agCat === val ? "" : val); $$(".chip", filterBox).forEach(b => b.classList.toggle("on", b.dataset.cat === agCat)); renderEvents(); } }, lab);
+    const addChip = (lab, val) => { const b = chip(lab, val); b.dataset.cat = val; b.classList.toggle("on", agCat === val); filterBox.appendChild(b); };
+    addChip("Todos (" + evs.length + ")", ""); addChip("Grátis", "gratis"); cats.filter(c => c !== "gratis").forEach(c => addChip(CATS[c] || c, c));
+    v.appendChild(filterBox);
   }
-  if (agCat === "gratis") evs = evs.filter(e => e.gratis); else if (agCat) evs = evs.filter(e => e.cat === agCat);
-  const order = ["compras", "feira", "gratis", "natal", "parque", "batevolta", "esporte", "show", "tampa"];
-  evs.sort((a, b) => order.indexOf(a.cat) - order.indexOf(b.cat) || (a.fim.localeCompare(b.fim)));
-  const list = h("div", { class: "list" });
-  if (!evs.length) list.appendChild(h("div", { class: "empty" }, h("b", { text: "Nenhum evento cadastrado neste dia." }), h("p", { class: "small muted", text: "Pode ser um bom dia para compras, parque ou uma anotação sua." }), h("button", { class: "btn sm tonal", onClick: () => go("lista") }, icon("bag"), "Abrir lista de compras")));
-  evs.forEach(e => { const on = state.agenda.some(x => x.d === agSel && x.id === e.id);
-    list.appendChild(h("button", { class: "row", onClick: () => sheetEvento(e) }, h("span", { class: "ico" }, icon(e.cat === "esporte" ? "sale" : e.cat === "compras" ? "bag" : e.cat === "parque" ? "park" : e.cat === "feira" ? "fork" : "cal")),
-      h("span", { class: "t" }, h("b", { text: e.t }), h("span", { text: [e.hora, e.onde, e.gratis ? "grátis" : "", e.ini !== e.fim ? "até " + fmtDia(e.fim, { day: "numeric", month: "short" }) : ""].filter(Boolean).join(" · ") })),
-      on ? h("span", { class: "badge leaf", text: "no meu dia" }) : e.previsto ? h("span", { class: "badge gray", text: "previsto" }) : h("span", { class: "badge " + (CATC[e.cat] || "gray"), text: (CATS[e.cat] || "").split(" ")[0] }), icon("chev", "chev"))); });
+  renderEvents();
   v.appendChild(list);
   // meus planos (todos)
   const programados = state.agenda.slice().sort((a, b) => a.d.localeCompare(b.d));
@@ -427,8 +438,7 @@ function renderCompras(v) {
   // marcas
   const marcas = [...new Set(P.filter(p => p.marca).map(p => p.marca))];
   v.appendChild(h("h3", { text: "Marcas: onde fica cada loja" }));
-  v.appendChild(h("div", { class: "brands" }, ...marcas.map(m => { const ls = P.filter(p => p.marca === m), clr = ls.some(p => p.c === "clearance"), np = pendentes(pedidosPara([m])).length;
-    return h("button", { class: "brand", onClick: () => sheetMarca(m) }, h("b", { text: m }), h("span", { text: ls.length + (ls.length === 1 ? " loja" : " lojas") + (clr ? " · clearance" : "") }), np ? h("span", { class: "badge leaf", text: np + (np === 1 ? " pedido" : " pedidos") }) : null); })));
+  v.appendChild(h("div", { class: "brands" }, ...marcas.map(m => h("button", { class: "brand", "aria-label": "Ver lojas " + m, title: m, onClick: () => sheetMarca(m) }, h("span", { class: "brand-wordmark", text: m })))));
   // clearance perto
   const CLR = ["ross", "tjmaxx", "th", "marshalls", "mh", "burlington", "nrack", "bealls", "clearance", "homesense"];
   const perto = P.filter(p => CLR.includes(p.c) && p.la > 27.5).map(p => Object.assign({}, p, { km: origin ? kmBetween(origin.la, origin.lo, p.la, p.lo) : 0 })).sort((a, b) => a.km - b.km).slice(0, 8);
@@ -506,6 +516,13 @@ let nearMode = "lista";
 const nf = { open: false, top: false, type: "", sort: "km" };
 function placeName(p) { return p.n || (D.pontos.tipos[p.c] || {}).n || p.c; }
 function placeId(p) { return (placeName(p) + "|" + p.a).toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 80); }
+function currentRouteDate() { return ISO.test(state.routeDate) ? state.routeDate : agendaToday(); }
+function openDayRoute(iso) {
+  state.routeDate = ISO.test(iso) ? iso : agendaToday();
+  const first = routeStops(state.routeDate)[0], point = first && stopCoords(first);
+  if (point) { here = { la: point.la, lo: point.lo, label: first.n }; state.region = ""; }
+  save(); go("perto");
+}
 function renderPerto() {
   const v = $("#view-perto"); v.replaceChildren(h("h2", { text: "O que tem perto" }));
   const sel = h("select", { onChange: e => setRegion(e.target.value) }, h("option", { value: "", text: "Escolha a região…" }));
@@ -521,9 +538,11 @@ function renderPerto() {
     h("label", { text: "Ou escolha a região" }), sel));
   v.appendChild(h("div", { class: "seg", id: "nearSeg" }, h("button", { class: nearMode === "lista" ? "on" : "", onClick: () => { nearMode = "lista"; renderNear(); } }, "Lista"), h("button", { class: nearMode === "mapa" ? "on" : "", onClick: () => { nearMode = "mapa"; renderNear(); } }, "Mapa")));
   v.appendChild(h("div", { id: "nearHead" })); v.appendChild(h("div", { id: "near" }));
-  v.appendChild(h("h3", { text: "Meu roteiro de hoje" }));
+  const routeDate = currentRouteDate();
+  const routePicker = h("input", { class: "route-date", type: "date", value: routeDate, "aria-label": "Data do roteiro", onChange: () => { const d = str(routePicker.value, 10); if (ISO.test(d)) { state.routeDate = d; save(); renderPerto(); } } });
+  v.appendChild(h("div", { class: "route-heading" }, h("div", {}, h("h3", { text: "Roteiro do dia" }), h("p", { class: "small muted", text: "Inclui automaticamente o que está na Agenda." })), routePicker));
   v.appendChild(h("div", { class: "list", id: "plan" }));
-  v.appendChild(h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: openRoute }, icon("route"), "Abrir rota no Maps"), h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn danger sm", onClick: clearPlan }, "Limpar")));
+  v.appendChild(h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: openRoute }, icon("route"), "Abrir rota no Maps"), h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn danger sm", onClick: clearPlan }, "Limpar extras")));
   v.appendChild(h("p", { class: "small muted", text: "Lojas levantadas em out/2026 (Google Maps). Horários e endereços podem mudar." }));
   if (state.region) { const r = D.pontos.regioes.find(x => x.id === state.region); if (r) here = { la: r.la, lo: r.lo, label: r.n }; }
   renderNear(); renderPlan();
@@ -572,7 +591,7 @@ function renderNear() {
   box.replaceChildren(l);
 }
 function sheetPlace(p) {
-  const t = D.pontos.tipos[p.c] || {}; const id = placeId(p); const inPlan = state.plan.some(s => s.id === id);
+  const t = D.pontos.tipos[p.c] || {}; const id = placeId(p); const inPlan = routeStops(currentRouteDate()).some(s => s.pId === id || s.id === id);
   const st = openStatus(p);
   openSheet(h("h2", { text: placeName(p) }), h("div", { class: "tags" }, h("span", { class: "badge " + (t.bc || "sky"), text: t.b || "" }), p.r ? h("span", { class: "badge gray", text: ratingText(p) + " no Google" }) : null, st ? h("span", { class: "badge " + (st.open ? "leaf" : "coral"), text: st.txt + (st.approx ? " (aprox.)" : "") }) : null),
     h("p", { text: p.a }), p.h ? h("p", { class: "small muted", text: "Horário: " + p.h }) : null,
@@ -580,30 +599,61 @@ function sheetPlace(p) {
     p.dica ? h("div", { class: "callout ok", html: p.dica }) : null,
     pedidosSection(pedidosPonto(p), () => sheetPlace(p)),
     h("div", { class: "btns" }, h("a", { class: "btn primary", href: mapsDir(placeName(p) + ", " + p.a) }, icon("nav"), "Como chegar"), h("a", { class: "btn", href: mapsSearch(placeName(p) + ", " + p.a) }, "Ver no Maps"),
+      h("button", { class: "btn tonal", onClick: () => { here = { la: p.la, lo: p.lo, label: placeName(p) }; state.region = ""; save(); closeSheet(); go("perto"); } }, icon("pin"), "Ver o que tem perto"),
       h("button", { class: "btn tonal", onClick: () => { addStop(p); closeSheet(); } }, icon(inPlan ? "check" : "plus"), inPlan ? "No roteiro" : "Adicionar ao roteiro"), h("button", { class: "btn tonal", onClick: () => sheetProgramarLugar(p) }, icon("cal"), "Programar um dia")),
     h("div", { class: "btns" }, closeBtn()));
 }
-function addStop(p) { const id = placeId(p); if (state.plan.some(s => s.id === id)) { toast("Já está no roteiro"); return; } if (state.plan.length >= 30) { toast("Roteiro cheio"); return; } state.plan.push({ id, n: placeName(p), a: p.a }); save(); renderPlan(); toast("Adicionado ao roteiro"); }
+function findPlaceForQuery(query) {
+  const q = norm(query); if (!q) return null;
+  let best = null, bestScore = 0;
+  D.pontos.pontos.forEach(p => {
+    const n = norm(placeName(p)), a = norm(p.a), words = q.split(" ").filter(w => w.length > 2);
+    const hits = words.filter(w => n.includes(w) || a.includes(w)).length;
+    const score = n === q ? 100 : (n.includes(q) || q.includes(n) ? 90 : hits * 10);
+    if (score > bestScore) { best = p; bestScore = score; }
+  });
+  return bestScore >= 20 ? best : null;
+}
+function stopFromAgenda(x) {
+  const event = x.k === "ev" ? ((D.eventos && D.eventos.eventos) || []).find(e => e.id === x.id) : null;
+  const query = event ? (event.q || event.onde || x.a || x.n) : x.n;
+  const point = x.k === "pl" ? D.pontos.pontos.find(p => placeId(p) === x.id) || findPlaceForQuery(query) : findPlaceForQuery(query);
+  return { id: "agenda:" + x.k + ":" + x.id, pId: point ? placeId(point) : "", n: x.n, a: x.a || (event && event.onde) || (point && point.a) || "", q: point ? placeName(point) + ", " + point.a : query, agenda: true };
+}
+function routeStops(day) {
+  const raw = state.agenda.filter(x => x.d === day && x.k !== "nota").map(stopFromAgenda).concat(state.plan.filter(s => s.d === day).map(s => Object.assign({ q: s.n + ", " + s.a, agenda: false }, s)));
+  const seen = new Set(); const unique = raw.filter(s => { const key = s.pId || norm(s.q || s.n); if (!key || seen.has(key)) return false; seen.add(key); return true; });
+  const order = state.routeOrder[day] || []; const rank = new Map(order.map((id, i) => [id, i]));
+  return unique.sort((a, b) => (rank.has(a.id) ? rank.get(a.id) : 1000 + raw.indexOf(a)) - (rank.has(b.id) ? rank.get(b.id) : 1000 + raw.indexOf(b)));
+}
+function stopCoords(s) { const p = s.pId ? D.pontos.pontos.find(x => placeId(x) === s.pId) : D.pontos.pontos.find(x => placeId(x) === s.id); return p ? { la: p.la, lo: p.lo } : null; }
+function saveRouteOrder(day, stops) { state.routeOrder[day] = stops.map(s => s.id); save(); }
+function addStop(p) {
+  const day = currentRouteDate(), id = placeId(p);
+  if (routeStops(day).some(s => s.pId === id || s.id === id)) { toast("Esse lugar já está no roteiro deste dia"); return; }
+  if (state.plan.filter(s => s.d === day).length >= 30) { toast("Roteiro cheio"); return; }
+  state.plan.push({ id, n: placeName(p), a: p.a, d: day }); save(); renderPlan(); toast("Adicionado ao roteiro de " + fmtDia(day, { day: "numeric", month: "short" }));
+}
 function renderPlan() {
   const box = $("#plan"); if (!box) return; box.replaceChildren();
-  if (!state.plan.length) { box.appendChild(h("div", { class: "empty", text: "Toque numa loja acima e depois em “Adicionar ao roteiro”." })); return; }
-  const km = planTotalKm(); if (km) box.appendChild(h("div", { class: "small muted", style: null, text: state.plan.length + " paradas · ~" + Math.round(km * 1.25) + " km de carro" + (state.homeLat != null ? " saindo da casa" : "") }));
-  state.plan.forEach((s, i) => box.appendChild(h("div", { class: "stop" }, h("span", { class: "num", text: String(i + 1) }), h("div", { class: "n" }, s.n, h("small", { text: s.a })),
-    h("button", { class: "iconbtn", "aria-label": "subir", onClick: () => { if (i > 0) { [state.plan[i - 1], state.plan[i]] = [state.plan[i], state.plan[i - 1]]; save(); renderPlan(); } } }, icon("up")),
-    h("button", { class: "iconbtn", "aria-label": "descer", onClick: () => { if (i < state.plan.length - 1) { [state.plan[i + 1], state.plan[i]] = [state.plan[i], state.plan[i + 1]]; save(); renderPlan(); } } }, icon("down")),
-    h("button", { class: "iconbtn", "aria-label": "remover", onClick: () => { state.plan.splice(i, 1); save(); renderPlan(); } }, icon("x")))));
+  const day = currentRouteDate(), stops = routeStops(day);
+  if (!stops.length) { box.appendChild(h("div", { class: "empty", text: "Programe um lugar na Agenda ou toque em um lugar acima para adicionar à rota deste dia." })); return; }
+  const km = planTotalKm(stops); if (km) box.appendChild(h("div", { class: "small muted", style: null, text: stops.length + " paradas · ~" + Math.round(km * 1.25) + " km de carro" + (state.homeLat != null ? " saindo da casa" : "") }));
+  stops.forEach((s, i) => box.appendChild(h("div", { class: "stop" }, h("span", { class: "num", text: String(i + 1) }), h("div", { class: "n" }, s.n, h("small", { text: s.a || "Local a confirmar no Maps" }), s.agenda ? h("span", { class: "badge leaf", text: "Agenda" }) : null),
+    h("button", { class: "iconbtn", "aria-label": "subir", onClick: () => { if (i > 0) { [stops[i - 1], stops[i]] = [stops[i], stops[i - 1]]; saveRouteOrder(day, stops); renderPlan(); } } }, icon("up")),
+    h("button", { class: "iconbtn", "aria-label": "descer", onClick: () => { if (i < stops.length - 1) { [stops[i + 1], stops[i]] = [stops[i], stops[i + 1]]; saveRouteOrder(day, stops); renderPlan(); } } }, icon("down")),
+    !s.agenda ? h("button", { class: "iconbtn", "aria-label": "remover", onClick: () => { state.plan = state.plan.filter(x => x.id !== s.id || x.d !== day); save(); renderPlan(); } }, icon("x")) : null)));
 }
-function planCoords(s) { const p = D.pontos.pontos.find(x => placeId(x) === s.id); return p ? { la: p.la, lo: p.lo } : null; }
 function autoOrder() {
-  const a = state.plan; if (a.length < 2) { toast("Adicione pelo menos 2 paradas"); return; }
-  let cur = (state.homeLat != null) ? { la: state.homeLat, lo: state.homeLng } : (here ? { la: here.la, lo: here.lo } : planCoords(a[0]));
+  const day = currentRouteDate(), a = routeStops(day); if (a.length < 2) { toast("Adicione pelo menos 2 paradas"); return; }
+  let cur = (state.homeLat != null) ? { la: state.homeLat, lo: state.homeLng } : (here ? { la: here.la, lo: here.lo } : stopCoords(a[0]));
   const rest = a.slice(), out = [];
-  while (rest.length) { let bi = 0, bd = 1e9; rest.forEach((s, i) => { const c = planCoords(s); const d = c && cur ? kmBetween(cur.la, cur.lo, c.la, c.lo) : 1e8; if (d < bd) { bd = d; bi = i; } }); const s = rest.splice(bi, 1)[0]; out.push(s); cur = planCoords(s) || cur; }
-  state.plan = out; save(); renderPlan(); toast("Roteiro ordenado pelo caminho mais curto");
+  while (rest.length) { let bi = 0, bd = 1e9; rest.forEach((s, i) => { const c = stopCoords(s); const d = c && cur ? kmBetween(cur.la, cur.lo, c.la, c.lo) : 1e8; if (d < bd) { bd = d; bi = i; } }); const s = rest.splice(bi, 1)[0]; out.push(s); cur = stopCoords(s) || cur; }
+  saveRouteOrder(day, out); renderPlan(); toast("Roteiro ordenado pelo caminho mais curto");
 }
-function planTotalKm() { let cur = (state.homeLat != null) ? { la: state.homeLat, lo: state.homeLng } : null, tot = 0; state.plan.forEach(s => { const c = planCoords(s); if (c && cur) tot += kmBetween(cur.la, cur.lo, c.la, c.lo); if (c) cur = c; }); return tot; }
-function openRoute() { if (!state.plan.length) { toast("Adicione paradas primeiro"); return; } const stops = state.plan.map(s => s.n + ", " + s.a); window.open(mapsDir(stops[stops.length - 1], state.home || "", stops.slice(0, -1)), "_blank", "noopener"); }
-function clearPlan() { if (!state.plan.length) return; if (!confirm("Limpar o roteiro de hoje?")) return; state.plan = []; save(); renderPlan(); }
+function planTotalKm(stops) { let cur = (state.homeLat != null) ? { la: state.homeLat, lo: state.homeLng } : null, tot = 0; stops.forEach(s => { const c = stopCoords(s); if (c && cur) tot += kmBetween(cur.la, cur.lo, c.la, c.lo); if (c) cur = c; }); return tot; }
+function openRoute() { const stops = routeStops(currentRouteDate()); if (!stops.length) { toast("Adicione paradas primeiro"); return; } const dest = stops.map(s => s.q || (s.n + ", " + s.a)); window.open(mapsDir(dest[dest.length - 1], state.home || "", dest.slice(0, -1)), "_blank", "noopener"); }
+function clearPlan() { const day = currentRouteDate(), count = state.plan.filter(s => s.d === day).length; if (!count) { toast("Não há extras para limpar neste dia"); return; } if (!confirm("Remover os lugares extras deste roteiro? A Agenda não será alterada.")) return; state.plan = state.plan.filter(s => s.d !== day); delete state.routeOrder[day]; save(); renderPlan(); }
 
 
 /* ---------------- pedidos × lojas (cruzamento) ----------------

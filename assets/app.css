@@ -232,6 +232,7 @@ td:first-child{font-weight:700}
 .filters{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .filters::-webkit-scrollbar{display:none}
 .filters .chip{white-space:nowrap;flex:none}
+.agenda-filters{position:sticky;top:58px;z-index:4;margin:0 -4px;padding:8px 4px 10px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .stars{color:var(--sun);font-weight:700}
 .sheet h3.grp{margin-top:18px}
 .sugg.list{margin:8px 0 4px}
@@ -264,10 +265,14 @@ table.sizes td{font-weight:700;font-size:16px}
 
 /* ---------- marcas ---------- */
 .brands{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}
-.brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:12px;border-radius:14px;background:var(--surface);border:1px solid var(--line);cursor:pointer;text-align:left;color:var(--ink);box-shadow:var(--shadow)}
-.brand b{font-size:15px;line-height:1.2}
-.brand span{font-size:12px;color:var(--muted)}
-.brand .badge{margin-top:2px}
+.brand{min-height:68px;display:flex;align-items:center;justify-content:center;padding:9px;border-radius:14px;background:var(--surface);border:1px solid var(--line);cursor:pointer;text-align:center;color:var(--ink);box-shadow:var(--shadow)}
+.brand-wordmark{font-size:15px;font-weight:700;line-height:1.12;letter-spacing:-.035em}
+.brand:nth-child(3n+1) .brand-wordmark{font-family:var(--display);font-size:18px}
+.brand:nth-child(3n+2) .brand-wordmark{text-transform:uppercase;letter-spacing:.04em;font-size:13px}
+.brand:nth-child(3n) .brand-wordmark{font-style:italic}
+.route-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:20px}
+.route-heading h3{margin:0 0 2px}.route-heading p{margin:0}
+.route-date{width:auto!important;min-width:145px;padding:8px 10px!important;font-size:14px!important;border-radius:12px!important}
 @media (max-width:360px){.brands{grid-template-columns:repeat(2,1fr)}}
 
 .item img{cursor:zoom-in;background:#fff}
