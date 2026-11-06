@@ -32,10 +32,12 @@ A aba **Leia-me** da planilha explica cada coluna. Resumo:
 | Lojas | Aba Lojas do app (redes de desconto, por grupo) |
 | Lugares | Regiões, outlets, parques e Miami (grupo com "Parques" ou "Miami" vai para as abas correspondentes) |
 | Dicas | Cartões da aba Dicas (`icone`: compass, gift, phone, car, sale, map, device, tag, fork, dollar, customs, passport, health, bulb) |
-| Pontos / Tipos / Regioes | Planejador "Perto" (precisa de lat/lng) |
+| Pontos / Tipos / Regioes | Planejador "Perto", aba Lojas → Compras (centros, cupons, melhores Walmart/Target) e busca por apelido (coluna `apelidos`); coluna `cupom` diz onde pegar o livro de descontos |
 | Descontos | Chips do dia e lista da semana na aba Hoje |
 | Frases | Frases em inglês para o caixa |
 | Pessoas / Pedidos | Lista da família pré-carregada (pedidos em massa). A coluna `onde` (redes separadas por `;`) faz cada loja e cada ponto do "Perto" mostrar os pedidos que dá para achar ali. Marcações de "comprado" ficam no celular |
+| Eventos | Aba **Agenda**: eventos com data de início/fim, categoria (natal, parque, esporte, show, gratis, feira, compras, tampa), horário, dias da semana e datas sem evento |
+| Lotacao | Previsão de lotação por dia (ex.: Universal) mostrada no calendário e na aba Hoje |
 | Config | Título, subtítulo, versão, imposto e cotação padrão, cota, raio em km |
 
 Tabelas de tamanho ficam só em `data/tamanhos.json` e a tabela de multidão dos parques em `data/descontos.json`
