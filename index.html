@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-il5rtqaGJf+BnkCUkmckRwmRxD1T0U0wZYFQfiPtN5o='; style-src 'sha256-wZbst6PbCwY06iWDljiP89wFRgru/GkdwAgyakphupk='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-Aan2CdEgF/UMrXhUaXsp6Aj8au9UPcNGxcJw/WLX57c='; style-src 'sha256-F5N8T3DIEI5BHO3Ya+1YFXQq4as8edqUmXLOfOj43QY='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#F6F1E8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1413" media="(prefers-color-scheme: dark)">
@@ -887,8 +887,9 @@ td:first-child{font-weight:700}
   border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding-bottom:env(safe-area-inset-bottom,0px)}
 .nav button{border:0;background:none;min-height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px;font-weight:700;color:var(--muted);cursor:pointer;letter-spacing:.02em}
 .nav button.on{color:var(--primary)}
-.nav button .pill{width:46px;height:28px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center}
+.nav button .pill{width:46px;height:28px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;position:relative}
 .nav button.on .pill{background:var(--primary-soft)}
+.navbadge{position:absolute;right:-7px;top:-7px;min-width:17px;height:17px;padding:0 4px;border:2px solid var(--surface);border-radius:10px;background:var(--accent);color:#fff;font-size:10px;line-height:13px;text-align:center}
 
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 14px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;font-size:14px;z-index:50;display:none;max-width:92%;text-align:center}
 .toast.show{display:block}
@@ -919,6 +920,10 @@ td:first-child{font-weight:700}
 .seg.scroll::-webkit-scrollbar{display:none}
 .seg.scroll button{flex:1 0 auto;padding:9px 12px}
 /* ---------- agenda ---------- */
+.agenda-controls{display:flex;align-items:center;gap:8px;margin:2px 0 8px}
+.agenda-controls .agenda-arrow{width:38px;height:38px;border-radius:12px;font-family:var(--display);font-size:28px;line-height:1}
+.agenda-date{flex:1;min-width:0;height:38px;padding:0 8px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:700 14px var(--font)}
+.agenda-today{height:38px}
 .days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
 .days::-webkit-scrollbar{display:none}
 .day{flex:none;width:58px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:8px 0 6px;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;scroll-snap-align:start;color:var(--ink)}
@@ -928,7 +933,7 @@ td:first-child{font-weight:700}
 .day .dots{display:flex;gap:3px;height:8px;margin-top:3px}
 .day .dots .dot{width:6px;height:6px}
 .day.we{background:var(--surface-2)}
-.day.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.day.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary);box-shadow:0 5px 12px color-mix(in srgb,var(--primary) 28%,transparent);transform:translateY(-1px)}
 .day.on .w,.day.on .m{color:var(--on-primary);opacity:.85}
 /* ---------- tabela de tamanhos da pessoa ---------- */
 table.sizes th{background:var(--surface-2);text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink);width:45%;vertical-align:top}
@@ -1098,7 +1103,7 @@ let toastT; function toast(m) { const t = $("#toast"); t.textContent = m; t.clas
 
 /* ---------------- estado local ---------------- */
 const KEY = "guia.v2";
-const state = { name: "", home: "", homeLat: null, homeLng: null, rate: 0, rateAuto: 0, rateAt: 0, rateManual: false, pos: null, tax: 0.07, theme: "auto", region: "", plan: [], people: [], items: [], done: {}, wx: null, agenda: [] };
+const state = { name: "", home: "", homeLat: null, homeLng: null, rate: 0, rateAuto: 0, rateAt: 0, rateManual: false, pos: null, tax: 0.07, theme: "auto", region: "", tripStart: "", tripEnd: "", plan: [], people: [], items: [], done: {}, wx: null, agenda: [] };
 function load() {
   try {
     const raw = localStorage.getItem(KEY); if (!raw) return;
@@ -1106,6 +1111,7 @@ function load() {
     state.name = str(o.name, 40); state.home = str(o.home, 160); state.rate = num(o.rate); state.rateAuto = num(o.rateAuto); state.rateAt = num(o.rateAt); state.rateManual = o.rateManual === true;
     state.homeLat = coord(o.homeLat, 90); state.homeLng = coord(o.homeLng, 180); state.wx = (o.wx && typeof o.wx === "object") ? o.wx : null; state.pos = (o.pos && coord(o.pos.la, 90) != null && coord(o.pos.lo, 180) != null) ? { la: o.pos.la, lo: o.pos.lo, at: num(o.pos.at) } : null; state.tax = [0.065, 0.07, 0.075].includes(o.tax) ? o.tax : 0.07;
     state.theme = ["auto", "light", "dark"].includes(o.theme) ? o.theme : "auto"; state.region = str(o.region, 10);
+    state.tripStart = ISO.test(str(o.tripStart, 10)) ? str(o.tripStart, 10) : ""; state.tripEnd = ISO.test(str(o.tripEnd, 10)) ? str(o.tripEnd, 10) : "";
     state.agenda = cleanAgenda(o.agenda);
     state.plan = cleanPlan(o.plan); state.people = cleanPeople(o.people); state.items = cleanItems(o.items);
     state.done = {}; if (o.done && typeof o.done === "object") for (const k of Object.keys(o.done).slice(0, 2000)) if (o.done[k] === true) state.done[str(k, 60)] = true;
@@ -1115,7 +1121,7 @@ function save() {
   try {
     let json = JSON.stringify(state);
     if (json.length > 3.5e6) { state.items.forEach(i => { if (i.foto) i.foto = ""; }); json = JSON.stringify(state); toast("Fotos locais removidas para liberar espaço"); }
-    localStorage.setItem(KEY, json);
+    localStorage.setItem(KEY, json); updateAgendaBadge();
   } catch { toast("Não consegui salvar (memória cheia?)"); }
 }
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
@@ -1126,6 +1132,11 @@ function cleanItems(a) {
   return Array.isArray(a) ? a.slice(0, 500).map(i => ({ id: str(i.id, 40), pessoa: str(i.pessoa, 40), nome: str(i.nome, 120), loja: str(i.loja, 80), cor: str(i.cor, 40), tam: str(i.tam, 40), preco: num(i.preco), link: safeUrl(i.link) || "", obs: str(i.obs, 300), onde: str(i.onde, 160), fotoUrl: safeUrl(i.fotoUrl) || "", foto: safeImg(i.foto) || "" })).filter(i => i.id && i.nome) : [];
 }
 function applyTheme() { const r = document.documentElement; if (state.theme === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", state.theme); }
+function updateAgendaBadge() {
+  const badge = $("#agendaBadge"); if (!badge) return;
+  const n = state.agenda.filter(x => x.d >= isoDate(new Date())).length;
+  badge.hidden = !n; badge.textContent = n > 9 ? "9+" : String(n);
+}
 
 /* ---------------- dados curados (data/*.json) ---------------- */
 const D = {};
@@ -1298,16 +1309,26 @@ function lotacao(parque, iso) {
   return v >= 70 ? { v, lab: "muito alta", cls: "accent" } : v >= 66 ? { v, lab: "alta", cls: "accent" } : v >= 60 ? { v, lab: "moderada", cls: "sun" } : { v, lab: "baixa", cls: "ok" };
 }
 let agSel = "", agCat = "";
+function agendaToday() { const d = new Date(); return isoDate(new Date(d.getFullYear(), d.getMonth(), d.getDate())); }
+function setAgendaDate(iso) { if (ISO.test(iso)) { agSel = iso; renderAgenda(); } }
 function agRange() {
-  const today = new Date(); const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const evs = (D.eventos && D.eventos.eventos) || []; const lastEv = evs.reduce((m, e) => e.fim > m ? e.fim : m, isoDate(start));
-  const end = new Date(Math.min(parseISO(lastEv).getTime(), start.getTime() + 75 * 864e5));
-  const days = []; for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) days.push(isoDate(d));
-  return days.length ? days : [isoDate(start)];
+  const center = parseISO(agSel || state.tripStart || agendaToday());
+  const days = [];
+  for (let i = -3; i <= 10; i++) { const d = new Date(center); d.setDate(d.getDate() + i); days.push(isoDate(d)); }
+  return days;
 }
 function renderAgenda() {
   const v = $("#view-agenda"); v.replaceChildren(h("h2", { text: "Agenda" }), h("p", { class: "small muted", text: "Escolha o dia e veja o que tem para fazer. Toque num evento para programar." }));
-  const days = agRange(); if (!agSel || !days.includes(agSel)) agSel = days[0];
+  if (!agSel) agSel = state.tripStart || agendaToday();
+  const datePicker = h("input", { class: "agenda-date", type: "date", value: agSel, "aria-label": "Ir para uma data", onChange: () => setAgendaDate(str(datePicker.value, 10)) });
+  const previous = () => { const d = parseISO(agSel); d.setDate(d.getDate() - 7); setAgendaDate(isoDate(d)); };
+  const next = () => { const d = parseISO(agSel); d.setDate(d.getDate() + 7); setAgendaDate(isoDate(d)); };
+  v.appendChild(h("div", { class: "agenda-controls" },
+    h("button", { class: "iconbtn agenda-arrow", "aria-label": "Semana anterior", onClick: previous }, "‹"),
+    datePicker,
+    h("button", { class: "btn sm tonal agenda-today", onClick: () => setAgendaDate(agendaToday()) }, "Hoje"),
+    h("button", { class: "iconbtn agenda-arrow", "aria-label": "Próxima semana", onClick: next }, "›")));
+  const days = agRange();
   const strip = h("div", { class: "days", role: "tablist" });
   days.forEach(iso => {
     const d = parseISO(iso), n = eventosDoDia(iso).length, mine = state.agenda.some(x => x.d === iso), lu = lotacao("universal", iso);
@@ -1320,7 +1341,7 @@ function renderAgenda() {
   setTimeout(() => { const on = $(".day.on", strip); if (on) strip.scrollLeft = on.offsetLeft - 16; }, 0);
   // cabeçalho do dia
   const sel = parseISO(agSel);
-  v.appendChild(h("h3", { text: cap(sel.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })) }));
+  v.appendChild(h("h3", { text: cap(sel.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" })) }));
   const info = h("div", { class: "chips" });
   const lu = lotacao("universal", agSel); if (lu) info.appendChild(h("span", { class: "chip " + lu.cls }, "Universal " + lu.v + "% · " + lu.lab));
   const pw = D.descontos.parques_semana[String(sel.getDay())]; if (pw) { const cls = { "🟢": "g", "🔵": "b", "🟡": "y", "🔴": "r" }; ["Magic Kingdom", "EPCOT", "Animal Kingdom", "Hollywood"].forEach((n, i) => info.appendChild(h("button", { class: "chip", onClick: sheetParksWeek }, h("i", { class: "dot " + (cls[pw[i]] || "y") }), n))); }
@@ -1345,17 +1366,17 @@ function renderAgenda() {
   const order = ["compras", "feira", "gratis", "natal", "parque", "batevolta", "esporte", "show", "tampa"];
   evs.sort((a, b) => order.indexOf(a.cat) - order.indexOf(b.cat) || (a.fim.localeCompare(b.fim)));
   const list = h("div", { class: "list" });
-  if (!evs.length) list.appendChild(h("div", { class: "empty", text: "Nenhum evento cadastrado neste dia. Bom dia para compras ou parque!" }));
+  if (!evs.length) list.appendChild(h("div", { class: "empty" }, h("b", { text: "Nenhum evento cadastrado neste dia." }), h("p", { class: "small muted", text: "Pode ser um bom dia para compras, parque ou uma anotação sua." }), h("button", { class: "btn sm tonal", onClick: () => go("lista") }, icon("bag"), "Abrir lista de compras")));
   evs.forEach(e => { const on = state.agenda.some(x => x.d === agSel && x.id === e.id);
     list.appendChild(h("button", { class: "row", onClick: () => sheetEvento(e) }, h("span", { class: "ico" }, icon(e.cat === "esporte" ? "sale" : e.cat === "compras" ? "bag" : e.cat === "parque" ? "park" : e.cat === "feira" ? "fork" : "cal")),
       h("span", { class: "t" }, h("b", { text: e.t }), h("span", { text: [e.hora, e.onde, e.gratis ? "grátis" : "", e.ini !== e.fim ? "até " + fmtDia(e.fim, { day: "numeric", month: "short" }) : ""].filter(Boolean).join(" · ") })),
       on ? h("span", { class: "badge leaf", text: "no meu dia" }) : e.previsto ? h("span", { class: "badge gray", text: "previsto" }) : h("span", { class: "badge " + (CATC[e.cat] || "gray"), text: (CATS[e.cat] || "").split(" ")[0] }), icon("chev", "chev"))); });
   v.appendChild(list);
   // meus planos (todos)
-  const futuros = state.agenda.filter(x => x.d >= isoDate(new Date())).sort((a, b) => a.d.localeCompare(b.d));
-  if (futuros.length) {
+  const programados = state.agenda.slice().sort((a, b) => a.d.localeCompare(b.d));
+  if (programados.length) {
     v.appendChild(h("h3", { text: "Tudo o que programei" }));
-    v.appendChild(h("div", { class: "list" }, ...futuros.map(x => h("button", { class: "row", onClick: () => { agSel = x.d; renderAgenda(); window.scrollTo({ top: 0 }); } }, h("span", { class: "badge gray", text: fmtDia(x.d, { day: "2-digit", month: "2-digit" }) }), h("span", { class: "t" }, h("b", { text: x.n }), h("span", { text: x.a || "" })), icon("chev", "chev")))));
+    v.appendChild(h("div", { class: "list" }, ...programados.map(x => h("button", { class: "row", onClick: () => { agSel = x.d; renderAgenda(); window.scrollTo({ top: 0 }); } }, h("span", { class: "badge gray", text: fmtDia(x.d, { day: "2-digit", month: "2-digit" }) }), h("span", { class: "t" }, h("b", { text: x.n }), h("span", { text: x.a || "" })), icon("chev", "chev")))));
   }
   const fontes = [...new Set(((D.eventos && D.eventos.eventos) || []).map(e => e.fonte).filter(Boolean))];
   v.appendChild(h("p", { class: "src", text: "Fontes: " + fontes.join(" · ") + ". Datas e horários podem mudar: confira no site oficial antes de ir." }));
@@ -1867,12 +1888,17 @@ function sheetSettings() {
   const home = h("input", { type: "text", value: state.home, placeholder: "Endereço da hospedagem (fica só neste celular)", maxlength: 160 });
   const rate = h("input", { type: "number", inputmode: "decimal", step: "0.01", value: state.rateManual ? state.rate : "", placeholder: state.rateAuto ? "Automática: " + String(state.rateAuto).replace(".", ",") : "Ex.: 5,40" });
   const theme = h("select", {}, h("option", { value: "auto", text: "Automático" }), h("option", { value: "light", text: "Claro" }), h("option", { value: "dark", text: "Escuro" })); theme.value = state.theme;
+  const tripStart = h("input", { type: "date", value: state.tripStart });
+  const tripEnd = h("input", { type: "date", value: state.tripEnd });
   const geoInfo = h("p", { class: "small muted", text: state.homeLat != null ? "Endereço localizado no mapa ✓ (usado para distâncias e clima)" : "Ao salvar com internet, o endereço é localizado no mapa para calcular distâncias." });
-  openSheet(h("h2", { text: "Configurações" }), h("label", { text: "Seu nome" }), name, h("label", { text: "Endereço da casa" }), home, geoInfo, h("label", { text: "Cotação do dólar (R$) — deixe vazio para automática" }), rate, h("label", { text: "Aparência" }), theme,
+  openSheet(h("h2", { text: "Configurações" }), h("label", { text: "Seu nome" }), name, h("label", { text: "Endereço da casa" }), home, geoInfo, h("label", { text: "Cotação do dólar (R$) — deixe vazio para automática" }), rate, h("label", { text: "Início da viagem (opcional)" }), tripStart, h("label", { text: "Fim da viagem (opcional)" }), tripEnd, h("p", { class: "small muted", text: "A Agenda abre nesta data quando você definir o período da viagem." }), h("label", { text: "Aparência" }), theme,
     h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: async () => {
+      const start = str(tripStart.value, 10), end = str(tripEnd.value, 10);
+      if ((start && !ISO.test(start)) || (end && !ISO.test(end))) { toast("Informe datas válidas"); return; }
+      if (start && end && start > end) { toast("O fim da viagem precisa ser depois do início"); return; }
       state.name = str(name.value, 40); const newHome = str(home.value, 160); const changed = newHome !== state.home; state.home = newHome;
       const r = num(rate.value); state.rateManual = r > 0; if (r > 0) state.rate = r;
-      state.theme = theme.value; save(); applyTheme(); closeSheet(); renderHoje(); toast("Salvo");
+      state.tripStart = start; state.tripEnd = end; state.theme = theme.value; save(); applyTheme(); closeSheet(); renderHoje(); toast("Salvo");
       if (changed) { state.homeLat = null; state.homeLng = null; save(); }
       if (newHome && state.homeLat == null && navigator.onLine) { try { const g = await geocode(newHome); if (g) { state.homeLat = g.la; state.homeLng = g.lo; save(); toast("Endereço localizado no mapa"); refreshWeather(true); renderPerto(); } else toast("Não achei o endereço no mapa; confira a grafia"); } catch { /* offline ou falha: fica sem coordenadas */ } }
       if (!state.rateManual) refreshRate(true);
