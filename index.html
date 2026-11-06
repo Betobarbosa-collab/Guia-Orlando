@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-1kbXgJ2GSobZot4SL74P4hqz6K2zbxTHwZmtUBpgXqQ='; style-src 'sha256-fokPWxWfSVWGax9Mlr6iETiMyhsDoDKHkLb8PP8d0R4='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-S+vuFBk/GU49ScrDWCTrs8mu3VCjDOEY8HolvducQxM='; style-src 'sha256-QDu4a+PeKN17tIvtUOkmHD54rDqTRYCr36BSsqvQfHY='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#F6F1E8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1413" media="(prefers-color-scheme: dark)">
@@ -944,13 +944,17 @@ table.sizes td{font-weight:700;font-size:16px}
 /* ---------- marcas ---------- */
 .brands{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}
 .brand{min-height:68px;display:flex;align-items:center;justify-content:center;padding:9px;border-radius:14px;background:var(--surface);border:1px solid var(--line);cursor:pointer;text-align:center;color:var(--ink);box-shadow:var(--shadow)}
+.brand-logo{display:block;width:100%;max-width:102px;height:36px;object-fit:contain}
 .brand-wordmark{font-size:15px;font-weight:700;line-height:1.12;letter-spacing:-.035em}
 .brand:nth-child(3n+1) .brand-wordmark{font-family:var(--display);font-size:18px}
 .brand:nth-child(3n+2) .brand-wordmark{text-transform:uppercase;letter-spacing:.04em;font-size:13px}
 .brand:nth-child(3n) .brand-wordmark{font-style:italic}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand-logo[src$="nike.svg"],:root:not([data-theme="light"]) .brand-logo[src$="adidas.svg"],:root:not([data-theme="light"]) .brand-logo[src$="newbalance.svg"]{filter:invert(1)}}
+:root[data-theme="dark"] .brand-logo[src$="nike.svg"],:root[data-theme="dark"] .brand-logo[src$="adidas.svg"],:root[data-theme="dark"] .brand-logo[src$="newbalance.svg"]{filter:invert(1)}
 .route-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:20px}
 .route-heading h3{margin:0 0 2px}.route-heading p{margin:0}
 .route-date{width:auto!important;min-width:145px;padding:8px 10px!important;font-size:14px!important;border-radius:12px!important}
+.route-maps{margin:0 0 10px}
 @media (max-width:360px){.brands{grid-template-columns:repeat(2,1fr)}}
 
 .item img{cursor:zoom-in;background:#fff}
@@ -1088,7 +1092,11 @@ function rich(text) {
   return frag;
 }
 function safeUrl(u) { if (!u || !String(u).trim()) return null; try { const x = new URL(String(u), location.href); return (x.protocol === "https:" || x.protocol === "http:") ? x.href : null; } catch { return null; } }
-function safeImg(u) { return (typeof u === "string" && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(u) && u.length < 300000) ? u : null; }
+function safeImg(u) {
+  if (typeof u !== "string") return null;
+  if (/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(u) && u.length < 300000) return u;
+  try { const x = new URL(u, location.href); return x.origin === location.origin && x.pathname.includes("/assets/logos/") ? x.href : null; } catch { return null; }
+}
 function str(v, max = 300) { return String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, max); }
 function coord(v, lim) { const n = parseFloat(v); return Number.isFinite(n) && Math.abs(n) <= lim ? n : null; }
 function num(v) { const n = parseFloat(String(v ?? "").replace(",", ".")); return Number.isFinite(n) && n >= 0 && n < 1e7 ? n : 0; }
@@ -1424,6 +1432,8 @@ function sheetProgramarLugar(p) {
 
 /* ---------------- LOJAS (redes · lugares · parques · miami) ---------------- */
 let seg = "compras", query = "";
+const BRAND_LOGOS = { "Nike": "nike", "adidas": "adidas", "Tommy Hilfiger": "tommyhilfiger", "The North Face": "thenorthface", "Vans": "vans", "Gap": "gap", "New Balance": "newbalance", "ASICS": "asics", "Oakley": "oakley" };
+function brandVisual(m) { const slug = BRAND_LOGOS[m]; return slug ? h("img", { class: "brand-logo", src: "assets/logos/" + slug + ".svg", alt: m, loading: "lazy" }) : h("span", { class: "brand-wordmark", text: m }); }
 function segments() {
   const lug = D.lugares;
   return {
@@ -1470,7 +1480,7 @@ function renderCompras(v) {
   // marcas
   const marcas = [...new Set(P.filter(p => p.marca).map(p => p.marca))];
   v.appendChild(h("h3", { text: "Marcas: onde fica cada loja" }));
-  v.appendChild(h("div", { class: "brands" }, ...marcas.map(m => h("button", { class: "brand", "aria-label": "Ver lojas " + m, title: m, onClick: () => sheetMarca(m) }, h("span", { class: "brand-wordmark", text: m })))));
+  v.appendChild(h("div", { class: "brands" }, ...marcas.map(m => h("button", { class: "brand", "aria-label": "Ver lojas " + m, title: m, onClick: () => sheetMarca(m) }, brandVisual(m)))));
   // clearance perto
   const CLR = ["ross", "tjmaxx", "th", "marshalls", "mh", "burlington", "nrack", "bealls", "clearance", "homesense"];
   const perto = P.filter(p => CLR.includes(p.c) && p.la > 27.5).map(p => Object.assign({}, p, { km: origin ? kmBetween(origin.la, origin.lo, p.la, p.lo) : 0 })).sort((a, b) => a.km - b.km).slice(0, 8);
@@ -1574,7 +1584,8 @@ function renderPerto() {
   const routePicker = h("input", { class: "route-date", type: "date", value: routeDate, "aria-label": "Data do roteiro", onChange: () => { const d = str(routePicker.value, 10); if (ISO.test(d)) { state.routeDate = d; save(); renderPerto(); } } });
   v.appendChild(h("div", { class: "route-heading" }, h("div", {}, h("h3", { text: "Roteiro do dia" }), h("p", { class: "small muted", text: "Inclui automaticamente o que está na Agenda." })), routePicker));
   v.appendChild(h("div", { class: "list", id: "plan" }));
-  v.appendChild(h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: openRoute }, icon("route"), "Abrir rota no Maps"), h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn danger sm", onClick: clearPlan }, "Limpar extras")));
+  if (routeStops(routeDate).length) v.appendChild(h("button", { class: "btn primary block route-maps", onClick: openRoute }, icon("route"), "Abrir trajeto no Google Maps"));
+  v.appendChild(h("div", { class: "btns" }, h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn danger sm", onClick: clearPlan }, "Limpar extras")));
   v.appendChild(h("p", { class: "small muted", text: "Lojas levantadas em out/2026 (Google Maps). Horários e endereços podem mudar." }));
   if (state.region) { const r = D.pontos.regioes.find(x => x.id === state.region); if (r) here = { la: r.la, lo: r.lo, label: r.n }; }
   renderNear(); renderPlan();
