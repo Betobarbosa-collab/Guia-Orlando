@@ -56,7 +56,11 @@ function rich(text) {
   return frag;
 }
 function safeUrl(u) { if (!u || !String(u).trim()) return null; try { const x = new URL(String(u), location.href); return (x.protocol === "https:" || x.protocol === "http:") ? x.href : null; } catch { return null; } }
-function safeImg(u) { return (typeof u === "string" && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(u) && u.length < 300000) ? u : null; }
+function safeImg(u) {
+  if (typeof u !== "string") return null;
+  if (/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(u) && u.length < 300000) return u;
+  try { const x = new URL(u, location.href); return x.origin === location.origin && x.pathname.includes("/assets/logos/") ? x.href : null; } catch { return null; }
+}
 function str(v, max = 300) { return String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, max); }
 function coord(v, lim) { const n = parseFloat(v); return Number.isFinite(n) && Math.abs(n) <= lim ? n : null; }
 function num(v) { const n = parseFloat(String(v ?? "").replace(",", ".")); return Number.isFinite(n) && n >= 0 && n < 1e7 ? n : 0; }
@@ -392,6 +396,8 @@ function sheetProgramarLugar(p) {
 
 /* ---------------- LOJAS (redes · lugares · parques · miami) ---------------- */
 let seg = "compras", query = "";
+const BRAND_LOGOS = { "Nike": "nike", "adidas": "adidas", "Tommy Hilfiger": "tommyhilfiger", "The North Face": "thenorthface", "Vans": "vans", "Gap": "gap", "New Balance": "newbalance", "ASICS": "asics", "Oakley": "oakley" };
+function brandVisual(m) { const slug = BRAND_LOGOS[m]; return slug ? h("img", { class: "brand-logo", src: "assets/logos/" + slug + ".svg", alt: m, loading: "lazy" }) : h("span", { class: "brand-wordmark", text: m }); }
 function segments() {
   const lug = D.lugares;
   return {
@@ -438,7 +444,7 @@ function renderCompras(v) {
   // marcas
   const marcas = [...new Set(P.filter(p => p.marca).map(p => p.marca))];
   v.appendChild(h("h3", { text: "Marcas: onde fica cada loja" }));
-  v.appendChild(h("div", { class: "brands" }, ...marcas.map(m => h("button", { class: "brand", "aria-label": "Ver lojas " + m, title: m, onClick: () => sheetMarca(m) }, h("span", { class: "brand-wordmark", text: m })))));
+  v.appendChild(h("div", { class: "brands" }, ...marcas.map(m => h("button", { class: "brand", "aria-label": "Ver lojas " + m, title: m, onClick: () => sheetMarca(m) }, brandVisual(m)))));
   // clearance perto
   const CLR = ["ross", "tjmaxx", "th", "marshalls", "mh", "burlington", "nrack", "bealls", "clearance", "homesense"];
   const perto = P.filter(p => CLR.includes(p.c) && p.la > 27.5).map(p => Object.assign({}, p, { km: origin ? kmBetween(origin.la, origin.lo, p.la, p.lo) : 0 })).sort((a, b) => a.km - b.km).slice(0, 8);
@@ -542,7 +548,8 @@ function renderPerto() {
   const routePicker = h("input", { class: "route-date", type: "date", value: routeDate, "aria-label": "Data do roteiro", onChange: () => { const d = str(routePicker.value, 10); if (ISO.test(d)) { state.routeDate = d; save(); renderPerto(); } } });
   v.appendChild(h("div", { class: "route-heading" }, h("div", {}, h("h3", { text: "Roteiro do dia" }), h("p", { class: "small muted", text: "Inclui automaticamente o que está na Agenda." })), routePicker));
   v.appendChild(h("div", { class: "list", id: "plan" }));
-  v.appendChild(h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: openRoute }, icon("route"), "Abrir rota no Maps"), h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn danger sm", onClick: clearPlan }, "Limpar extras")));
+  if (routeStops(routeDate).length) v.appendChild(h("button", { class: "btn primary block route-maps", onClick: openRoute }, icon("route"), "Abrir trajeto no Google Maps"));
+  v.appendChild(h("div", { class: "btns" }, h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn danger sm", onClick: clearPlan }, "Limpar extras")));
   v.appendChild(h("p", { class: "small muted", text: "Lojas levantadas em out/2026 (Google Maps). Horários e endereços podem mudar." }));
   if (state.region) { const r = D.pontos.regioes.find(x => x.id === state.region); if (r) here = { la: r.la, lo: r.lo, label: r.n }; }
   renderNear(); renderPlan();

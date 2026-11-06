@@ -266,13 +266,17 @@ table.sizes td{font-weight:700;font-size:16px}
 /* ---------- marcas ---------- */
 .brands{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}
 .brand{min-height:68px;display:flex;align-items:center;justify-content:center;padding:9px;border-radius:14px;background:var(--surface);border:1px solid var(--line);cursor:pointer;text-align:center;color:var(--ink);box-shadow:var(--shadow)}
+.brand-logo{display:block;width:100%;max-width:102px;height:36px;object-fit:contain}
 .brand-wordmark{font-size:15px;font-weight:700;line-height:1.12;letter-spacing:-.035em}
 .brand:nth-child(3n+1) .brand-wordmark{font-family:var(--display);font-size:18px}
 .brand:nth-child(3n+2) .brand-wordmark{text-transform:uppercase;letter-spacing:.04em;font-size:13px}
 .brand:nth-child(3n) .brand-wordmark{font-style:italic}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand-logo[src$="nike.svg"],:root:not([data-theme="light"]) .brand-logo[src$="adidas.svg"],:root:not([data-theme="light"]) .brand-logo[src$="newbalance.svg"]{filter:invert(1)}}
+:root[data-theme="dark"] .brand-logo[src$="nike.svg"],:root[data-theme="dark"] .brand-logo[src$="adidas.svg"],:root[data-theme="dark"] .brand-logo[src$="newbalance.svg"]{filter:invert(1)}
 .route-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:20px}
 .route-heading h3{margin:0 0 2px}.route-heading p{margin:0}
 .route-date{width:auto!important;min-width:145px;padding:8px 10px!important;font-size:14px!important;border-radius:12px!important}
+.route-maps{margin:0 0 10px}
 @media (max-width:360px){.brands{grid-template-columns:repeat(2,1fr)}}
 
 .item img{cursor:zoom-in;background:#fff}
