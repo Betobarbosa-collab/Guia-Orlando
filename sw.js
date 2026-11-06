@@ -1,6 +1,6 @@
 /* Service worker gerado por tools/build_site.py — não edite à mão.
    O app é um arquivo só (index.html). Com internet, pega sempre a versão nova; sem internet, usa a guardada. */
-const CACHE = "guia-38744a2b3c";
+const CACHE = "guia-7c84b424ff";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/icon-512-maskable.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.svg"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 const IMG = "guia-img"; // fotos dos pedidos: ficam guardadas entre versões
