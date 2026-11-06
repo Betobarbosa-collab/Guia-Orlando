@@ -76,7 +76,7 @@ let toastT; function toast(m) { const t = $("#toast"); t.textContent = m; t.clas
 
 /* ---------------- estado local ---------------- */
 const KEY = "guia.v2";
-const state = { name: "", home: "", homeLat: null, homeLng: null, rate: 0, rateAuto: 0, rateAt: 0, rateManual: false, pos: null, tax: 0.07, theme: "auto", region: "", plan: [], people: [], items: [], done: {}, wx: null };
+const state = { name: "", home: "", homeLat: null, homeLng: null, rate: 0, rateAuto: 0, rateAt: 0, rateManual: false, pos: null, tax: 0.07, theme: "auto", region: "", plan: [], people: [], items: [], done: {}, wx: null, agenda: [] };
 function load() {
   try {
     const raw = localStorage.getItem(KEY); if (!raw) return;
@@ -84,6 +84,7 @@ function load() {
     state.name = str(o.name, 40); state.home = str(o.home, 160); state.rate = num(o.rate); state.rateAuto = num(o.rateAuto); state.rateAt = num(o.rateAt); state.rateManual = o.rateManual === true;
     state.homeLat = coord(o.homeLat, 90); state.homeLng = coord(o.homeLng, 180); state.wx = (o.wx && typeof o.wx === "object") ? o.wx : null; state.pos = (o.pos && coord(o.pos.la, 90) != null && coord(o.pos.lo, 180) != null) ? { la: o.pos.la, lo: o.pos.lo, at: num(o.pos.at) } : null; state.tax = [0.065, 0.07, 0.075].includes(o.tax) ? o.tax : 0.07;
     state.theme = ["auto", "light", "dark"].includes(o.theme) ? o.theme : "auto"; state.region = str(o.region, 10);
+    state.agenda = cleanAgenda(o.agenda);
     state.plan = cleanPlan(o.plan); state.people = cleanPeople(o.people); state.items = cleanItems(o.items);
     state.done = {}; if (o.done && typeof o.done === "object") for (const k of Object.keys(o.done).slice(0, 2000)) if (o.done[k] === true) state.done[str(k, 60)] = true;
   } catch { /* dados corrompidos: começa do zero */ }
@@ -95,6 +96,8 @@ function save() {
     localStorage.setItem(KEY, json);
   } catch { toast("Não consegui salvar (memória cheia?)"); }
 }
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
+function cleanAgenda(a) { return Array.isArray(a) ? a.slice(0, 300).map(x => ({ d: str(x.d, 10), k: ["ev", "pl", "nota"].includes(x.k) ? x.k : "nota", id: str(x.id, 90), n: str(x.n, 160), a: str(x.a, 200) })).filter(x => ISO.test(x.d) && x.n) : []; }
 function cleanPlan(a) { return Array.isArray(a) ? a.slice(0, 30).map(s => ({ id: str(s.id, 80), n: str(s.n, 120), a: str(s.a, 200) })).filter(s => s.id && s.n) : []; }
 function cleanPeople(a) { return Array.isArray(a) ? a.slice(0, 50).map(p => ({ id: str(p.id, 40), nome: str(p.nome, 60), tam: str(p.tam, 500) })).filter(p => p.id && p.nome) : []; }
 function cleanItems(a) {
@@ -105,7 +108,7 @@ function applyTheme() { const r = document.documentElement; if (state.theme === 
 /* ---------------- dados curados (data/*.json) ---------------- */
 const D = {};
 async function loadData() {
-  const files = ["config", "descontos", "lojas", "lugares", "dicas", "pontos", "frases", "tamanhos", "pedidos"];
+  const files = ["config", "descontos", "lojas", "lugares", "dicas", "pontos", "frases", "tamanhos", "pedidos", "eventos"];
   const emb = document.getElementById("data-embed");
   if (emb) { const all = JSON.parse(emb.textContent); files.forEach(f => { if (!all[f]) throw new Error(f); D[f] = all[f]; }); return; }
   const res = await Promise.all(files.map(f => fetch("data/" + f + ".json", { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(f); return r.json(); })));
@@ -120,6 +123,7 @@ function go(view, push = true) {
   $$(".view").forEach(v => v.classList.toggle("active", v.dataset.view === view));
   $$("#nav button").forEach(b => b.classList.toggle("on", b.dataset.go === view));
   if (view === "perto" && D.pontos) renderPerto();
+  if (view === "agenda" && D.eventos) renderAgenda();
   if (view === "hoje" && D.pontos) { renderHoje(); autoGeoHoje(); }
   if (push && location.hash !== "#" + view) history.replaceState(null, "", "#" + view);
   window.scrollTo({ top: 0 });
@@ -162,6 +166,7 @@ function renderHoje() {
   today.forEach(s => chips.appendChild(h("button", { class: "chip sun", onClick: () => sheetSenior(s) }, icon("tag"), s.loja + " " + s.desc + " hoje")));
   if (!today.length) chips.appendChild(h("span", { class: "chip ghost" }, "Sem desconto por idade hoje — bom dia para outlets"));
   const wc = weatherChip(); if (wc) chips.appendChild(wc);
+  const lu = lotacao("universal", isoDate(now)); if (lu) chips.appendChild(h("button", { class: "chip " + lu.cls, onClick: () => { agSel = isoDate(now); go("agenda"); } }, icon("park"), "Universal hoje " + lu.v + "% · " + lu.lab));
   const np = pendentes(allItems()).length; if (np) chips.appendChild(h("button", { class: "chip ok", onClick: () => go("lista") }, icon("list"), np + " pedidos em aberto"));
   const nft = nextFirstTuesday(now); if (nft && !(now.getDay() === 2 && now.getDate() <= 7)) chips.appendChild(h("span", { class: "chip ghost" }, "Walgreens 20%: " + nft.toLocaleDateString("pt-BR", { day: "numeric", month: "short" })));
   v.appendChild(chips);
@@ -195,6 +200,13 @@ function renderHoje() {
     list.appendChild(h("button", { class: "row", onClick: () => { if (origin.gps) here = { la: origin.la, lo: origin.lo, label: "onde você está" }; go("perto"); } }, h("span", { class: "ico" }, icon("pin")), h("span", { class: "t" }, h("b", { text: "Ver tudo o que tem perto" })), icon("chev", "chev")));
     v.appendChild(list);
   }
+  // agenda de hoje
+  const hojeISO = isoDate(now), meus = state.agenda.filter(x => x.d === hojeISO), evs = eventosDoDia(hojeISO);
+  v.appendChild(h("h3", { text: "Hoje na agenda" }));
+  const ag = h("div", { class: "list" });
+  meus.forEach(x => ag.appendChild(h("button", { class: "row", onClick: () => { agSel = hojeISO; go("agenda"); } }, h("span", { class: "ico" }, icon(x.k === "ev" ? "cal" : x.k === "pl" ? "pin" : "list")), h("span", { class: "t" }, h("b", { text: x.n }), h("span", { text: x.a || "Programado por você" })), icon("chev", "chev"))));
+  ag.appendChild(h("button", { class: "row", onClick: () => { agSel = hojeISO; go("agenda"); } }, h("span", { class: "ico" }, icon("cal")), h("span", { class: "t" }, h("b", { text: evs.length ? evs.length + (evs.length === 1 ? " evento hoje" : " eventos hoje") : "Ver a agenda da semana" }), h("span", { text: evs.length ? evs.slice(0, 3).map(e => e.t).join(" · ") : "Natal, shows, jogos e passeios" })), icon("chev", "chev")));
+  v.appendChild(ag);
   // semana
   v.appendChild(h("h3", { text: "Descontos por idade na semana" }));
   const list = h("div", { class: "list" });
@@ -248,8 +260,111 @@ function sheetConverter() {
   openSheet(h("h2", { text: "Quanto vai custar em reais" }), h("label", { text: "Preço na etiqueta (US$)" }), usd, h("label", { text: "Onde está comprando (imposto)" }), tax, h("label", { text: "Cotação do dólar (R$)" }), rate, h("p", { class: "small muted", text: src }), out, h("p", { class: "small muted", text: "O imposto é cobrado no caixa, por cima da etiqueta. Não existe devolução de imposto para turista na Flórida." }), closeBtn());
 }
 
+
+/* ---------------- AGENDA (eventos + programação dela) ---------------- */
+const CATS = { natal: "Natal e luzes", parque: "Festas nos parques", esporte: "Esportes", show: "Shows e teatro", gratis: "Grátis", feira: "Feiras", compras: "Compras e promoções", batevolta: "Bate-volta de carro", tampa: "Tampa e região" };
+const CATC = { natal: "coral", parque: "sun", esporte: "sky", show: "sky", gratis: "leaf", feira: "leaf", compras: "sun", batevolta: "sky", tampa: "gray" };
+function isoDate(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function parseISO(s) { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); }
+function fmtDia(s, opt) { return parseISO(s).toLocaleDateString("pt-BR", opt || { weekday: "short", day: "numeric", month: "short" }).replace(".", ""); }
+function eventosDoDia(iso) {
+  const dow = parseISO(iso).getDay();
+  return ((D.eventos && D.eventos.eventos) || []).filter(e => e.ini <= iso && iso <= e.fim && (!Array.isArray(e.dow) || e.dow.includes(dow)) && !(e.exceto || []).includes(iso));
+}
+function lotacao(parque, iso) {
+  const L = D.eventos && D.eventos.lotacao && D.eventos.lotacao[parque]; const v = L && L.dias && L.dias[iso]; if (v == null) return null;
+  return v >= 70 ? { v, lab: "muito alta", cls: "accent" } : v >= 66 ? { v, lab: "alta", cls: "accent" } : v >= 60 ? { v, lab: "moderada", cls: "sun" } : { v, lab: "baixa", cls: "ok" };
+}
+let agSel = "", agCat = "";
+function agRange() {
+  const today = new Date(); const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const evs = (D.eventos && D.eventos.eventos) || []; const lastEv = evs.reduce((m, e) => e.fim > m ? e.fim : m, isoDate(start));
+  const end = new Date(Math.min(parseISO(lastEv).getTime(), start.getTime() + 75 * 864e5));
+  const days = []; for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) days.push(isoDate(d));
+  return days.length ? days : [isoDate(start)];
+}
+function renderAgenda() {
+  const v = $("#view-agenda"); v.replaceChildren(h("h2", { text: "Agenda" }), h("p", { class: "small muted", text: "Escolha o dia e veja o que tem para fazer. Toque num evento para programar." }));
+  const days = agRange(); if (!agSel || !days.includes(agSel)) agSel = days[0];
+  const strip = h("div", { class: "days", role: "tablist" });
+  days.forEach(iso => {
+    const d = parseISO(iso), n = eventosDoDia(iso).length, mine = state.agenda.some(x => x.d === iso), lu = lotacao("universal", iso);
+    const b = h("button", { class: "day" + (iso === agSel ? " on" : "") + (d.getDay() === 0 || d.getDay() === 6 ? " we" : ""), "aria-selected": iso === agSel ? "true" : "false", onClick: () => { agSel = iso; renderAgenda(); } },
+      h("span", { class: "w", text: DIAS_C[d.getDay()] }), h("span", { class: "n", text: String(d.getDate()) }), h("span", { class: "m", text: d.toLocaleDateString("pt-BR", { month: "short" }).replace(".", "") }),
+      h("span", { class: "dots" }, n ? h("i", { class: "dot y" }) : null, mine ? h("i", { class: "dot g" }) : null, lu && lu.v >= 60 ? h("i", { class: "dot r" }) : null));
+    strip.appendChild(b);
+  });
+  v.appendChild(strip);
+  setTimeout(() => { const on = $(".day.on", strip); if (on) strip.scrollLeft = on.offsetLeft - 16; }, 0);
+  // cabeçalho do dia
+  const sel = parseISO(agSel);
+  v.appendChild(h("h3", { text: cap(sel.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" })) }));
+  const info = h("div", { class: "chips" });
+  const lu = lotacao("universal", agSel); if (lu) info.appendChild(h("span", { class: "chip " + lu.cls }, "Universal " + lu.v + "% · " + lu.lab));
+  const pw = D.descontos.parques_semana[String(sel.getDay())]; if (pw) { const cls = { "🟢": "g", "🔵": "b", "🟡": "y", "🔴": "r" }; ["Magic Kingdom", "EPCOT", "Animal Kingdom", "Hollywood"].forEach((n, i) => info.appendChild(h("button", { class: "chip", onClick: sheetParksWeek }, h("i", { class: "dot " + (cls[pw[i]] || "y") }), n))); }
+  const se = D.descontos.senior.filter(s => s.dia === sel.getDay() && (!s.first || sel.getDate() <= 7)); se.forEach(s => info.appendChild(h("span", { class: "chip sun" }, s.loja + " " + s.desc)));
+  v.appendChild(info);
+  // minha programação
+  const mine = state.agenda.filter(x => x.d === agSel);
+  const mbox = h("div", { class: "list" });
+  if (!mine.length) mbox.appendChild(h("div", { class: "empty", text: "Nada programado para este dia ainda." }));
+  mine.forEach(x => mbox.appendChild(h("div", { class: "stop" }, h("span", { class: "num", text: x.k === "ev" ? "★" : x.k === "pl" ? "📍" : "✎" }), h("div", { class: "n" }, x.n, x.a ? h("small", { text: x.a }) : null),
+    h("button", { class: "iconbtn", "aria-label": "remover", onClick: () => { state.agenda = state.agenda.filter(y => y !== x); save(); renderAgenda(); } }, icon("x")))));
+  v.appendChild(h("div", { class: "card flat" }, h("b", {}, "Minha programação"), mbox, h("div", { class: "btns" }, h("button", { class: "btn sm tonal", onClick: () => sheetNota(agSel) }, icon("plus"), "Anotar algo"), h("button", { class: "btn sm", onClick: () => go("lojas") }, icon("bag"), "Programar uma loja"))));
+  // eventos do dia
+  let evs = eventosDoDia(agSel);
+  const cats = [...new Set(evs.map(e => e.cat))];
+  if (agCat && !cats.includes(agCat) && !(agCat === "gratis")) agCat = "";
+  if (evs.length) {
+    const chip = (lab, on, fn) => h("button", { class: "chip" + (on ? " on" : ""), onClick: () => { fn(); renderAgenda(); } }, lab);
+    v.appendChild(h("div", { class: "filters" }, chip("Todos (" + evs.length + ")", !agCat, () => agCat = ""), chip("Grátis", agCat === "gratis", () => agCat = agCat === "gratis" ? "" : "gratis"), ...cats.filter(c => c !== "gratis").map(c => chip(CATS[c] || c, agCat === c, () => agCat = agCat === c ? "" : c))));
+  }
+  if (agCat === "gratis") evs = evs.filter(e => e.gratis); else if (agCat) evs = evs.filter(e => e.cat === agCat);
+  const order = ["compras", "feira", "gratis", "natal", "parque", "batevolta", "esporte", "show", "tampa"];
+  evs.sort((a, b) => order.indexOf(a.cat) - order.indexOf(b.cat) || (a.fim.localeCompare(b.fim)));
+  const list = h("div", { class: "list" });
+  if (!evs.length) list.appendChild(h("div", { class: "empty", text: "Nenhum evento cadastrado neste dia. Bom dia para compras ou parque!" }));
+  evs.forEach(e => { const on = state.agenda.some(x => x.d === agSel && x.id === e.id);
+    list.appendChild(h("button", { class: "row", onClick: () => sheetEvento(e) }, h("span", { class: "ico" }, icon(e.cat === "esporte" ? "sale" : e.cat === "compras" ? "bag" : e.cat === "parque" ? "park" : e.cat === "feira" ? "fork" : "cal")),
+      h("span", { class: "t" }, h("b", { text: e.t }), h("span", { text: [e.hora, e.onde, e.gratis ? "grátis" : "", e.ini !== e.fim ? "até " + fmtDia(e.fim, { day: "numeric", month: "short" }) : ""].filter(Boolean).join(" · ") })),
+      on ? h("span", { class: "badge leaf", text: "no meu dia" }) : e.previsto ? h("span", { class: "badge gray", text: "previsto" }) : h("span", { class: "badge " + (CATC[e.cat] || "gray"), text: (CATS[e.cat] || "").split(" ")[0] }), icon("chev", "chev"))); });
+  v.appendChild(list);
+  // meus planos (todos)
+  const futuros = state.agenda.filter(x => x.d >= isoDate(new Date())).sort((a, b) => a.d.localeCompare(b.d));
+  if (futuros.length) {
+    v.appendChild(h("h3", { text: "Tudo o que programei" }));
+    v.appendChild(h("div", { class: "list" }, ...futuros.map(x => h("button", { class: "row", onClick: () => { agSel = x.d; renderAgenda(); window.scrollTo({ top: 0 }); } }, h("span", { class: "badge gray", text: fmtDia(x.d, { day: "2-digit", month: "2-digit" }) }), h("span", { class: "t" }, h("b", { text: x.n }), h("span", { text: x.a || "" })), icon("chev", "chev")))));
+  }
+  const fontes = [...new Set(((D.eventos && D.eventos.eventos) || []).map(e => e.fonte).filter(Boolean))];
+  v.appendChild(h("p", { class: "src", text: "Fontes: " + fontes.join(" · ") + ". Datas e horários podem mudar: confira no site oficial antes de ir." }));
+}
+function gcalLink(e, iso) {
+  const d0 = (iso || e.ini).replace(/-/g, ""); const nx = parseISO(iso || e.ini); nx.setDate(nx.getDate() + 1); const d1 = isoDate(nx).replace(/-/g, "");
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(e.t) + "&dates=" + d0 + "/" + d1 + "&location=" + encodeURIComponent(e.onde || "") + "&details=" + encodeURIComponent((e.desc || "") + (e.hora ? " Horário: " + e.hora : ""));
+}
+function sheetEvento(e) {
+  const iso = agSel || e.ini; const on = state.agenda.some(x => x.d === iso && x.id === e.id);
+  const periodo = e.ini === e.fim ? cap(fmtDia(e.ini, { weekday: "long", day: "numeric", month: "long" })) : "De " + fmtDia(e.ini, { day: "numeric", month: "short" }) + " a " + fmtDia(e.fim, { day: "numeric", month: "short", year: "numeric" }) + (Array.isArray(e.dow) ? " · só " + e.dow.map(x => DIAS[x].toLowerCase() + "s").join(", ") : "");
+  openSheet(h("h2", { text: e.t }), h("div", { class: "tags" }, h("span", { class: "badge " + (CATC[e.cat] || "gray"), text: CATS[e.cat] || e.cat }), e.gratis ? h("span", { class: "badge leaf", text: "Grátis" }) : null, e.preco ? h("span", { class: "badge gray", text: e.preco }) : null),
+    h("p", {}, h("b", { text: periodo })), e.hora ? h("p", { class: "small", text: "Horário: " + e.hora }) : null, h("p", { class: "small muted", text: "Onde: " + e.onde }),
+    e.desc ? h("p", { html: e.desc }) : null,
+    e.previsto ? h("div", { class: "callout warn small", text: "Data prevista com base em anos anteriores: a loja ainda não confirmou. Confira no app da loja antes de ir." }) : null,
+    e.cat === "compras" && e.q && !/online|\.com/i.test(e.onde) ? h("button", { class: "btn sm tonal", onClick: () => { closeSheet(); go("perto"); setTimeout(() => planAddr(e.q), 50); } }, icon("pin"), "Lojas desta rede perto de mim") : null,
+    h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: () => { if (on) { state.agenda = state.agenda.filter(x => !(x.d === iso && x.id === e.id)); toast("Removido do dia"); } else { state.agenda.push({ d: iso, k: "ev", id: e.id, n: e.t, a: [e.hora, e.onde].filter(Boolean).join(" · ") }); toast("Programado para " + fmtDia(iso, { day: "numeric", month: "short" })); } save(); closeSheet(); if (currentView === "agenda") renderAgenda(); } }, icon(on ? "x" : "plus"), on ? "Tirar do meu dia" : "Programar para " + fmtDia(iso, { day: "numeric", month: "short" })),
+      e.q ? h("a", { class: "btn", href: mapsDir(e.q) }, icon("nav"), "Como chegar") : null, h("a", { class: "btn sm", href: gcalLink(e, iso) }, "Google Agenda")),
+    e.fonte ? h("div", { class: "src", text: "Fonte: " + e.fonte + ". Confira no site oficial antes de ir." }) : null, closeBtn());
+}
+function sheetNota(iso) {
+  const ta = h("input", { type: "text", maxlength: 120, placeholder: "Ex.: Loop de manhã e Target à tarde" });
+  openSheet(h("h2", { text: "Anotar em " + fmtDia(iso, { day: "numeric", month: "long" }) }), ta, h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: () => { const n = str(ta.value, 120); if (!n) { toast("Escreva algo"); return; } state.agenda.push({ d: iso, k: "nota", id: uid(), n, a: "" }); save(); closeSheet(); renderAgenda(); } }, "Salvar"), h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar")));
+}
+function sheetProgramarLugar(p) {
+  const di = h("input", { type: "date", value: agSel || isoDate(new Date()) });
+  openSheet(h("h2", { text: "Programar " + placeName(p) }), h("label", { text: "Em que dia?" }), di, h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: () => { const d = str(di.value, 10); if (!ISO.test(d)) { toast("Escolha um dia"); return; } state.agenda.push({ d, k: "pl", id: placeId(p), n: placeName(p), a: p.a }); save(); agSel = d; closeSheet(); toast("Programado para " + fmtDia(d, { day: "numeric", month: "short" })); } }, "Salvar"), h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar")));
+}
+
 /* ---------------- LOJAS (redes · lugares · parques · miami) ---------------- */
-let seg = "redes", query = "";
+let seg = "compras", query = "";
 function segments() {
   const lug = D.lugares;
   return {
@@ -262,12 +377,61 @@ function segments() {
 function renderLojas() {
   const v = $("#view-lojas"); v.replaceChildren();
   v.appendChild(h("h2", { text: "Lojas e lugares" }));
-  const sg = h("div", { class: "seg" }, ...[["redes", "Redes"], ["lugares", "Regiões"], ["parques", "Parques"], ["miami", "Miami"]].map(([k, l]) => h("button", { class: k === seg ? "on" : "", onClick: () => { seg = k; renderLojas(); } }, l)));
+  const sg = h("div", { class: "seg scroll" }, ...[["compras", "Compras"], ["redes", "Redes"], ["lugares", "Regiões"], ["parques", "Parques"], ["miami", "Miami"]].map(([k, l]) => h("button", { class: k === seg ? "on" : "", onClick: () => { seg = k; renderLojas(); } }, l)));
   v.appendChild(sg);
+  if (seg === "compras") { renderCompras(v); return; }
   const inp = h("input", { type: "search", placeholder: seg === "redes" ? "Filtrar: tênis, casa, bebê…" : "Filtrar lugares…", value: query, onInput: e => { query = e.target.value; renderLojaList(listBox); } });
   v.appendChild(h("div", { class: "search" }, icon("search"), inp));
   if (seg === "parques") v.appendChild(h("button", { class: "btn tonal block", onClick: sheetParksWeek }, icon("park"), "Qual parque em cada dia da semana"));
   const listBox = h("div"); v.appendChild(listBox); renderLojaList(listBox);
+}
+
+function placeRow(p, origin) {
+  const t = D.pontos.tipos[p.c] || {}; const st = openStatus(p); const np = pendentes(pedidosPonto(p)).length;
+  const km = origin ? kmBetween(origin.la, origin.lo, p.la, p.lo) : null;
+  const sub = [ratingText(p), st ? st.txt : "", np ? np + (np === 1 ? " pedido" : " pedidos") : "", p.cupom ? "cupons" : ""].filter(Boolean).join(" · ") || t.b || p.a;
+  return h("button", { class: "row", onClick: () => sheetPlace(p) }, h("span", { class: "ico" }, icon(p.c === "comida" ? "fork" : p.c === "walmart" || p.c === "target" ? "tag" : "bag")), h("span", { class: "t" }, h("b", { text: placeName(p) }), h("span", { class: st && !st.open ? "closed" : "", text: sub })), km != null ? h("span", { class: "km", text: km.toFixed(km < 10 ? 1 : 0).replace(".", ",") + " km" }) : null, icon("chev", "chev"));
+}
+function sheetMarca(m) {
+  const origin = originPoint();
+  const ls = D.pontos.pontos.filter(p => p.marca === m).map(p => Object.assign({}, p, { km: origin ? kmBetween(origin.la, origin.lo, p.la, p.lo) : 0 })).sort((a, b) => (a.c === "clearance" ? 0 : 1) - (b.c === "clearance" ? 0 : 1) || a.km - b.km);
+  const nota = (D.pontos.marcas || {})[m];
+  openSheet(h("h2", { text: m }), nota ? h("div", { class: "callout ok", html: nota }) : null,
+    h("div", { class: "list" }, ...ls.map(p => { const st = openStatus(p); return h("button", { class: "row", onClick: () => sheetPlace(p) }, h("span", { class: "ico" }, icon(p.c === "clearance" ? "tag" : "bag")),
+      h("span", { class: "t" }, h("b", { text: (p.c === "clearance" ? "Clearance · " : "") + placeName(p).replace(/^.*? — /, "") }), h("span", { text: p.a.split(",")[0] + " · " + [ratingText(p), st ? st.txt : ""].filter(Boolean).join(" · ") })),
+      origin ? h("span", { class: "km", text: p.km.toFixed(p.km < 10 ? 1 : 0).replace(".", ",") + " km" }) : null, icon("chev", "chev")); })),
+    pedidosSection(pedidosPara([m]), () => sheetMarca(m)),
+    h("p", { class: "src", text: "Endereços e notas do Google Maps (nov/2026). Toque numa loja para ver como chegar." }), closeBtn());
+}
+function regiaoDe(p) { const r = nearestRegion(p.la, p.lo); return r ? r.n.split(" / ")[0] : ""; }
+function renderCompras(v) {
+  const origin = originPoint();
+  v.appendChild(h("div", { class: "callout info small" }, h("b", { text: "Ordem que economiza: " }), "clearance (Ross, T.J. Maxx, Nike Clearance) → departamento (Macy’s, Kohl’s) → Walmart/Target → outlets → shoppings."));
+  const P = D.pontos.pontos;
+  // marcas
+  const marcas = [...new Set(P.filter(p => p.marca).map(p => p.marca))];
+  v.appendChild(h("h3", { text: "Marcas: onde fica cada loja" }));
+  v.appendChild(h("div", { class: "brands" }, ...marcas.map(m => { const ls = P.filter(p => p.marca === m), clr = ls.some(p => p.c === "clearance"), np = pendentes(pedidosPara([m])).length;
+    return h("button", { class: "brand", onClick: () => sheetMarca(m) }, h("b", { text: m }), h("span", { text: ls.length + (ls.length === 1 ? " loja" : " lojas") + (clr ? " · clearance" : "") }), np ? h("span", { class: "badge leaf", text: np + (np === 1 ? " pedido" : " pedidos") }) : null); })));
+  // clearance perto
+  const CLR = ["ross", "tjmaxx", "th", "marshalls", "mh", "burlington", "nrack", "bealls", "clearance", "homesense"];
+  const perto = P.filter(p => CLR.includes(p.c) && p.la > 27.5).map(p => Object.assign({}, p, { km: origin ? kmBetween(origin.la, origin.lo, p.la, p.lo) : 0 })).sort((a, b) => a.km - b.km).slice(0, 8);
+  v.appendChild(h("h3", { text: "Lojas de clearance mais perto" + (origin ? " de " + origin.n : "") }));
+  v.appendChild(h("div", { class: "list" }, ...perto.map(p => { const r = placeRow(p, origin); $(".t span", r).textContent = p.a.split(",").slice(0, 2).join(",") + " · " + ($(".t span", r).textContent || ""); return r; }),
+    h("button", { class: "row", onClick: () => { nf.type = "loja"; go("perto"); } }, h("span", { class: "ico" }, icon("pin")), h("span", { class: "t" }, h("b", { text: "Ver todas no mapa" })), icon("chev", "chev"))));
+  const cup = P.filter(p => p.cupom);
+  v.appendChild(h("h3", { text: "Livros de cupons — onde pegar" }));
+  v.appendChild(h("div", { class: "list" }, ...cup.map(p => h("button", { class: "row", onClick: () => sheetPlace(p) }, h("span", { class: "ico" }, icon("gift")), h("span", { class: "t" }, h("b", { text: placeName(p) }), h("span", { text: p.cupom })), icon("chev", "chev")))));
+  const centros = P.filter(p => ["outlet", "barg", "mall"].includes(p.c) && p.la > 27.5).map(p => Object.assign({}, p, { km: origin ? kmBetween(origin.la, origin.lo, p.la, p.lo) : 0 })).sort((a, b) => a.km - b.km);
+  v.appendChild(h("h3", { text: "Outlets e centros de compras" + (origin ? " · mais perto de " + origin.n : "") }));
+  v.appendChild(h("div", { class: "list" }, ...centros.map(p => placeRow(p, origin))));
+  const melhores = (c, min) => P.filter(p => p.c === c && p.r && (p.v || 0) >= min && p.la > 27.5).sort((a, b) => b.r - a.r || (b.v || 0) - (a.v || 0)).slice(0, 5);
+  [["walmart", "Melhores Walmart (nota no Google)", 5000], ["target", "Melhores Target (nota no Google)", 500]].forEach(([c, tit, min]) => {
+    const l = melhores(c, min); if (!l.length) return;
+    v.appendChild(h("h3", { text: tit }));
+    v.appendChild(h("div", { class: "list" }, ...l.map((p, i) => { const r = placeRow(p, origin); const t = $(".t span", r); t.textContent = regiaoDe(p) + " · " + t.textContent; const b = $(".t b", r); b.textContent = (i + 1) + "º " + (D.pontos.tipos[p.c] || {}).n.split(" ")[0] + " · " + p.a.split(",")[0].replace(/^\d+\s*/, ""); return r; })));
+  });
+  v.appendChild(h("p", { class: "src", text: "Notas e horários do Google Maps (nov/2026). Ranking com no mínimo 5 mil avaliações (Walmart) e 500 (Target). Cupons: balcões oficiais Simon (premiumoutlets.com)." }));
 }
 function renderLojaList(box) {
   box.replaceChildren();
@@ -372,7 +536,7 @@ function renderNear() {
   let list = D.pontos.pontos.map(p => Object.assign({}, p, { km: kmBetween(here.la, here.lo, p.la, p.lo) })).sort((a, b) => a.km - b.km);
   let lim = raio; if (!list.some(p => p.km <= lim)) lim = 40;
   list = list.filter(p => p.km <= lim);
-  const TYPES = { comida: ["comida"], loja: ["ross", "tjmaxx", "th", "marshalls", "mh", "burlington", "nrack", "bealls", "kohls", "walmart", "walmartp", "target", "walgreens", "cvs", "publix", "dollartree", "ulta"], shop: ["outlet", "mall", "barg"], park: ["park"], train: ["train"] };
+  const TYPES = { comida: ["comida"], marca: ["marca", "clearance"], loja: ["homesense", "marca", "clearance", "ross", "tjmaxx", "th", "marshalls", "mh", "burlington", "nrack", "bealls", "kohls", "walmart", "walmartp", "target", "walgreens", "cvs", "publix", "dollartree", "ulta"], shop: ["outlet", "mall", "barg"], park: ["park"], train: ["train"] };
   if (nf.type) list = list.filter(p => (TYPES[nf.type] || []).includes(p.c));
   if (nf.open) list = list.filter(p => (openStatus(p) || {}).open);
   if (nf.top) list = list.filter(p => (p.r || 0) >= 4.3);
@@ -381,7 +545,7 @@ function renderNear() {
   const chip = (lab, on, fn) => h("button", { class: "chip" + (on ? " on" : ""), onClick: () => { fn(); renderNear(); } }, lab);
   const filters = h("div", { class: "filters" },
     chip("Abertos agora", nf.open, () => nf.open = !nf.open), chip("★ 4,3+", nf.top, () => nf.top = !nf.top),
-    chip("Lojas", nf.type === "loja", () => nf.type = nf.type === "loja" ? "" : "loja"), chip("Outlets e shoppings", nf.type === "shop", () => nf.type = nf.type === "shop" ? "" : "shop"), chip("Parques", nf.type === "park", () => nf.type = nf.type === "park" ? "" : "park"), chip("Comida", nf.type === "comida", () => nf.type = nf.type === "comida" ? "" : "comida"),
+    chip("Lojas", nf.type === "loja", () => nf.type = nf.type === "loja" ? "" : "loja"), chip("Marcas", nf.type === "marca", () => nf.type = nf.type === "marca" ? "" : "marca"), chip("Outlets e shoppings", nf.type === "shop", () => nf.type = nf.type === "shop" ? "" : "shop"), chip("Parques", nf.type === "park", () => nf.type = nf.type === "park" ? "" : "park"), chip("Comida", nf.type === "comida", () => nf.type = nf.type === "comida" ? "" : "comida"),
     chip(nf.sort === "r" ? "Por nota" : "Por distância", nf.sort === "r", () => nf.sort = nf.sort === "r" ? "km" : "r"));
   head.replaceChildren(h("div", { class: "callout info", text: "Perto de " + here.label + " — " + list.length + " lugares em até " + lim + " km" + (nf.sort === "r" ? ", por nota." : ", do mais perto ao mais longe.") }), filters);
   $$("#nearSeg button").forEach((b, i) => b.classList.toggle("on", (i === 0) === (nearMode === "lista")));
@@ -395,10 +559,12 @@ function sheetPlace(p) {
   const t = D.pontos.tipos[p.c] || {}; const id = placeId(p); const inPlan = state.plan.some(s => s.id === id);
   const st = openStatus(p);
   openSheet(h("h2", { text: placeName(p) }), h("div", { class: "tags" }, h("span", { class: "badge " + (t.bc || "sky"), text: t.b || "" }), p.r ? h("span", { class: "badge gray", text: ratingText(p) + " no Google" }) : null, st ? h("span", { class: "badge " + (st.open ? "leaf" : "coral"), text: st.txt + (st.approx ? " (aprox.)" : "") }) : null),
-    h("p", { text: p.a }), p.h ? h("p", { class: "small muted", text: "Horário: " + p.h }) : null, p.dica ? h("div", { class: "callout ok", html: p.dica }) : null,
+    h("p", { text: p.a }), p.h ? h("p", { class: "small muted", text: "Horário: " + p.h }) : null,
+    p.cupom ? h("div", { class: "callout info" }, h("b", { text: "Livro de cupons: " }), p.cupom) : null,
+    p.dica ? h("div", { class: "callout ok", html: p.dica }) : null,
     pedidosSection(pedidosPonto(p), () => sheetPlace(p)),
     h("div", { class: "btns" }, h("a", { class: "btn primary", href: mapsDir(placeName(p) + ", " + p.a) }, icon("nav"), "Como chegar"), h("a", { class: "btn", href: mapsSearch(placeName(p) + ", " + p.a) }, "Ver no Maps"),
-      h("button", { class: "btn tonal", onClick: () => { addStop(p); closeSheet(); } }, icon(inPlan ? "check" : "plus"), inPlan ? "No roteiro" : "Adicionar ao roteiro")),
+      h("button", { class: "btn tonal", onClick: () => { addStop(p); closeSheet(); } }, icon(inPlan ? "check" : "plus"), inPlan ? "No roteiro" : "Adicionar ao roteiro"), h("button", { class: "btn tonal", onClick: () => sheetProgramarLugar(p) }, icon("cal"), "Programar um dia")),
     h("div", { class: "btns" }, closeBtn()));
 }
 function addStop(p) { const id = placeId(p); if (state.plan.some(s => s.id === id)) { toast("Já está no roteiro"); return; } if (state.plan.length >= 30) { toast("Roteiro cheio"); return; } state.plan.push({ id, n: placeName(p), a: p.a }); save(); renderPlan(); toast("Adicionado ao roteiro"); }
@@ -434,11 +600,18 @@ function pedidosPara(names) {
 }
 function pedidosLoja(it) { return pedidosPara([it.n, it.q, it.tag]); }
 function bestRating(it) { const names = [it.n, it.q].map(norm).filter(Boolean); let best = 0; D.pontos.pontos.forEach(p => { if (!p.r) return; const pn = norm(placeName(p) + " " + ((D.pontos.tipos[p.c] || {}).n || "")); if (names.some(n => n.split(" ")[0].length > 2 && pn.includes(n.split(" ")[0]))) best = Math.max(best, p.r); }); return best; }
-function pedidosPonto(p) { const t = D.pontos.tipos[p.c] || {}; return pedidosPara([placeName(p), t.n, p.c]); }
+function pedidosPonto(p) { if (p.marca) return pedidosPara([p.marca]); const t = D.pontos.tipos[p.c] || {}; return pedidosPara([placeName(p), t.n, p.c]); }
 function itemPhoto(i) {
   if (i.foto) return h("img", { src: i.foto, alt: "" });
-  if (i.fotoUrl) { const img = document.createElement("img"); img.alt = ""; img.loading = "lazy"; img.referrerPolicy = "no-referrer"; img.src = i.fotoUrl; img.addEventListener("error", () => img.remove()); return img; }
+  if (i.fotoUrl) { const img = document.createElement("img"); img.alt = i.nome; img.loading = "lazy"; img.referrerPolicy = "no-referrer"; img.src = i.fotoUrl; img.addEventListener("error", () => img.remove()); img.addEventListener("click", ev => { ev.stopPropagation(); sheetFoto(i); }); return img; }
   return null;
+}
+function imgSearch(i) { const ref = /ref/i.test(i.tam || "") ? " " + i.tam.replace(/ref\.?\s*/i, "") : ""; return "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(i.nome.replace(/\(.*?\)/g, "") + ref); }
+function sheetFoto(i) {
+  const img = itemPhoto(i);
+  openSheet(h("h2", { text: i.nome }), img ? h("div", { class: "bigphoto" }, img) : h("div", { class: "empty", text: "Sem foto cadastrada." }),
+    h("p", { class: "small muted", text: [i.tam ? "Tamanho/ref.: " + i.tam : "", i.cor ? "Cor: " + i.cor : ""].filter(Boolean).join(" · ") }),
+    h("div", { class: "btns" }, h("a", { class: "btn tonal", href: imgSearch(i) }, icon("search"), "Ver mais fotos do modelo"), i.link ? h("a", { class: "btn", href: i.link }, "Página da marca") : null), closeBtn());
 }
 function prefetchPhotos() { if (!navigator.onLine) return; allItems().forEach(i => { if (i.fotoUrl) fetch(i.fotoUrl, { mode: "no-cors", referrerPolicy: "no-referrer" }).catch(() => {}); }); }
 function pendentes(list) { return list.filter(i => !state.done[i.id]); }
@@ -451,10 +624,10 @@ function pedidosSection(list, rerender) {
     const chk = h("input", { type: "checkbox", class: "chk", "aria-label": "comprado" }); chk.checked = done;
     chk.addEventListener("change", () => { if (chk.checked) state.done[i.id] = true; else delete state.done[i.id]; save(); if (rerender) rerender(); });
     const meta = [personName(i.pessoa), i.tam ? "tam. " + i.tam : "", i.cor, i.preco ? money(i.preco) : ""].filter(Boolean).join(" · ");
-    box.appendChild(h("div", { class: "item" + (done ? " done" : "") }, chk, itemPhoto(i), h("div", { class: "t" }, h("b", { text: i.nome }), h("div", { class: "meta", text: meta }), i.obs ? h("div", { class: "meta", text: i.obs }) : null, i.link ? h("div", { class: "links" }, h("a", { href: i.link }, "Ver modelo")) : null)));
+    box.appendChild(h("div", { class: "item" + (done ? " done" : "") }, chk, itemPhoto(i), h("div", { class: "t" }, h("b", { text: i.nome }), h("div", { class: "meta", text: meta }), i.obs ? h("div", { class: "meta", text: i.obs }) : null, h("div", { class: "links" }, h("a", { href: imgSearch(i) }, "Fotos do modelo"), i.link ? h("a", { href: i.link }, "Página da marca") : null))));
   });
   const n = pendentes(list).length;
-  return h("div", {}, h("h3", { text: "Pedidos da família aqui" + (n ? " · " + n + " em aberto" : " · tudo comprado") }), box, h("button", { class: "btn sm", onClick: () => { closeSheet(); go("lista"); } }, "Ver lista completa"));
+  return h("div", {}, h("h3", { text: "Pedidos" + (n ? " · " + n + " em aberto" : " · tudo comprado") }), box, h("button", { class: "btn sm", onClick: () => { closeSheet(); go("lista"); } }, "Ver lista completa"));
 }
 
 /* ---------------- LISTA (pedidos da família) ---------------- */
@@ -474,7 +647,8 @@ function renderLista() {
   const people = allPeople();
   if (people.length) {
     v.appendChild(h("h3", { text: "Pessoas e tamanhos" }));
-    v.appendChild(h("div", { class: "list" }, ...people.map(p => h("button", { class: "row", onClick: () => p.seed ? sheetBig(p.nome + "\n" + (p.tam || "")) : sheetPersonForm(p) }, h("span", { class: "ico", text: p.nome.slice(0, 1).toUpperCase() }), h("span", { class: "t" }, h("b", { text: p.nome }), h("span", { text: p.tam || "sem tamanhos" })), icon("chev", "chev")))));
+    v.appendChild(h("div", { class: "list" }, ...people.map(p => { const its = items.filter(i => i.pessoa === p.id), ab = its.filter(i => !state.done[i.id]).length;
+      return h("button", { class: "row", onClick: () => sheetPerson(p) }, h("span", { class: "ico", text: p.nome.slice(0, 1).toUpperCase() }), h("span", { class: "t" }, h("b", { text: p.nome }), h("span", { text: (its.length ? ab + " de " + its.length + " pedidos em aberto" : "sem pedidos") + (p.tam ? " · tamanhos" : "") })), icon("chev", "chev")); })));
   }
   v.appendChild(h("h3", { text: "Pedidos" }));
   const cnt = id => items.filter(i => (!id || i.pessoa === id) && !state.done[i.id]).length;
@@ -491,10 +665,25 @@ function renderLista() {
     const chk = h("input", { type: "checkbox", class: "chk", "aria-label": "comprado" }); chk.checked = done; chk.addEventListener("change", () => { if (chk.checked) state.done[i.id] = true; else delete state.done[i.id]; save(); renderLista(); });
     box.appendChild(h("div", { class: "item" + (done ? " done" : "") }, chk, itemPhoto(i),
       h("div", { class: "t" }, h("b", { text: i.nome }), h("div", { class: "meta", text: meta }), onde ? h("div", { class: "meta", text: onde }) : null, i.obs ? h("div", { class: "meta", text: i.obs }) : null,
-        (i.link || !i.seed) ? h("div", { class: "links" }, i.link ? h("a", { href: i.link }, "Ver modelo") : null, !i.seed ? h("button", { class: "linkbtn", onClick: () => sheetItemForm(i) }, "Editar") : null) : null)));
+        h("div", { class: "links" }, h("a", { href: imgSearch(i) }, "Fotos do modelo"), i.link ? h("a", { href: i.link }, "Página da marca") : null, !i.seed ? h("button", { class: "linkbtn", onClick: () => sheetItemForm(i) }, "Editar") : null))));
   });
   v.appendChild(box);
   v.appendChild(h("p", { class: "small muted", text: "Pedidos da planilha do site aparecem automaticamente; os que você cria aqui ficam só neste celular (use Compartilhar para mandar)." }));
+}
+
+function parseTamanhos(t) {
+  return String(t || "").split(/\n|;|\.\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ])/).map(x => x.trim()).filter(Boolean).map(x => { const k = x.indexOf(":"); return k > 0 ? [x.slice(0, k).trim(), x.slice(k + 1).trim()] : ["", x]; });
+}
+function sheetPerson(p) {
+  const its = allItems().filter(i => i.pessoa === p.id);
+  const rows = parseTamanhos(p.tam);
+  const tot = its.filter(i => !state.done[i.id]).reduce((s, i) => s + i.preco, 0);
+  openSheet(h("h2", { text: p.nome }),
+    h("p", { class: "small muted", text: its.length ? its.filter(i => !state.done[i.id]).length + " de " + its.length + " pedidos em aberto · " + money(tot) + " a comprar" : "Nenhum pedido ainda." }),
+    h("h3", { text: "Tamanhos" }),
+    rows.length ? h("div", { class: "tscroll" }, h("table", { class: "sizes" }, h("tbody", {}, ...rows.map(r => h("tr", {}, h("th", { text: r[0] || "—" }), h("td", { text: r[1] })))))) : h("div", { class: "empty", text: p.seed ? "Sem tamanhos: preencha a coluna “tamanhos” na aba Pessoas da planilha." : "Sem tamanhos: toque em Editar." }),
+    h("div", { class: "btns" }, h("button", { class: "btn sm", onClick: () => sheetBig(p.nome + "\n" + rows.map(r => (r[0] ? r[0] + ": " : "") + r[1]).join("\n")) }, "Mostrar ao vendedor"), !p.seed ? h("button", { class: "btn sm", onClick: () => sheetPersonForm(p) }, "Editar") : null, h("button", { class: "btn sm", onClick: sheetSizes }, "Tabela BR → EUA")),
+    pedidosSection(its, () => sheetPerson(p)), closeBtn());
 }
 function sheetPersonForm(p) {
   const nome = h("input", { type: "text", value: p ? p.nome : "", placeholder: "Ex.: Roberto", maxlength: 60 });
@@ -628,7 +817,7 @@ function parseRange(txt) { const m = /(\d{1,2})(?:[:h](\d{2}))?\s*[–\-]\s*(\d{
 function openStatus(p) {
   const now = new Date(); const dow = now.getDay(); const cur = now.getHours() * 60 + now.getMinutes();
   let rg = null, approx = false;
-  if (Array.isArray(p.hd) && p.hd.length === 7) rg = parseRange(p.hd[dow]); else if (p.h) { rg = parseRange(p.h); approx = true; }
+  if (Array.isArray(p.hd) && p.hd.length === 7) { if (/^fechad/i.test(p.hd[dow] || "")) return { open: false, txt: "Fechado hoje", approx: false }; rg = parseRange(p.hd[dow]); } else if (p.h) { rg = parseRange(p.h); approx = true; }
   if (!rg) return null;
   const fmt = m => { m %= 1440; if (m === 0) return "meia-noite"; return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
   const open = cur >= rg.a && cur < rg.b;
@@ -691,7 +880,7 @@ async function boot() {
     return;
   }
   $("#brand").firstChild.textContent = D.config.titulo || "Guia"; $("#brandSub").textContent = D.config.subtitulo || ""; document.title = D.config.titulo || "Guia";
-  renderHoje(); renderPerto(); renderLojas(); renderDicas(); renderLista();
+  renderHoje(); renderAgenda(); renderPerto(); renderLojas(); renderDicas(); renderLista();
   go(location.hash.replace("#", "") || "hoje", false);
   setupPWA(); autoGeoHoje();
   refreshRate(false); refreshWeather(false); setTimeout(prefetchPhotos, 1500);
