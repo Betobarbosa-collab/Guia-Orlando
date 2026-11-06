@@ -7,7 +7,7 @@ import base64, hashlib, json, re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 A = ROOT / "assets"; DATA = ROOT / "data"
-files = ["config", "descontos", "lojas", "lugares", "dicas", "pontos", "frases", "tamanhos", "pedidos"]
+files = ["config", "descontos", "lojas", "lugares", "dicas", "pontos", "frases", "tamanhos", "pedidos", "eventos"]
 data = {f: json.loads((DATA / f"{f}.json").read_text(encoding="utf-8")) for f in files}
 data_js = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/").replace("<!--", "<\\!--")
 css = (A / "vendor/leaflet/leaflet.css").read_text(encoding="utf-8") + "\n" + (A / "app.css").read_text(encoding="utf-8")

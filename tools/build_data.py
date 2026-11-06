@@ -3,7 +3,7 @@
 Uso: python tools/build_data.py [--check]
 Regras: ids são gerados do nome quando a coluna id está vazia; células com
 várias linhas (Alt+Enter) viram listas; texto aceita **negrito** e _itálico_."""
-import json, re, sys, unicodedata
+import datetime as dt, json, re, sys, unicodedata
 from pathlib import Path
 from openpyxl import load_workbook
 
@@ -100,6 +100,10 @@ def build():
         if r.get("avaliacoes") not in (None, ""): p["v"] = int(num(r.get("avaliacoes"), 0, 1e8, a) or 0)
         dica = clean(r.get("dica"), 400)
         if dica: p["dica"] = dica
+        cupom = clean(r.get("cupom"), 400)
+        if cupom: p["cupom"] = cupom
+        marca = clean(r.get("marca"), 40)
+        if marca: p["marca"] = marca
         hd = clean(r.get("horario_dias"), 200)
         if hd:
             parts = [x.strip() for x in hd.split("|")]
@@ -135,12 +139,51 @@ def build():
     for d_ in {x for x in ids if ids.count(x) > 1}: errors.append(f"Pedidos: id repetido '{d_}' (preencha a coluna id com valores diferentes)")
     if errors:
         print("ERROS:\n - " + "\n - ".join(errors)); sys.exit(1)
-    out = {"config.json": cfg, "lojas.json": lojas, "lugares.json": lugares, "dicas.json": dicas, "pontos.json": {"regioes": regioes, "tipos": tipos, "pontos": pontos}, "descontos.json": desc, "frases.json": frases, "pedidos.json": {"pessoas": pessoas, "pedidos": pedidos}}
+    # Eventos e lotação (aba Eventos / Lotacao)
+    CATS = {"natal", "parque", "esporte", "show", "gratis", "feira", "compras", "tampa", "batevolta"}
+    DOWS = {"dom": 0, "seg": 1, "ter": 2, "qua": 3, "qui": 4, "sex": 5, "sab": 6, "sáb": 6}
+    def iso(v, what):
+        if v in (None, ""): return ""
+        if isinstance(v, (dt.datetime, dt.date)): return v.strftime("%Y-%m-%d")
+        v = clean(v, 20)
+        m = re.match(r"^(\d{4})-(\d{2})-(\d{2})$", v) or re.match(r"^(\d{2})/(\d{2})/(\d{4})$", v)
+        if not m: errors.append(f"{what}: data inválida {v!r} (use AAAA-MM-DD ou DD/MM/AAAA)"); return ""
+        return v if "-" in v else f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
+    eventos = []
+    for r in sh.get("eventos", []):
+        t = clean(r.get("titulo"), 120)
+        if not t: continue
+        ini = iso(r.get("inicio"), t); fim = iso(r.get("fim"), t) or ini
+        cat = clean(r.get("categoria")).lower()
+        if cat not in CATS: errors.append(f"Eventos/{t}: categoria '{cat}' inválida (use {sorted(CATS)})")
+        if ini and fim and fim < ini: errors.append(f"Eventos/{t}: fim antes do início")
+        e = {"id": clean(r.get("id"), 80) or slug(t + "-" + ini, 60), "ini": ini, "fim": fim, "t": t, "onde": clean(r.get("local"), 120), "cat": cat}
+        for k, col, n in (("desc", "descricao", 400), ("hora", "horario", 40), ("preco", "preco", 60), ("fonte", "fonte", 120)):
+            val = clean(r.get(col), n)
+            if val: e[k] = val
+        if clean(r.get("gratis")).lower() in ("s", "sim", "x", "true", "1"): e["gratis"] = True
+        if clean(r.get("previsto")).lower() in ("s", "sim", "x", "true", "1"): e["previsto"] = True
+        dws = [DOWS[x.strip()[:3]] for x in clean(r.get("dias_semana")).lower().split(",") if x.strip()[:3] in DOWS]
+        if dws: e["dow"] = dws
+        exc = [iso(x.strip(), t) for x in clean(r.get("exceto"), 300).split(";") if x.strip()]
+        if exc: e["exceto"] = [x for x in exc if x]
+        e["q"] = clean(r.get("busca_no_maps"), 120) or e["onde"]
+        eventos.append(e)
+    ids_ev = [e["id"] for e in eventos]
+    for d_ in {x for x in ids_ev if ids_ev.count(x) > 1}: errors.append(f"Eventos: id repetido '{d_}'")
+    lot = {}
+    for r in sh.get("lotacao", []):
+        pq = clean(r.get("parque"), 30).lower(); d = iso(r.get("data"), "Lotacao")
+        if not pq or not d: continue
+        v = num(r.get("percentual"), 0, 100, f"Lotacao/{pq}/{d}")
+        lot.setdefault(pq, {"fonte": clean(r.get("fonte"), 120), "dias": {}})["dias"][d] = int(v or 0)
+        if not lot[pq]["fonte"] and clean(r.get("fonte")): lot[pq]["fonte"] = clean(r.get("fonte"), 120)
+    out = {"eventos.json": {"eventos": eventos, "lotacao": lot}, "config.json": cfg, "lojas.json": lojas, "lugares.json": lugares, "dicas.json": dicas, "pontos.json": {"regioes": regioes, "tipos": tipos, "pontos": pontos, "marcas": {clean(r.get("marca"), 40): clean(r.get("dica"), 400) for r in sh.get("marcas", []) if clean(r.get("marca"))}}, "descontos.json": desc, "frases.json": frases, "pedidos.json": {"pessoas": pessoas, "pedidos": pedidos}}
     if "--check" in sys.argv:
         print("OK (apenas verificação)"); return
     for name, obj in out.items():
         (DATA / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(f"OK: {sum(len(g['itens']) for g in lojas)} lojas, {sum(len(g['itens']) for g in lugares)} lugares, {len(dicas)} dicas, {len(pontos)} pontos, {len(pedidos)} pedidos, {len(pessoas)} pessoas")
+    print(f"OK: {len(eventos)} eventos, {sum(len(g['itens']) for g in lojas)} lojas, {sum(len(g['itens']) for g in lugares)} lugares, {len(dicas)} dicas, {len(pontos)} pontos, {len(pedidos)} pedidos, {len(pessoas)} pessoas")
 
 if __name__ == "__main__":
     build()
