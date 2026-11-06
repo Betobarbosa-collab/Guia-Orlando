@@ -209,8 +209,9 @@ td:first-child{font-weight:700}
   border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding-bottom:env(safe-area-inset-bottom,0px)}
 .nav button{border:0;background:none;min-height:var(--nav-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px;font-weight:700;color:var(--muted);cursor:pointer;letter-spacing:.02em}
 .nav button.on{color:var(--primary)}
-.nav button .pill{width:46px;height:28px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center}
+.nav button .pill{width:46px;height:28px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;position:relative}
 .nav button.on .pill{background:var(--primary-soft)}
+.navbadge{position:absolute;right:-7px;top:-7px;min-width:17px;height:17px;padding:0 4px;border:2px solid var(--surface);border-radius:10px;background:var(--accent);color:#fff;font-size:10px;line-height:13px;text-align:center}
 
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 14px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;font-size:14px;z-index:50;display:none;max-width:92%;text-align:center}
 .toast.show{display:block}
@@ -241,6 +242,10 @@ td:first-child{font-weight:700}
 .seg.scroll::-webkit-scrollbar{display:none}
 .seg.scroll button{flex:1 0 auto;padding:9px 12px}
 /* ---------- agenda ---------- */
+.agenda-controls{display:flex;align-items:center;gap:8px;margin:2px 0 8px}
+.agenda-controls .agenda-arrow{width:38px;height:38px;border-radius:12px;font-family:var(--display);font-size:28px;line-height:1}
+.agenda-date{flex:1;min-width:0;height:38px;padding:0 8px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:700 14px var(--font)}
+.agenda-today{height:38px}
 .days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
 .days::-webkit-scrollbar{display:none}
 .day{flex:none;width:58px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:8px 0 6px;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;scroll-snap-align:start;color:var(--ink)}
@@ -250,7 +255,7 @@ td:first-child{font-weight:700}
 .day .dots{display:flex;gap:3px;height:8px;margin-top:3px}
 .day .dots .dot{width:6px;height:6px}
 .day.we{background:var(--surface-2)}
-.day.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.day.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary);box-shadow:0 5px 12px color-mix(in srgb,var(--primary) 28%,transparent);transform:translateY(-1px)}
 .day.on .w,.day.on .m{color:var(--on-primary);opacity:.85}
 /* ---------- tabela de tamanhos da pessoa ---------- */
 table.sizes th{background:var(--surface-2);text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink);width:45%;vertical-align:top}
