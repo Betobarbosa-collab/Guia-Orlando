@@ -597,6 +597,7 @@
    "n": "Orlando International Premium Outlets",
    "r": 4.6,
    "v": 11419,
+   "cupom": "Simon Guest Services: no Food Court ou no balcão do Management Office (perto da Old Navy), 9h–18h. Livro VIP digital grátis no app Simon (VIP Club); o impresso sai no balcão — pode ser grátis com voucher de hotel/agência ou pago.",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -727,6 +728,7 @@
    "n": "The Florida Mall",
    "r": 4.5,
    "v": 48313,
+   "cupom": "Simon Guest Services: pergunte pelos cupons e ofertas da semana (também na página \"Deals\" do Florida Mall no app Simon).",
    "hd": [
     "11:00-19:00",
     "10:00-20:00",
@@ -796,6 +798,7 @@
    "n": "Orlando Vineland Premium Outlets",
    "r": 4.5,
    "v": 42959,
+   "cupom": "Simon Guest Services no Food Court (entrada da adidas), 11h–19h. O balcão do Promenade está fechado temporariamente. Livro VIP digital grátis no app Simon.",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -815,6 +818,7 @@
    "n": "Lake Buena Vista Factory Stores",
    "r": 4.5,
    "v": 7861,
+   "cupom": "Welcome Center na entrada: peça os cupons antes de entrar nas lojas. Dica da família: no Laçador Grill (vizinho) também pedem o livro.",
    "hd": [
     "11:00-19:00",
     "10:00-20:00",
@@ -1186,6 +1190,7 @@
    "n": "Dolphin Mall",
    "r": 4.6,
    "v": 65822,
+   "cupom": "Guest Services: pergunte pelo livro de cupons para turistas (\"tourist coupon book\").",
    "hd": [
     "11:00-20:00",
     "10:00-21:00",
@@ -1233,6 +1238,7 @@
    "n": "Sawgrass Mills",
    "r": 4.6,
    "v": 69023,
+   "cupom": "Simon Guest Services: troque o voucher \"Boarding Pass for Savings\" (site do Sawgrass) pelo livro de cupons.",
    "hd": [
     "11:00-20:00",
     "10:00-21:00",
@@ -1274,6 +1280,7 @@
    "r": 4.6,
    "v": 356,
    "dica": "Dica da família: almoce aqui (comida brasileira, barato, donos atendem em português) e peça o livro de cupons de desconto do outlet. O Lake Buena Vista Factory Stores é vizinho e o Vineland Premium Outlets fica a 5 min.",
+   "cupom": "Peça o livro de cupons do Lake Buena Vista Factory Stores aqui no restaurante (dica da família).",
    "hd": [
     "11:30-16:00",
     "11:30-16:00",
@@ -1597,6 +1604,7 @@
    "r": 4.4,
    "v": 4815,
    "dica": "Sobras da Nike com preço abaixo do outlet. Fica ao lado do International Drive Value Center (Ross, T.J. Maxx). Chegue na abertura.",
+   "marca": "Nike",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1617,6 +1625,7 @@
    "r": 4.4,
    "v": 5599,
    "dica": "Uma das maiores lojas de sobras da Nike: preço abaixo do outlet. Chegue na abertura (revendedores levam os tamanhos bons cedo) e veja a ala Big Kids se calça até 38.",
+   "marca": "Nike",
    "hd": [
     "10:00-19:00",
     "10:00-21:00",
@@ -1636,6 +1645,7 @@
    "n": "Nike Factory Store — International Premium Outlets",
    "r": 4.4,
    "v": 2931,
+   "marca": "Nike",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1656,6 +1666,7 @@
    "r": 4.4,
    "v": 6194,
    "dica": "Uma das maiores Factory Stores da Nike: muita variedade, inclusive corrida e Jordan. Lota à tarde.",
+   "marca": "Nike",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1676,6 +1687,7 @@
    "r": 4.4,
    "v": 1512,
    "dica": "Mais tranquila que as dos Premium Outlets; estaciona na porta.",
+   "marca": "Nike",
    "hd": [
     "11:00-19:00",
     "10:00-20:00",
@@ -1696,6 +1708,7 @@
    "r": 4.3,
    "v": 583,
    "dica": "A mais elogiada pelas promoções (clientes relatam até 70% na loja toda). Vá de manhã e confira o valor no caixa: há relatos de cobrança diferente da etiqueta.",
+   "marca": "adidas",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1715,6 +1728,7 @@
    "n": "adidas Outlet — International Premium Outlets",
    "r": 4.4,
    "v": 1290,
+   "marca": "adidas",
    "hd": [
     "11:00-18:00",
     "10:00-20:00",
@@ -1735,6 +1749,7 @@
    "r": 4.5,
    "v": 4075,
    "dica": "A maior e mais bem avaliada; muita coisa de futebol.",
+   "marca": "adidas",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1755,6 +1770,7 @@
    "r": 4.5,
    "v": 2054,
    "dica": "A maior Tommy de Orlando e a mais elogiada por clientes. Peça o desconto por cadastro de e-mail (clientes relatam 10% extra) e use o cupom do app Simon.",
+   "marca": "Tommy Hilfiger",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1775,6 +1791,7 @@
    "r": 4.5,
    "v": 1134,
    "dica": "Tem leitor de preço na loja para conferir quanto sai cada peça com desconto.",
+   "marca": "Tommy Hilfiger",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1795,6 +1812,7 @@
    "r": 4.1,
    "v": 513,
    "dica": "Loja menor; clientes reclamam de provador fechado e atendimento. Prefira as dos Premium Outlets.",
+   "marca": "Tommy Hilfiger",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1815,6 +1833,7 @@
    "r": 4.5,
    "v": 1785,
    "dica": "Clientes citam jaquetas com 50% off. Confira na etiqueta se o desconto extra vale para aquela peça antes de ir ao caixa.",
+   "marca": "The North Face",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1835,6 +1854,7 @@
    "r": 4.4,
    "v": 911,
    "dica": "Há relatos de promoção extra (20% em mochilas) honrada na loja da International e negada nesta: pergunte antes de pegar as peças.",
+   "marca": "The North Face",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1854,6 +1874,7 @@
    "n": "Vans Outlet — International Premium Outlets",
    "r": 4.5,
    "v": 505,
+   "marca": "Vans",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1873,6 +1894,7 @@
    "n": "Vans Outlet — Vineland Premium Outlets",
    "r": 4.4,
    "v": 671,
+   "marca": "Vans",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1892,6 +1914,7 @@
    "n": "Gap Factory — International Premium Outlets",
    "r": 4.4,
    "v": 1566,
+   "marca": "Gap",
    "hd": [
     "11:00-20:00",
     "10:00-21:00",
@@ -1912,6 +1935,7 @@
    "r": 4.5,
    "v": 540,
    "dica": "Loja espaçosa e mais tranquila; boa para básicos e roupa infantil.",
+   "marca": "Gap",
    "hd": [
     "11:00-19:00",
     "10:00-20:00",
@@ -1931,6 +1955,7 @@
    "n": "New Balance Factory — International Premium Outlets",
    "r": 4.4,
    "v": 599,
+   "marca": "New Balance",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1951,6 +1976,7 @@
    "r": 4.5,
    "v": 480,
    "dica": "Bem avaliada pelo atendimento; se não tiver o tamanho, clientes relatam envio sem frete para o endereço nos EUA.",
+   "marca": "New Balance",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1971,6 +1997,7 @@
    "r": 4.4,
    "v": 587,
    "dica": "Loja menor, com boas ofertas de clearance segundo clientes.",
+   "marca": "New Balance",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -1991,6 +2018,7 @@
    "r": 4.3,
    "v": 487,
    "dica": "Tem scanner de pé que indica o modelo certo; clientes relatam promoções leve 2 pague 1.",
+   "marca": "ASICS",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -2011,6 +2039,7 @@
    "r": 4.2,
    "v": 279,
    "dica": "Clientes dizem que os descontos aqui são pequenos: compare com a da Vineland.",
+   "marca": "ASICS",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -2031,6 +2060,7 @@
    "r": 4.7,
    "v": 516,
    "dica": "Outlet da Oakley. Leve a referência do modelo (OO…) para o vendedor achar a cor certa.",
+   "marca": "Oakley",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -2051,6 +2081,7 @@
    "r": 4.8,
    "v": 503,
    "dica": "Outlet da Oakley, a mais bem avaliada. Leve a referência do modelo.",
+   "marca": "Oakley",
    "hd": [
     "11:00-19:00",
     "10:00-21:00",
@@ -2061,5 +2092,16 @@
     "10:00-21:00"
    ]
   }
- ]
+ ],
+ "marcas": {
+  "Nike": "Mais barato: as duas **Nike Clearance** (Outlet Marketplace na I-Drive e Loop West em Kissimmee), com sobras abaixo do preço do outlet. As Factory Stores têm mais variedade; a da Vineland é a maior.",
+  "adidas": "A do **Outlet Marketplace** (I-Drive) é a mais elogiada pelas promoções. A da Vineland é a maior e mais bem avaliada.",
+  "Tommy Hilfiger": "O preço de etiqueta é o mesmo nas três; o que muda é a promoção do dia. A da **Vineland** é a maior e a mais elogiada. Cadastre o e-mail na loja (10% extra, segundo clientes) e use o cupom do app Simon.",
+  "The North Face": "Duas lojas com bons descontos em jaquetas. Promoções extras variam entre elas: pergunte antes de ir ao caixa.",
+  "Vans": "Duas lojas outlet, International e Vineland, com preços parecidos.",
+  "Gap": "Gap Factory na International e no Lake Buena Vista (mais tranquila).",
+  "New Balance": "Três Factory Stores: International, Outlet Marketplace e Vineland.",
+  "ASICS": "Prefira a da **Vineland** (scanner de pé e promoções melhores, segundo clientes).",
+  "Oakley": "**Oakley Vault** = outlet da Oakley, nos dois Premium Outlets. Leve a referência do modelo."
+ }
 }
