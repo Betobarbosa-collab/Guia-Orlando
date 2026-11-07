@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-S+vuFBk/GU49ScrDWCTrs8mu3VCjDOEY8HolvducQxM='; style-src 'sha256-QDu4a+PeKN17tIvtUOkmHD54rDqTRYCr36BSsqvQfHY='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-3romK6SbnTZGUV9VKCY+FAUHLVX9OiVjy6Vme1w0QAc='; style-src 'sha256-YuoUdgJ2NeoKhb6pjjdUpg3roN+RgytvO5oLsqz8AXc='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#F6F1E8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1413" media="(prefers-color-scheme: dark)">
@@ -889,7 +889,6 @@ td:first-child{font-weight:700}
 .nav button.on{color:var(--primary)}
 .nav button .pill{width:46px;height:28px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;position:relative}
 .nav button.on .pill{background:var(--primary-soft)}
-.navbadge{position:absolute;right:-7px;top:-7px;min-width:17px;height:17px;padding:0 4px;border:2px solid var(--surface);border-radius:10px;background:var(--accent);color:#fff;font-size:10px;line-height:13px;text-align:center}
 
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 14px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;font-size:14px;z-index:50;display:none;max-width:92%;text-align:center}
 .toast.show{display:block}
@@ -949,12 +948,26 @@ table.sizes td{font-weight:700;font-size:16px}
 .brand:nth-child(3n+1) .brand-wordmark{font-family:var(--display);font-size:18px}
 .brand:nth-child(3n+2) .brand-wordmark{text-transform:uppercase;letter-spacing:.04em;font-size:13px}
 .brand:nth-child(3n) .brand-wordmark{font-style:italic}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand-logo[src$="nike.svg"],:root:not([data-theme="light"]) .brand-logo[src$="adidas.svg"],:root:not([data-theme="light"]) .brand-logo[src$="newbalance.svg"]{filter:invert(1)}}
-:root[data-theme="dark"] .brand-logo[src$="nike.svg"],:root[data-theme="dark"] .brand-logo[src$="adidas.svg"],:root[data-theme="dark"] .brand-logo[src$="newbalance.svg"]{filter:invert(1)}
+.brands .brand{background:#fff;color:#142f2d;border-color:#e7e3da}
 .route-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:20px}
 .route-heading h3{margin:0 0 2px}.route-heading p{margin:0}
 .route-date{width:auto!important;min-width:145px;padding:8px 10px!important;font-size:14px!important;border-radius:12px!important}
 .route-maps{margin:0 0 10px}
+.day-plan{border:1px solid var(--primary);box-shadow:0 8px 24px rgba(11,75,70,.10);margin:14px 0;padding:16px}
+.day-plan .route-heading{margin:0 0 12px;align-items:center}
+.day-plan .list{margin:10px 0}
+.day-plan .stop{padding:10px 2px;gap:10px}
+.stop-type{width:40px;height:40px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;flex:none;background:#dceee8;color:#176456}
+.stop-type.event{background:#fce8d9;color:#a24d25}.stop-type.park{background:#e7e4fb;color:#5847a1}.stop-type.food{background:#fff0c9;color:#8a6000}.stop-type.note{background:#e3eaf8;color:#385d99}
+.stop-type .ic{width:20px;height:20px}
+.location-choice{display:inline-flex;align-items:center;margin-top:5px;padding:4px 9px;border:0;border-radius:8px;background:var(--primary-soft);color:var(--primary);font:700 12px var(--font);cursor:pointer}
+.location-choice:focus-visible,.near-results summary:focus-visible{outline:3px solid var(--info);outline-offset:2px}
+.brands .brand:focus-visible{outline:3px solid var(--info);outline-offset:2px}
+.near-results{margin:14px 0;border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.near-results summary{list-style:none;display:flex;align-items:center;gap:9px;padding:15px;font-weight:700;cursor:pointer;color:var(--primary)}
+.near-results summary::-webkit-details-marker{display:none}.near-results summary:after{content:'+';margin-left:auto;font-size:22px}.near-results[open] summary:after{content:'−'}
+.near-results #nearSeg,.near-results #nearHead,.near-results #near{margin:0 12px 12px}
+@media(max-width:380px){.day-plan .route-heading{align-items:flex-start;flex-direction:column}.route-date{width:100%!important}}
 @media (max-width:360px){.brands{grid-template-columns:repeat(2,1fr)}}
 
 .item img{cursor:zoom-in;background:#fff}
@@ -1135,11 +1148,11 @@ function save() {
   try {
     let json = JSON.stringify(state);
     if (json.length > 3.5e6) { state.items.forEach(i => { if (i.foto) i.foto = ""; }); json = JSON.stringify(state); toast("Fotos locais removidas para liberar espaço"); }
-    localStorage.setItem(KEY, json); updateAgendaBadge();
+    localStorage.setItem(KEY, json);
   } catch { toast("Não consegui salvar (memória cheia?)"); }
 }
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
-function cleanAgenda(a) { return Array.isArray(a) ? a.slice(0, 300).map(x => ({ d: str(x.d, 10), k: ["ev", "pl", "nota"].includes(x.k) ? x.k : "nota", id: str(x.id, 90), n: str(x.n, 160), a: str(x.a, 200) })).filter(x => ISO.test(x.d) && x.n) : []; }
+function cleanAgenda(a) { return Array.isArray(a) ? a.slice(0, 300).map(x => ({ d: str(x.d, 10), k: ["ev", "pl", "nota"].includes(x.k) ? x.k : "nota", id: str(x.id, 90), n: str(x.n, 160), a: str(x.a, 200), locId: str(x.locId, 80) })).filter(x => ISO.test(x.d) && x.n) : []; }
 function cleanRouteOrder(o) { const out = {}; if (!o || typeof o !== "object") return out; Object.entries(o).slice(0, 60).forEach(([d, ids]) => { if (ISO.test(d) && Array.isArray(ids)) out[d] = ids.slice(0, 40).map(x => str(x, 100)).filter(Boolean); }); return out; }
 function cleanPlan(a) { return Array.isArray(a) ? a.slice(0, 60).map(s => ({ id: str(s.id, 80), n: str(s.n, 120), a: str(s.a, 200), d: ISO.test(str(s.d, 10)) ? str(s.d, 10) : agendaToday() })).filter(s => s.id && s.n) : []; }
 function cleanPeople(a) { return Array.isArray(a) ? a.slice(0, 50).map(p => ({ id: str(p.id, 40), nome: str(p.nome, 60), tam: str(p.tam, 500) })).filter(p => p.id && p.nome) : []; }
@@ -1147,11 +1160,6 @@ function cleanItems(a) {
   return Array.isArray(a) ? a.slice(0, 500).map(i => ({ id: str(i.id, 40), pessoa: str(i.pessoa, 40), nome: str(i.nome, 120), loja: str(i.loja, 80), cor: str(i.cor, 40), tam: str(i.tam, 40), preco: num(i.preco), link: safeUrl(i.link) || "", obs: str(i.obs, 300), onde: str(i.onde, 160), fotoUrl: safeUrl(i.fotoUrl) || "", foto: safeImg(i.foto) || "" })).filter(i => i.id && i.nome) : [];
 }
 function applyTheme() { const r = document.documentElement; if (state.theme === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", state.theme); }
-function updateAgendaBadge() {
-  const badge = $("#agendaBadge"); if (!badge) return;
-  const n = state.agenda.filter(x => x.d >= isoDate(new Date())).length;
-  badge.hidden = !n; badge.textContent = n > 9 ? "9+" : String(n);
-}
 
 /* ---------------- dados curados (data/*.json) ---------------- */
 const D = {};
@@ -1346,7 +1354,7 @@ function renderAgenda() {
   const days = agRange();
   const strip = h("div", { class: "days", role: "tablist" });
   days.forEach(iso => {
-    const d = parseISO(iso), n = eventosDoDia(iso).length, mine = state.agenda.some(x => x.d === iso), lu = lotacao("universal", iso);
+    const d = parseISO(iso), n = eventosDoDia(iso).length, mine = state.agenda.some(x => x.d === iso) || state.plan.some(x => x.d === iso), lu = lotacao("universal", iso);
     const b = h("button", { class: "day" + (iso === agSel ? " on" : "") + (d.getDay() === 0 || d.getDay() === 6 ? " we" : ""), "aria-selected": iso === agSel ? "true" : "false", onClick: () => { agSel = iso; renderAgenda(); } },
       h("span", { class: "w", text: DIAS_C[d.getDay()] }), h("span", { class: "n", text: String(d.getDate()) }), h("span", { class: "m", text: d.toLocaleDateString("pt-BR", { month: "short" }).replace(".", "") }),
       h("span", { class: "dots" }, n ? h("i", { class: "dot y" }) : null, mine ? h("i", { class: "dot g" }) : null, lu && lu.v >= 60 ? h("i", { class: "dot r" }) : null));
@@ -1364,11 +1372,13 @@ function renderAgenda() {
   v.appendChild(info);
   // minha programação
   const mine = state.agenda.filter(x => x.d === agSel);
+  const extras = state.plan.filter(x => x.d === agSel && !mine.some(y => y.id === x.id));
   const mbox = h("div", { class: "list" });
-  if (!mine.length) mbox.appendChild(h("div", { class: "empty", text: "Nada programado para este dia ainda." }));
-  mine.forEach(x => mbox.appendChild(h("div", { class: "stop" }, h("span", { class: "num", text: x.k === "ev" ? "★" : x.k === "pl" ? "📍" : "✎" }), h("div", { class: "n" }, x.n, x.a ? h("small", { text: x.a }) : null),
+  if (!mine.length && !extras.length) mbox.appendChild(h("div", { class: "empty", text: "Nada programado para este dia ainda." }));
+  mine.forEach(x => mbox.appendChild(h("div", { class: "stop" }, h("span", { class: "stop-type " + (x.k === "ev" ? "event" : x.k === "pl" ? "place" : "note") }, icon(x.k === "ev" ? "cal" : x.k === "pl" ? "pin" : "bulb")), h("div", { class: "n" }, x.n, x.a ? h("small", { text: x.a }) : null),
     h("button", { class: "iconbtn", "aria-label": "remover", onClick: () => { state.agenda = state.agenda.filter(y => y !== x); save(); renderAgenda(); } }, icon("x")))));
-  v.appendChild(h("div", { class: "card flat" }, h("b", {}, "Minha programação"), mbox, h("div", { class: "btns" }, h("button", { class: "btn sm primary", onClick: () => openDayRoute(agSel) }, icon("route"), "Montar rota deste dia"), h("button", { class: "btn sm tonal", onClick: () => sheetNota(agSel) }, icon("plus"), "Anotar algo"), h("button", { class: "btn sm", onClick: () => go("lojas") }, icon("bag"), "Programar uma loja"))));
+  extras.forEach(x => mbox.appendChild(h("div", { class: "stop" }, h("span", { class: "stop-type place" }, icon("pin")), h("div", { class: "n" }, x.n, x.a ? h("small", { text: x.a }) : null), h("button", { class: "iconbtn", "aria-label": "remover", onClick: () => { state.plan = state.plan.filter(y => y !== x); save(); renderAgenda(); } }, icon("x")))));
+  v.appendChild(h("div", { class: "card day-plan" }, h("b", {}, "Minha programação"), mbox, h("div", { class: "btns" }, h("button", { class: "btn sm primary", onClick: () => openDayRoute(agSel) }, icon("route"), "Ver e organizar roteiro"), h("button", { class: "btn sm tonal", onClick: () => sheetNota(agSel) }, icon("plus"), "Anotar algo"), h("button", { class: "btn sm", onClick: () => go("lojas") }, icon("bag"), "Escolher lugar"))));
   // eventos do dia
   const allEvs = eventosDoDia(agSel);
   let evs = allEvs.slice();
@@ -1426,8 +1436,13 @@ function sheetNota(iso) {
   openSheet(h("h2", { text: "Anotar em " + fmtDia(iso, { day: "numeric", month: "long" }) }), ta, h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: () => { const n = str(ta.value, 120); if (!n) { toast("Escreva algo"); return; } state.agenda.push({ d: iso, k: "nota", id: uid(), n, a: "" }); save(); closeSheet(); renderAgenda(); } }, "Salvar"), h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar")));
 }
 function sheetProgramarLugar(p) {
-  const di = h("input", { type: "date", value: agSel || isoDate(new Date()) });
-  openSheet(h("h2", { text: "Programar " + placeName(p) }), h("label", { text: "Em que dia?" }), di, h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: () => { const d = str(di.value, 10); if (!ISO.test(d)) { toast("Escolha um dia"); return; } state.agenda.push({ d, k: "pl", id: placeId(p), n: placeName(p), a: p.a }); save(); agSel = d; closeSheet(); toast("Programado para " + fmtDia(d, { day: "numeric", month: "short" })); } }, "Salvar"), h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar")));
+  const tomorrow = parseISO(agendaToday()); tomorrow.setDate(tomorrow.getDate() + 1);
+  const di = h("input", { type: "date", value: currentRouteDate(), "aria-label": "Data da programação" });
+  const choose = d => { di.value = d; };
+  openSheet(h("h2", { text: "Adicionar ao meu dia" }), h("p", { class: "muted", text: placeName(p) }), h("p", { class: "small muted", text: "O lugar aparecerá na Agenda e no roteiro da data escolhida." }),
+    h("div", { class: "btns" }, h("button", { class: "btn tonal", onClick: () => choose(agendaToday()) }, "Hoje"), h("button", { class: "btn tonal", onClick: () => choose(isoDate(tomorrow)) }, "Amanhã")),
+    h("label", { text: "Ou escolha uma data" }), di,
+    h("div", { class: "btns" }, h("button", { class: "btn primary", onClick: () => { const d = str(di.value, 10), id = placeId(p); if (!ISO.test(d)) { toast("Escolha um dia"); return; } if (routeStops(d).some(s => s.pId === id || s.id === id)) { toast("Esse lugar já está programado nesse dia"); return; } state.agenda.push({ d, k: "pl", id, n: placeName(p), a: p.a }); state.routeDate = d; agSel = d; save(); closeSheet(); if (currentView === "perto") { renderPerto(); const results = $(".near-results"); if (results) results.open = false; window.scrollTo({ top: 0, behavior: "smooth" }); } else if (currentView === "agenda") renderAgenda(); toast("Adicionado à programação de " + fmtDia(d, { day: "numeric", month: "short" })); } }, icon("cal"), "Adicionar à programação"), h("button", { class: "btn", onClick: () => closeSheet() }, "Cancelar")));
 }
 
 /* ---------------- LOJAS (redes · lugares · parques · miami) ---------------- */
@@ -1578,14 +1593,14 @@ function renderPerto() {
   v.appendChild(h("div", { class: "card" }, h("div", { class: "search" }, icon("search"), addr), sug,
     h("div", { class: "btns" }, h("button", { class: "btn tonal", onClick: useGeo }, icon("nav"), "Usar onde estou"), state.homeLat != null ? h("button", { class: "btn tonal", onClick: () => { here = { la: state.homeLat, lo: state.homeLng, label: "casa" }; state.region = ""; sel.value = ""; save(); renderNear(); } }, icon("home"), "Partir da casa") : null, h("button", { class: "btn", onClick: () => planAddr(addr.value) }, "Buscar")),
     h("label", { text: "Ou escolha a região" }), sel));
-  v.appendChild(h("div", { class: "seg", id: "nearSeg" }, h("button", { class: nearMode === "lista" ? "on" : "", onClick: () => { nearMode = "lista"; renderNear(); } }, "Lista"), h("button", { class: nearMode === "mapa" ? "on" : "", onClick: () => { nearMode = "mapa"; renderNear(); } }, "Mapa")));
-  v.appendChild(h("div", { id: "nearHead" })); v.appendChild(h("div", { id: "near" }));
+  const results = h("details", { class: "near-results", open: !!here }, h("summary", {}, icon("search"), h("span", { text: "Explorar lugares próximos" })),
+    h("div", { class: "seg", id: "nearSeg" }, h("button", { class: nearMode === "lista" ? "on" : "", onClick: () => { nearMode = "lista"; renderNear(); } }, "Lista"), h("button", { class: nearMode === "mapa" ? "on" : "", onClick: () => { nearMode = "mapa"; renderNear(); } }, "Mapa")), h("div", { id: "nearHead" }), h("div", { id: "near" }));
   const routeDate = currentRouteDate();
   const routePicker = h("input", { class: "route-date", type: "date", value: routeDate, "aria-label": "Data do roteiro", onChange: () => { const d = str(routePicker.value, 10); if (ISO.test(d)) { state.routeDate = d; save(); renderPerto(); } } });
-  v.appendChild(h("div", { class: "route-heading" }, h("div", {}, h("h3", { text: "Roteiro do dia" }), h("p", { class: "small muted", text: "Inclui automaticamente o que está na Agenda." })), routePicker));
-  v.appendChild(h("div", { class: "list", id: "plan" }));
-  if (routeStops(routeDate).length) v.appendChild(h("button", { class: "btn primary block route-maps", onClick: openRoute }, icon("route"), "Abrir trajeto no Google Maps"));
-  v.appendChild(h("div", { class: "btns" }, h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn danger sm", onClick: clearPlan }, "Limpar extras")));
+  const planCard = h("section", { class: "card day-plan route-card" }, h("div", { class: "route-heading" }, h("div", {}, h("h3", { text: "Minha programação" }), h("p", { class: "small muted", text: "Agenda e roteiro juntos, na ordem que escolher." })), routePicker), h("div", { class: "list", id: "plan" }));
+  if (routeStops(routeDate).length) planCard.appendChild(h("button", { class: "btn primary block route-maps", onClick: openRoute }, icon("route"), "Abrir trajeto no Google Maps"));
+  planCard.appendChild(h("div", { class: "btns" }, h("button", { class: "btn tonal sm", onClick: autoOrder }, "Ordenar pelo caminho"), h("button", { class: "btn sm", onClick: () => { agSel = routeDate; go("agenda"); } }, icon("cal"), "Ver na Agenda")));
+  v.insertBefore(planCard, v.children[1]); v.appendChild(results);
   v.appendChild(h("p", { class: "small muted", text: "Lojas levantadas em out/2026 (Google Maps). Horários e endereços podem mudar." }));
   if (state.region) { const r = D.pontos.regioes.find(x => x.id === state.region); if (r) here = { la: r.la, lo: r.lo, label: r.n }; }
   renderNear(); renderPlan();
@@ -1625,6 +1640,7 @@ function renderNear() {
     chip("Abertos agora", nf.open, () => nf.open = !nf.open), chip("★ 4,3+", nf.top, () => nf.top = !nf.top),
     chip("Lojas", nf.type === "loja", () => nf.type = nf.type === "loja" ? "" : "loja"), chip("Marcas", nf.type === "marca", () => nf.type = nf.type === "marca" ? "" : "marca"), chip("Outlets e shoppings", nf.type === "shop", () => nf.type = nf.type === "shop" ? "" : "shop"), chip("Parques", nf.type === "park", () => nf.type = nf.type === "park" ? "" : "park"), chip("Comida", nf.type === "comida", () => nf.type = nf.type === "comida" ? "" : "comida"),
     chip(nf.sort === "r" ? "Por nota" : "Por distância", nf.sort === "r", () => nf.sort = nf.sort === "r" ? "km" : "r"));
+  const results = $(".near-results"); if (results) results.open = true;
   head.replaceChildren(h("div", { class: "callout info", text: "Perto de " + here.label + " — " + list.length + " lugares em até " + lim + " km" + (nf.sort === "r" ? ", por nota." : ", do mais perto ao mais longe.") }), filters);
   $$("#nearSeg button").forEach((b, i) => b.classList.toggle("on", (i === 0) === (nearMode === "lista")));
   if (nearMode === "mapa") { box.replaceChildren(); showMap(box, list); return; }
@@ -1643,28 +1659,37 @@ function sheetPlace(p) {
     pedidosSection(pedidosPonto(p), () => sheetPlace(p)),
     h("div", { class: "btns" }, h("a", { class: "btn primary", href: mapsDir(placeName(p) + ", " + p.a) }, icon("nav"), "Como chegar"), h("a", { class: "btn", href: mapsSearch(placeName(p) + ", " + p.a) }, "Ver no Maps"),
       h("button", { class: "btn tonal", onClick: () => { here = { la: p.la, lo: p.lo, label: placeName(p) }; state.region = ""; save(); closeSheet(); go("perto"); } }, icon("pin"), "Ver o que tem perto"),
-      h("button", { class: "btn tonal", onClick: () => { addStop(p); closeSheet(); } }, icon(inPlan ? "check" : "plus"), inPlan ? "No roteiro" : "Adicionar ao roteiro"), h("button", { class: "btn tonal", onClick: () => sheetProgramarLugar(p) }, icon("cal"), "Programar um dia")),
+      h("button", { class: "btn tonal", onClick: () => sheetProgramarLugar(p) }, icon(inPlan ? "check" : "cal"), inPlan ? "Programar em outro dia" : "Adicionar à programação")),
     h("div", { class: "btns" }, closeBtn()));
 }
-function findPlaceForQuery(query) {
-  const q = norm(query); if (!q) return null;
-  let best = null, bestScore = 0;
-  D.pontos.pontos.forEach(p => {
-    const n = norm(placeName(p)), a = norm(p.a), words = q.split(" ").filter(w => w.length > 2);
-    const hits = words.filter(w => n.includes(w) || a.includes(w)).length;
-    const score = n === q ? 100 : (n.includes(q) || q.includes(n) ? 90 : hits * 10);
-    if (score > bestScore) { best = p; bestScore = score; }
-  });
-  return bestScore >= 20 ? best : null;
+function eventPlaces(event) {
+  if (!event || event.cat !== "compras" || !event.q || /online|\.com/i.test(event.q + " " + event.onde)) return [];
+  const q = norm(event.q);
+  return D.pontos.pontos.filter(p => { const n = norm(placeName(p)); return n === q || n.startsWith(q + " "); });
 }
-function stopFromAgenda(x) {
+function fixedEventPlace(event) {
+  if (!event || event.cat === "compras") return null;
+  const location = norm((event.q || event.onde || "").split(",")[0]);
+  if (location.length < 4) return null;
+  return D.pontos.pontos.find(p => norm(placeName(p)) === location) || null;
+}
+function routeAnchors(day) {
+  const ids = state.agenda.filter(x => x.d === day && x.k === "pl").map(x => x.id).concat(state.plan.filter(x => x.d === day).map(x => x.id));
+  const anchors = ids.map(id => D.pontos.pontos.find(p => placeId(p) === id)).filter(Boolean);
+  state.agenda.filter(x => x.d === day && x.k === "ev").forEach(x => { const event = ((D.eventos && D.eventos.eventos) || []).find(e => e.id === x.id); const p = fixedEventPlace(event); if (p) anchors.push(p); });
+  if (!anchors.length && state.homeLat != null && state.homeLng != null) anchors.push({ la: state.homeLat, lo: state.homeLng });
+  return anchors;
+}
+function stopFromAgenda(x, anchors) {
   const event = x.k === "ev" ? ((D.eventos && D.eventos.eventos) || []).find(e => e.id === x.id) : null;
   const query = event ? (event.q || event.onde || x.a || x.n) : x.n;
-  const point = x.k === "pl" ? D.pontos.pontos.find(p => placeId(p) === x.id) || findPlaceForQuery(query) : findPlaceForQuery(query);
-  return { id: "agenda:" + x.k + ":" + x.id, pId: point ? placeId(point) : "", n: x.n, a: x.a || (event && event.onde) || (point && point.a) || "", q: point ? placeName(point) + ", " + point.a : query, agenda: true };
+  const choices = eventPlaces(event), manual = choices.find(p => placeId(p) === x.locId);
+  const point = x.k === "pl" ? D.pontos.pontos.find(p => placeId(p) === x.id) : fixedEventPlace(event) || manual || (choices.length === 1 ? choices[0] : anchors.length && choices.length ? choices.slice().sort((a, b) => Math.min(...anchors.map(r => kmBetween(a.la, a.lo, r.la, r.lo))) - Math.min(...anchors.map(r => kmBetween(b.la, b.lo, r.la, r.lo))))[0] : null);
+  return { id: "agenda:" + x.k + ":" + x.id, pId: point ? placeId(point) : "", kind: x.k, category: point && point.c, n: x.n, a: point ? point.a : (event && event.onde) || x.a || "", q: point ? placeName(point) + ", " + point.a : query, agenda: true, choices: choices.length, manual: !!manual, sourceId: x.id, autoPlace: !!point && !!event && !manual };
 }
 function routeStops(day) {
-  const raw = state.agenda.filter(x => x.d === day && x.k !== "nota").map(stopFromAgenda).concat(state.plan.filter(s => s.d === day).map(s => Object.assign({ q: s.n + ", " + s.a, agenda: false }, s)));
+  const anchors = routeAnchors(day);
+  const raw = state.agenda.filter(x => x.d === day && x.k !== "nota").map(x => stopFromAgenda(x, anchors)).concat(state.plan.filter(s => s.d === day).map(s => Object.assign({ q: s.n + ", " + s.a, agenda: false }, s)));
   const seen = new Set(); const unique = raw.filter(s => { const key = s.pId || norm(s.q || s.n); if (!key || seen.has(key)) return false; seen.add(key); return true; });
   const order = state.routeOrder[day] || []; const rank = new Map(order.map((id, i) => [id, i]));
   return unique.sort((a, b) => (rank.has(a.id) ? rank.get(a.id) : 1000 + raw.indexOf(a)) - (rank.has(b.id) ? rank.get(b.id) : 1000 + raw.indexOf(b)));
@@ -1677,15 +1702,26 @@ function addStop(p) {
   if (state.plan.filter(s => s.d === day).length >= 30) { toast("Roteiro cheio"); return; }
   state.plan.push({ id, n: placeName(p), a: p.a, d: day }); save(); renderPlan(); toast("Adicionado ao roteiro de " + fmtDia(day, { day: "numeric", month: "short" }));
 }
+function chooseEventPlace(day, eventId) {
+  const entry = state.agenda.find(x => x.d === day && x.k === "ev" && x.id === eventId);
+  const event = ((D.eventos && D.eventos.eventos) || []).find(e => e.id === eventId);
+  if (!entry || !event) return;
+  const choices = eventPlaces(event), anchors = routeAnchors(day);
+  const sorted = choices.slice().sort((a, b) => anchors.length ? Math.min(...anchors.map(r => kmBetween(a.la, a.lo, r.la, r.lo))) - Math.min(...anchors.map(r => kmBetween(b.la, b.lo, r.la, r.lo))) : placeName(a).localeCompare(placeName(b)));
+  const select = p => { entry.locId = p ? placeId(p) : ""; save(); closeSheet(); renderPerto(); toast(p ? "Loja escolhida para este evento" : "Escolha automática ativada"); };
+  openSheet(h("h2", { text: "Escolher a loja" }), h("p", { class: "small muted", text: "Escolha uma unidade ou deixe o guia sugerir uma próxima das paradas do dia." }),
+    h("button", { class: "btn tonal block", onClick: () => select(null) }, icon("route"), "Escolher automaticamente"),
+    h("div", { class: "list" }, ...sorted.map(p => h("button", { class: "row", onClick: () => select(p) }, h("span", { class: "ico" }, icon("pin")), h("span", { class: "t" }, h("b", { text: placeName(p) }), h("span", { text: p.a })), entry.locId === placeId(p) ? h("span", { class: "badge leaf", text: "Escolhida" }) : icon("chev", "chev")))), closeBtn());
+}
 function renderPlan() {
   const box = $("#plan"); if (!box) return; box.replaceChildren();
   const day = currentRouteDate(), stops = routeStops(day);
-  if (!stops.length) { box.appendChild(h("div", { class: "empty", text: "Programe um lugar na Agenda ou toque em um lugar acima para adicionar à rota deste dia." })); return; }
+  if (!stops.length) { box.appendChild(h("div", { class: "empty", text: "Escolha uma região e adicione lugares à programação deste dia." })); return; }
   const km = planTotalKm(stops); if (km) box.appendChild(h("div", { class: "small muted", style: null, text: stops.length + " paradas · ~" + Math.round(km * 1.25) + " km de carro" + (state.homeLat != null ? " saindo da casa" : "") }));
-  stops.forEach((s, i) => box.appendChild(h("div", { class: "stop" }, h("span", { class: "num", text: String(i + 1) }), h("div", { class: "n" }, s.n, h("small", { text: s.a || "Local a confirmar no Maps" }), s.agenda ? h("span", { class: "badge leaf", text: "Agenda" }) : null),
+  stops.forEach((s, i) => box.appendChild(h("div", { class: "stop" }, h("span", { class: "stop-type " + (s.kind === "ev" ? "event" : s.category === "park" ? "park" : s.category === "comida" ? "food" : "place") }, icon(s.kind === "ev" ? "cal" : s.category === "park" ? "park" : s.category === "comida" ? "fork" : "pin")), h("div", { class: "n" }, h("small", { text: "PARADA " + (i + 1) }), s.n, h("small", { text: s.a || "Local a confirmar no Maps" }), s.choices ? h("button", { class: "location-choice", onClick: () => chooseEventPlace(day, s.sourceId) }, s.manual ? "Loja escolhida · alterar" : s.autoPlace ? "Sugestão de loja · alterar" : "Escolher unidade") : null),
     h("button", { class: "iconbtn", "aria-label": "subir", onClick: () => { if (i > 0) { [stops[i - 1], stops[i]] = [stops[i], stops[i - 1]]; saveRouteOrder(day, stops); renderPlan(); } } }, icon("up")),
     h("button", { class: "iconbtn", "aria-label": "descer", onClick: () => { if (i < stops.length - 1) { [stops[i + 1], stops[i]] = [stops[i], stops[i + 1]]; saveRouteOrder(day, stops); renderPlan(); } } }, icon("down")),
-    !s.agenda ? h("button", { class: "iconbtn", "aria-label": "remover", onClick: () => { state.plan = state.plan.filter(x => x.id !== s.id || x.d !== day); save(); renderPlan(); } }, icon("x")) : null)));
+    h("button", { class: "iconbtn", "aria-label": "Remover " + s.n, onClick: () => { if (s.agenda) state.agenda = state.agenda.filter(x => !(x.d === day && "agenda:" + x.k + ":" + x.id === s.id)); else state.plan = state.plan.filter(x => x.id !== s.id || x.d !== day); save(); renderPerto(); } }, icon("x")))));
 }
 function autoOrder() {
   const day = currentRouteDate(), a = routeStops(day); if (a.length < 2) { toast("Adicione pelo menos 2 paradas"); return; }
@@ -1695,7 +1731,7 @@ function autoOrder() {
   saveRouteOrder(day, out); renderPlan(); toast("Roteiro ordenado pelo caminho mais curto");
 }
 function planTotalKm(stops) { let cur = (state.homeLat != null) ? { la: state.homeLat, lo: state.homeLng } : null, tot = 0; stops.forEach(s => { const c = stopCoords(s); if (c && cur) tot += kmBetween(cur.la, cur.lo, c.la, c.lo); if (c) cur = c; }); return tot; }
-function openRoute() { const stops = routeStops(currentRouteDate()); if (!stops.length) { toast("Adicione paradas primeiro"); return; } const dest = stops.map(s => s.q || (s.n + ", " + s.a)); window.open(mapsDir(dest[dest.length - 1], state.home || "", dest.slice(0, -1)), "_blank", "noopener"); }
+function openRoute() { const day = currentRouteDate(), stops = routeStops(day); if (!stops.length) { toast("Adicione paradas primeiro"); return; } const unresolved = stops.find(s => s.choices > 1 && !s.pId); if (unresolved) { toast("Escolha a unidade para montar o trajeto"); chooseEventPlace(day, unresolved.sourceId); return; } const dest = stops.map(s => s.q || (s.n + ", " + s.a)); window.open(mapsDir(dest[dest.length - 1], state.home || "", dest.slice(0, -1)), "_blank", "noopener"); }
 function clearPlan() { const day = currentRouteDate(), count = state.plan.filter(s => s.d === day).length; if (!count) { toast("Não há extras para limpar neste dia"); return; } if (!confirm("Remover os lugares extras deste roteiro? A Agenda não será alterada.")) return; state.plan = state.plan.filter(s => s.d !== day); delete state.routeOrder[day]; save(); renderPlan(); }
 
 
