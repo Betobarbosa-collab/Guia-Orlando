@@ -211,7 +211,6 @@ td:first-child{font-weight:700}
 .nav button.on{color:var(--primary)}
 .nav button .pill{width:46px;height:28px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;position:relative}
 .nav button.on .pill{background:var(--primary-soft)}
-.navbadge{position:absolute;right:-7px;top:-7px;min-width:17px;height:17px;padding:0 4px;border:2px solid var(--surface);border-radius:10px;background:var(--accent);color:#fff;font-size:10px;line-height:13px;text-align:center}
 
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 14px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;font-size:14px;z-index:50;display:none;max-width:92%;text-align:center}
 .toast.show{display:block}
@@ -271,12 +270,26 @@ table.sizes td{font-weight:700;font-size:16px}
 .brand:nth-child(3n+1) .brand-wordmark{font-family:var(--display);font-size:18px}
 .brand:nth-child(3n+2) .brand-wordmark{text-transform:uppercase;letter-spacing:.04em;font-size:13px}
 .brand:nth-child(3n) .brand-wordmark{font-style:italic}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand-logo[src$="nike.svg"],:root:not([data-theme="light"]) .brand-logo[src$="adidas.svg"],:root:not([data-theme="light"]) .brand-logo[src$="newbalance.svg"]{filter:invert(1)}}
-:root[data-theme="dark"] .brand-logo[src$="nike.svg"],:root[data-theme="dark"] .brand-logo[src$="adidas.svg"],:root[data-theme="dark"] .brand-logo[src$="newbalance.svg"]{filter:invert(1)}
+.brands .brand{background:#fff;color:#142f2d;border-color:#e7e3da}
 .route-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:20px}
 .route-heading h3{margin:0 0 2px}.route-heading p{margin:0}
 .route-date{width:auto!important;min-width:145px;padding:8px 10px!important;font-size:14px!important;border-radius:12px!important}
 .route-maps{margin:0 0 10px}
+.day-plan{border:1px solid var(--primary);box-shadow:0 8px 24px rgba(11,75,70,.10);margin:14px 0;padding:16px}
+.day-plan .route-heading{margin:0 0 12px;align-items:center}
+.day-plan .list{margin:10px 0}
+.day-plan .stop{padding:10px 2px;gap:10px}
+.stop-type{width:40px;height:40px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;flex:none;background:#dceee8;color:#176456}
+.stop-type.event{background:#fce8d9;color:#a24d25}.stop-type.park{background:#e7e4fb;color:#5847a1}.stop-type.food{background:#fff0c9;color:#8a6000}.stop-type.note{background:#e3eaf8;color:#385d99}
+.stop-type .ic{width:20px;height:20px}
+.location-choice{display:inline-flex;align-items:center;margin-top:5px;padding:4px 9px;border:0;border-radius:8px;background:var(--primary-soft);color:var(--primary);font:700 12px var(--font);cursor:pointer}
+.location-choice:focus-visible,.near-results summary:focus-visible{outline:3px solid var(--info);outline-offset:2px}
+.brands .brand:focus-visible{outline:3px solid var(--info);outline-offset:2px}
+.near-results{margin:14px 0;border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.near-results summary{list-style:none;display:flex;align-items:center;gap:9px;padding:15px;font-weight:700;cursor:pointer;color:var(--primary)}
+.near-results summary::-webkit-details-marker{display:none}.near-results summary:after{content:'+';margin-left:auto;font-size:22px}.near-results[open] summary:after{content:'−'}
+.near-results #nearSeg,.near-results #nearHead,.near-results #near{margin:0 12px 12px}
+@media(max-width:380px){.day-plan .route-heading{align-items:flex-start;flex-direction:column}.route-date{width:100%!important}}
 @media (max-width:360px){.brands{grid-template-columns:repeat(2,1fr)}}
 
 .item img{cursor:zoom-in;background:#fff}
