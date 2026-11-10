@@ -15,6 +15,10 @@ jobs:
       - run: pip install openpyxl==3.1.5
       - run: python tools/build_data.py
       - run: python tools/build_site.py
+        env:
+          GUIA_CLOUD_URL: ${{ vars.GUIA_CLOUD_URL }}
+          GUIA_CLOUD_PUBLISHABLE_KEY: ${{ vars.GUIA_CLOUD_PUBLISHABLE_KEY }}
+          GUIA_ROUTES_ENABLED: ${{ vars.GUIA_ROUTES_ENABLED }}
       - name: Commit dos arquivos gerados
         run: |
           git config user.name "guia-bot"

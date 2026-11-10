@@ -1,10 +1,10 @@
 /* Service worker gerado por tools/build_site.py — não edite à mão.
    O app é um arquivo só (index.html). Com internet, pega sempre a versão nova; sem internet, usa a guardada. */
-const CACHE = "guia-48fe8aa17d";
-const SHELL = ["./", "index.html", "manifest.webmanifest", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/icon-512-maskable.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.svg"];
+const CACHE = "guia-1e19faaf9f";
+const SHELL = ["./", "index.html", "manifest.webmanifest", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/icon-512-maskable.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.svg", "assets/logos/adidas.svg", "assets/logos/asics.svg", "assets/logos/gap.svg", "assets/logos/newbalance.svg", "assets/logos/nike.svg", "assets/logos/oakley.svg", "assets/logos/thenorthface.svg", "assets/logos/tommyhilfiger.svg", "assets/logos/vans.svg"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 const IMG = "guia-img"; // fotos dos pedidos: ficam guardadas entre versões
-self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE && k !== IMG).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
+self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith("guia-") && k !== CACHE && k !== IMG).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("fetch", e => {
   const req = e.request; if (req.method !== "GET") return;
   const url = new URL(req.url);

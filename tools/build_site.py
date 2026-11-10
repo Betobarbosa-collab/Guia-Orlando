@@ -3,7 +3,7 @@
 Uso: python tools/build_site.py
 Entradas: src/index.template.html, assets/app.css, assets/app.js, assets/vendor/leaflet/*, assets/fonts/*, data/*.json
 Saídas:   index.html, sw.js  (os únicos arquivos que o celular baixa, além do manifest e dos ícones)"""
-import base64, hashlib, json, re
+import base64, hashlib, json, os, re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 A = ROOT / "assets"; DATA = ROOT / "data"
@@ -15,7 +15,20 @@ def font_uri(m):
     f = A / "fonts" / m.group(1)
     return 'url("data:font/woff2;base64,' + base64.b64encode(f.read_bytes()).decode() + '")'
 css = re.sub(r'url\("fonts/([^"]+)"\)', font_uri, css)
-js = (A / "vendor/leaflet/leaflet.js").read_text(encoding="utf-8") + "\n" + (A / "app.js").read_text(encoding="utf-8")
+cloud_url = os.environ.get("GUIA_CLOUD_URL", "").strip().rstrip("/")
+cloud_key = os.environ.get("GUIA_CLOUD_PUBLISHABLE_KEY", "").strip()
+if bool(cloud_url) != bool(cloud_key):
+    raise ValueError("Configure a URL e a chave publicável juntas.")
+if cloud_url and not re.fullmatch(r"https://[a-z0-9]+\.supabase\.co", cloud_url):
+    raise ValueError("Use a origem HTTPS do projeto Supabase.")
+if cloud_key and not re.fullmatch(r"sb_publishable_[A-Za-z0-9_-]+", cloud_key):
+    raise ValueError("Use somente a chave publicável sb_publishable_.")
+cloud = {"url": cloud_url, "key": cloud_key, "routes": bool(cloud_url and os.environ.get("GUIA_ROUTES_ENABLED") == "true")}
+modules = "const CLOUD = " + json.dumps(cloud) + ";\n"
+modules += "\n".join((A / f).read_text(encoding="utf-8") for f in ["trip.js", "trip-cloud.js", "stores.js"])
+app = (A / "app.js").read_text(encoding="utf-8")
+assert app.count("/* @trip-modules */") == 1
+js = (A / "vendor/leaflet/leaflet.js").read_text(encoding="utf-8") + "\n" + app.replace("/* @trip-modules */", modules)
 assert "</script" not in js.lower(), "o JS não pode conter </script"
 h = lambda t: "'sha256-" + base64.b64encode(hashlib.sha256(t.encode("utf-8")).digest()).decode() + "'"
 tpl = (ROOT / "src/index.template.html").read_text(encoding="utf-8")
@@ -23,16 +36,19 @@ from urllib.parse import urlparse
 hosts = sorted({"https://" + urlparse(x.get("fotoUrl", "")).netloc for x in data["pedidos"].get("pedidos", []) if x.get("fotoUrl")} | {"https://" + urlparse(x.get("fotoUrl", "")).netloc for x in data["pedidos"].get("pessoas", []) if x.get("fotoUrl")})
 img_src = "img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org" + ("".join(" " + hst for hst in hosts if hst != "https://")) + ";"
 tpl = tpl.replace("img-src 'self' data: blob: https:;", img_src)
+tpl = tpl.replace("{{CLOUD_HOST}}", " " + cloud_url if cloud_url else "")
 html = tpl.replace("{{CSS}}", css).replace("{{DATA}}", data_js).replace("{{JS}}", js).replace("{{CSP_SCRIPT}}", h(js)).replace("{{CSP_STYLE}}", h(css))
 (ROOT / "index.html").write_text(html, encoding="utf-8")
 ver = hashlib.sha256(html.encode("utf-8")).hexdigest()[:10]
+shell = ["./", "index.html", "manifest.webmanifest", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/icon-512-maskable.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.svg"]
+shell += sorted(p.relative_to(ROOT).as_posix() for p in (A / "logos").glob("*.svg"))
 sw = rf'''/* Service worker gerado por tools/build_site.py — não edite à mão.
    O app é um arquivo só (index.html). Com internet, pega sempre a versão nova; sem internet, usa a guardada. */
 const CACHE = "guia-{ver}";
-const SHELL = ["./", "index.html", "manifest.webmanifest", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/icons/icon-512-maskable.png", "assets/icons/apple-touch-icon.png", "assets/icons/favicon.svg"];
+const SHELL = {json.dumps(shell)};
 self.addEventListener("install", e => {{ e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); }});
 const IMG = "guia-img"; // fotos dos pedidos: ficam guardadas entre versões
-self.addEventListener("activate", e => {{ e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE && k !== IMG).map(k => caches.delete(k)))).then(() => self.clients.claim())); }});
+self.addEventListener("activate", e => {{ e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith("guia-") && k !== CACHE && k !== IMG).map(k => caches.delete(k)))).then(() => self.clients.claim())); }});
 self.addEventListener("fetch", e => {{
   const req = e.request; if (req.method !== "GET") return;
   const url = new URL(req.url);

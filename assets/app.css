@@ -7,11 +7,12 @@
 @font-face{font-family:"Fraunces";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/fraunces-latin-700-normal.woff2") format("woff2")}
 
 :root{
-  --bg:#F6F1E8; --surface:#FFFFFF; --surface-2:#FBF8F2; --ink:#1B2423; --muted:#667371; --line:#E6DFD3;
-  --primary:#0F4C47; --on-primary:#FFFFFF; --primary-soft:#DCEBE7;
-  --accent:#D94E2B; --accent-soft:#FBE3DC; --sun:#E9A72A; --sun-soft:#FCEFD2; --sun-ink:#4A3300;
+  --bg:#F8F3ED; --surface:#FFFFFF; --surface-2:#FCF8F4; --ink:#192A3D; --muted:#536276; --line:#DAD5CF;
+  --primary:#16304C; --on-primary:#FFFFFF; --primary-soft:#E7EDF5;
+  --accent:#A74634; --accent-soft:#F9E6DF; --sun:#C07830; --sun-soft:#FCEFD2; --sun-ink:#4A3300;
   --ok:#2E7D5B; --ok-soft:#DFF1E8; --info:#2F5D8A; --info-soft:#E1ECF7;
-  --shadow:0 1px 2px rgba(27,36,35,.06),0 8px 24px rgba(27,36,35,.08);
+  --shadow:0 1px 2px rgba(22,48,76,.06),0 8px 24px rgba(22,48,76,.08);
+  --nav-bg:#16304C; --nav-ink:#EDF2F8; --nav-active:#A74634;
   --r:18px; --r-sm:12px; --nav-h:64px;
   --font:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --display:"Fraunces",Georgia,"Times New Roman",serif;
@@ -21,18 +22,18 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#0E1111; --surface:#191D1D; --surface-2:#1F2424; --ink:#F1F3F2; --muted:#9BA5A3; --line:#2B3232;
-    --primary:#8ED3C7; --on-primary:#0B2320; --primary-soft:#173532;
-    --accent:#FF8A6A; --accent-soft:#3B241D; --sun:#F6C35C; --sun-soft:#3A2E12; --sun-ink:#FFE9B5;
+    --bg:#111D2B; --surface:#19283A; --surface-2:#213248; --ink:#F2F5FA; --muted:#BDCBDC; --line:#3C506A;
+    --primary:#B9D5F4; --on-primary:#11243A; --primary-soft:#263F5D;
+    --accent:#FFAD98; --accent-soft:#50302C; --sun:#F6C35C; --sun-soft:#3A2E12; --sun-ink:#FFE9B5;
     --ok:#7ED3A8; --ok-soft:#153426; --info:#8FB8E6; --info-soft:#1A2C40;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#0E1111; --surface:#191D1D; --surface-2:#1F2424; --ink:#F1F3F2; --muted:#9BA5A3; --line:#2B3232;
-  --primary:#8ED3C7; --on-primary:#0B2320; --primary-soft:#173532;
-  --accent:#FF8A6A; --accent-soft:#3B241D; --sun:#F6C35C; --sun-soft:#3A2E12; --sun-ink:#FFE9B5;
+  --bg:#111D2B; --surface:#19283A; --surface-2:#213248; --ink:#F2F5FA; --muted:#BDCBDC; --line:#3C506A;
+  --primary:#B9D5F4; --on-primary:#11243A; --primary-soft:#263F5D;
+  --accent:#FFAD98; --accent-soft:#50302C; --sun:#F6C35C; --sun-soft:#3A2E12; --sun-ink:#FFE9B5;
   --ok:#7ED3A8; --ok-soft:#153426; --info:#8FB8E6; --info-soft:#1A2C40;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
 }
@@ -145,7 +146,8 @@ main{padding:8px 18px 32px;max-width:680px;margin:0 auto}
 .btn.sm{min-height:40px;padding:6px 12px;font-size:14px;border-radius:11px}
 .btn.block{width:100%}
 .btn:active{transform:scale(.98)}
-.btn:focus-visible,.row:focus-visible,.iconbtn:focus-visible,.action:focus-visible,.tile:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--info);outline-offset:2px}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--info);outline-offset:2px}
+.row:focus-visible{outline-offset:-3px}
 .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:12px 0 5px;letter-spacing:.02em}
 input[type=text],input[type=number],input[type=url],input[type=search],select,textarea{width:100%;font:inherit;font-size:17px;padding:12px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);color:var(--ink)}
@@ -275,12 +277,12 @@ table.sizes td{font-weight:700;font-size:16px}
 .route-heading h3{margin:0 0 2px}.route-heading p{margin:0}
 .route-date{width:auto!important;min-width:145px;padding:8px 10px!important;font-size:14px!important;border-radius:12px!important}
 .route-maps{margin:0 0 10px}
-.day-plan{border:1px solid var(--primary);box-shadow:0 8px 24px rgba(11,75,70,.10);margin:14px 0;padding:16px}
+.day-plan{border:1px solid var(--primary);box-shadow:var(--shadow);margin:14px 0;padding:16px}
 .day-plan .route-heading{margin:0 0 12px;align-items:center}
 .day-plan .list{margin:10px 0}
 .day-plan .stop{padding:10px 2px;gap:10px}
-.stop-type{width:40px;height:40px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;flex:none;background:#dceee8;color:#176456}
-.stop-type.event{background:#fce8d9;color:#a24d25}.stop-type.park{background:#e7e4fb;color:#5847a1}.stop-type.food{background:#fff0c9;color:#8a6000}.stop-type.note{background:#e3eaf8;color:#385d99}
+.stop-type{width:40px;height:40px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;flex:none;background:var(--primary-soft);color:var(--primary)}
+.stop-type.event{background:var(--accent-soft);color:var(--accent)}.stop-type.park{background:var(--ok-soft);color:var(--ok)}.stop-type.food{background:var(--sun-soft);color:var(--sun-ink)}.stop-type.note{background:var(--info-soft);color:var(--info)}
 .stop-type .ic{width:20px;height:20px}
 .location-choice{display:inline-flex;align-items:center;margin-top:5px;padding:4px 9px;border:0;border-radius:8px;background:var(--primary-soft);color:var(--primary);font:700 12px var(--font);cursor:pointer}
 .location-choice:focus-visible,.near-results summary:focus-visible{outline:3px solid var(--info);outline-offset:2px}
@@ -295,3 +297,66 @@ table.sizes td{font-weight:700;font-size:16px}
 .item img{cursor:zoom-in;background:#fff}
 .bigphoto{background:#fff;border-radius:var(--r);border:1px solid var(--line);padding:12px;margin:6px 0 10px;text-align:center}
 .bigphoto img{max-width:100%;max-height:50vh;object-fit:contain}
+
+/* ---------- Minha viagem ---------- */
+.nav{grid-template-columns:repeat(5,minmax(0,1fr));background:var(--nav-bg);border-top:1px solid var(--nav-active)}
+.nav button,.nav button.on{color:var(--nav-ink);font-size:12px}
+.nav button.on .pill{background:var(--nav-active);color:#fff}
+.nav button:focus-visible{outline-color:var(--nav-ink);outline-offset:-4px}
+.topbar .brand{display:block;min-height:0;padding:0;background:none;border:0;box-shadow:none;text-align:left;cursor:inherit}
+.trip-hero{background:var(--primary-soft);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:24px;padding:clamp(16px,4vw,26px);margin:6px 0 16px}
+.trip-hero h1,.trip-hero h2{margin:3px 0 8px}
+.trip-hero p{color:var(--muted)}
+.trip-eyebrow{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);font-weight:700}
+.trip-hero-meta{display:flex;flex-wrap:wrap;gap:7px 14px;color:var(--primary);font-size:13px;margin:10px 0}
+.trip-hero-meta span{display:inline-flex;align-items:center;gap:5px}
+.trip-hero-meta .ic{width:16px;height:16px}
+#view-viagem .trip-hero .btn.sm{min-height:44px;padding-inline:8px}
+#view-viagem .trip-hero .btn .ic{width:18px;height:18px}
+.trip-today{padding:12px}
+.trip-today-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.trip-today-heading h2{margin:0}
+.trip-today-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:8px}
+.trip-today-fact{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--surface-2);text-align:left;line-height:1.25;font-size:14px;min-height:44px}
+button.trip-today-fact{cursor:pointer}
+.trip-today-fact .ic{color:var(--accent);width:18px;height:18px}
+.trip-today-fact small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.trip-today .btn{min-height:44px}
+.trip-today .btn .ic{width:17px;height:17px}
+.converter-result .bigtext{padding:6px 0}
+.trip-section{margin:20px 0}
+.trip-section h2{font-size:21px;margin-bottom:9px}
+.trip-subhead{margin:8px 0 16px}
+.trip-subhead h1{margin:10px 0 5px}
+.row .ico.trip-sun{background:var(--sun-soft);color:var(--sun-ink)}
+.row .ico.trip-peach{background:var(--accent-soft);color:var(--accent)}
+.trip-field{display:grid;gap:5px;min-width:0;margin:10px 0;color:var(--ink);font-weight:600}
+.trip-field input,.trip-field select,.trip-field textarea{min-width:0;width:100%;max-width:100%}
+.trip-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.trip-check{display:flex;align-items:center;gap:8px;color:var(--ink);margin:8px 0}
+.trip-check input{width:20px;height:20px;accent-color:var(--primary)}
+.trip-timeline{margin:10px 0}
+.trip-timeline-item{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;border-bottom:1px solid var(--line)}
+.trip-timeline-item:last-child{border:0}
+.trip-timeline-item .row{border:0;padding:10px 0}
+.trip-time{font-size:13px;color:var(--primary);font-weight:700;font-variant-numeric:tabular-nums}
+.trip-map{height:250px;border-radius:14px;background:var(--primary-soft);border:1px solid var(--line);margin-bottom:8px;overflow:hidden}
+.trip-map-list{font-size:14px;padding-left:23px}
+.trip-route-caption{padding:8px 8px 4px}
+.route-card button:disabled{opacity:.42;cursor:default}
+.trip-progress{width:100%;height:10px;accent-color:var(--primary)}
+.trip-totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px;margin:10px 0}
+.trip-totals .card{display:grid;gap:2px;margin:0}
+@media(max-width:350px){.trip-fields{grid-template-columns:1fr}.trip-hero{border-radius:18px}}
+
+/* ---------- lojas cadastradas ---------- */
+.store-actions{margin:12px 0}
+.store-actions .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+:root[data-theme="dark"] .store-actions .btn.primary{color:#351C19}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .store-actions .btn.primary{color:#351C19}}
+.store-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:12px 0}
+.store-tabs button{min-height:44px;flex:1 0 auto}
+.store-results .t span{white-space:normal;overflow-wrap:anywhere}
+.store-form .trip-field input,.store-form .trip-field select,.store-form .trip-field textarea{font-size:16px}
+.store-form .btns{flex-wrap:wrap}
+.store-error{color:var(--accent);font-weight:700}

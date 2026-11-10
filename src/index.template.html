@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src {{CSP_SCRIPT}}; style-src {{CSP_STYLE}}; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src {{CSP_SCRIPT}}; style-src {{CSP_STYLE}}; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org{{CLOUD_HOST}}; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#F6F1E8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0F1413" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#16304C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111D2B" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="robots" content="noindex, nofollow">
@@ -62,7 +62,12 @@
 <div class="offline" id="offline">Sem internet — modo offline</div>
 
 <main>
-  <section class="view active" id="view-hoje" data-view="hoje"></section>
+  <section class="view active" id="view-viagem" data-view="viagem"></section>
+  <section class="view" id="view-hoje" data-view="hoje"></section>
+  <section class="view" id="view-explorar" data-view="explorar"></section>
+  <section class="view" id="view-reservas" data-view="reservas"></section>
+  <section class="view" id="view-gastos" data-view="gastos"></section>
+  <section class="view" id="view-familia" data-view="familia"></section>
   <section class="view" id="view-agenda" data-view="agenda"></section>
   <section class="view" id="view-perto" data-view="perto"></section>
   <section class="view" id="view-lojas" data-view="lojas"></section>
@@ -71,11 +76,10 @@
 </main>
 
 <nav class="nav" id="nav" aria-label="Navegação">
-  <button class="on" data-go="hoje"><span class="pill"><svg class="ic"><use href="#i-sun"/></svg></span>Hoje</button>
+  <button class="on" data-go="viagem"><span class="pill"><svg class="ic"><use href="#i-home"/></svg></span>Viagem</button>
   <button data-go="agenda"><span class="pill"><svg class="ic"><use href="#i-cal"/></svg></span>Agenda</button>
-  <button data-go="perto"><span class="pill"><svg class="ic"><use href="#i-pin"/></svg></span>Perto</button>
-  <button data-go="lojas"><span class="pill"><svg class="ic"><use href="#i-tag"/></svg></span>Lojas</button>
-  <button data-go="dicas"><span class="pill"><svg class="ic"><use href="#i-bulb"/></svg></span>Dicas</button>
+  <button data-go="perto"><span class="pill"><svg class="ic"><use href="#i-route"/></svg></span>Roteiro</button>
+  <button data-go="explorar"><span class="pill"><svg class="ic"><use href="#i-compass"/></svg></span>Explorar</button>
   <button data-go="lista"><span class="pill"><svg class="ic"><use href="#i-list"/></svg></span>Lista</button>
 </nav>
 

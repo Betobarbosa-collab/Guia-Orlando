@@ -1,0 +1,4 @@
+project_id = "guia-orlando"
+
+[functions.guia-route]
+verify_jwt = false
