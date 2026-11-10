@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-8ujMVBxQxMpJdi42sNgwaMQak5j5XgI0hqsrBHVvpa4='; style-src 'sha256-XuGKD2ZNq1lHbXi3moUqIayQ8EpF6FNHDbqI8gCG8Pc='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-wV70qMdyTNGOOt01fXECbyuV7xz40rprmrmQcy1Mv6g='; style-src 'sha256-1fO1kJigpkcs1AKp2StYtFfe9KFE0C0QFAgkAcUj3e8='; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org https://assets2.oakley.com; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://api.frankfurter.app https://open.er-api.com https://nominatim.openstreetmap.org https://photon.komoot.io https://overpass.private.coffee; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#16304C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#111D2B" media="(prefers-color-scheme: dark)">
@@ -1038,6 +1038,15 @@ button.trip-today-fact{cursor:pointer}
 .store-form .trip-field input,.store-form .trip-field select,.store-form .trip-field textarea{font-size:16px}
 .store-form .btns{flex-wrap:wrap}
 .store-error{color:var(--accent);font-weight:700}
+.store-optional summary{padding:10px 0;cursor:pointer;font-size:15px;font-weight:700}
+.explore-title{margin:8px 0 10px}
+.explore-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.explore-grid .tile{gap:6px;min-height:86px;padding:10px}
+.explore-grid .tile .ico{width:28px;height:28px;border-radius:8px}
+.explore-grid .tile .ic{width:17px;height:17px}
+.explore-grid .tile b{display:block}
+.explore-grid .tile:nth-child(even) .ico{background:var(--accent-soft);color:var(--accent)}
+@media(min-width:560px){.explore-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -1580,7 +1589,7 @@ function renderLojas() {
   const v = $("#view-lojas"); v.replaceChildren();
   v.append(h("h1", { text: "Lojas e lugares" }),
     h("p", { class: "small muted", text: "Encontre um endereço no guia ou cadastre suas próprias lojas." }),
-    h("div", { class: "btns store-actions" }, tripButton("Adicionar loja", "plus", () => sheetStore(), "primary")));
+    h("div", { class: "btns store-actions" }, tripButton("Adicionar loja", "plus", sheetAddStore, "primary")));
   const options = [["compras", "Compras"], ["minhas", "Minhas lojas"], ["redes", "Redes"], ["lugares", "Regiões"], ["parques", "Parques"], ["miami", "Miami"]];
   const sg = h("div", { class: "seg store-tabs", role: "group", "aria-label": "Categorias de lojas e lugares" },
     ...options.map(([k, label]) => h("button", { class: k === seg ? "on" : "", dataset: { storeTab: k }, "aria-pressed": String(k === seg),
@@ -1806,15 +1815,17 @@ function sheetPlace(p) {
   const st = openStatus(p);
   openSheet(h("h2", { text: placeName(p) }), h("div", { class: "tags" }, h("span", { class: "badge " + (t.bc || "sky"), text: placeTypeLabel(p) }), p.sid ? h("span", { class: "badge coral", text: "Minha loja" }) : null, p.r ? h("span", { class: "badge gray", text: ratingText(p) + " no Google" }) : null, st ? h("span", { class: "badge " + (st.open ? "leaf" : "coral"), text: st.txt + (st.approx ? " (aprox.)" : "") }) : null),
     h("p", { text: p.a }), p.h ? h("p", { class: "small muted", text: "Horário: " + p.h }) : null,
+    p.phone ? h("p", { class: "small muted", text: "Telefone: " + p.phone }) : null,
+    p.osm ? h("p", { class: "small muted" }, "Dados de ", h("a", { href: "https://www.openstreetmap.org/" + p.osm }, "© OpenStreetMap")) : null,
     p.cupom ? h("div", { class: "callout info" }, h("b", { text: "Livro de cupons: " }), p.cupom) : null,
     p.dica ? h("div", { class: "callout ok", [p.sid ? "text" : "html"]: p.dica }) : null,
-    pedidosSection(pedidosPonto(p), () => sheetPlace(p)),
     h("div", { class: "btns" }, tripButton(inPlan ? "Programar em outro dia" : "Adicionar à programação", inPlan ? "check" : "cal", () => sheetProgramarLugar(p), "primary"),
       p.sid ? tripButton("Editar loja", "gear", () => sheetStore(p), "tonal") : null,
       h("a", { class: "btn", href: mapsDir(p.sid ? p.a : placeName(p) + ", " + p.a) }, icon("nav"), "Como chegar"),
       h("a", { class: "btn", href: mapsSearch(placeName(p) + ", " + p.a) }, "Ver no Maps"),
       p.site ? h("a", { class: "btn", href: p.site }, "Site da loja") : null,
       placeHasCoordinates(p) ? tripButton("Ver o que tem perto", "pin", () => { here = { la: p.la, lo: p.lo, label: placeName(p) }; state.region = ""; save(); closeSheet(); go("perto"); }, "tonal") : null),
+    pedidosSection(pedidosPonto(p), () => sheetPlace(p)),
     h("div", { class: "btns" }, closeBtn()));
 }
 function eventPlaces(event) {
@@ -2140,6 +2151,7 @@ async function geocodeNow(q) {
 /* "aberto agora": usa horários por dia (hd) quando existem; senão tenta ler o texto (h) */
 function parseRange(txt) { const m = /(\d{1,2})(?:[:h](\d{2}))?\s*[–\-]\s*(\d{1,2})(?:[:h](\d{2}))?/.exec(txt || ""); if (!m) return null; const a = +m[1] * 60 + (+(m[2] || 0)), b = +m[3] * 60 + (+(m[4] || 0)); return { a, b: b <= a ? b + 1440 : b }; }
 function openStatus(p) {
+  if (p.osm) return null;
   const now = new Date(); const dow = now.getDay(); const cur = now.getHours() * 60 + now.getMinutes();
   let rg = null, approx = false;
   if (Array.isArray(p.hd) && p.hd.length === 7) { if (/^fechad/i.test(p.hd[dow] || "")) return { open: false, txt: "Fechado hoje", approx: false }; rg = parseRange(p.hd[dow]); } else if (p.h) { rg = parseRange(p.h); approx = true; }
@@ -2384,15 +2396,19 @@ function liveTripCard() {
 }
 function renderExplore() {
   const v = $("#view-explorar");
-  v.replaceChildren(h("div", { class: "trip-subhead" }, h("div", { class: "trip-eyebrow", text: "Guia de Orlando" }),
-    h("h1", { text: "Explore Orlando" }), h("p", { class: "small muted", text: "Encontre lugares e leve os favoritos para a programação." })),
-    storeActions(),
-    h("div", { class: "list" },
-      tripRow("bag", "Marcas, lojas e outlets", "Busque pelo logo, região ou tipo de loja", () => go("lojas")),
-      tripRow("pin", "Lugares por perto", "Explore por região, endereço ou localização", () => go("perto"), "trip-sun"),
-      tripRow("cal", "Eventos e ofertas", "Descubra o que acontece no dia escolhido", () => go("agenda")),
-      tripRow("bulb", "Dicas de viagem", "Cupons, tamanhos, transporte e muito mais", () => go("dicas"), "trip-peach"),
-      tripRow("sun", "Hoje no guia", "Clima, descontos e frases para o caixa", () => go("hoje"))));
+  const shortcuts = [
+    ["bag", "Marcas e lojas", "Outlets e shoppings", () => { seg = "compras"; storeQuery = ""; go("lojas"); }],
+    ["pin", "Lugares por perto", "Por região ou endereço", () => go("perto")],
+    ["cal", "Eventos e ofertas", "Veja por dia", () => go("agenda")],
+    ["tag", "Minhas lojas", "Seus lugares salvos", myStores],
+    ["bulb", "Dicas de viagem", "Cupons, tamanhos e mais", () => go("dicas")],
+    ["sun", "Hoje no guia", "Clima, descontos e frases", () => go("hoje")]
+  ];
+  v.replaceChildren(h("h1", { class: "explore-title", text: "Explore Orlando" }),
+    h("div", { class: "store-actions" }, tripButton("Adicionar loja", "search", sheetAddStore, "primary sm block")),
+    h("div", { class: "tiles explore-grid" }, ...shortcuts.map(([symbol, label, description, run]) =>
+      h("button", { class: "tile", type: "button", onClick: run }, h("span", { class: "ico" }, icon(symbol)),
+        h("div", {}, h("b", { text: label }), h("span", { text: description }))))));
 }
 
 /* A Agenda preserva os registros antigos e acrescenta horários editáveis. */
@@ -3021,6 +3037,9 @@ function sheetCloudConflict() {
 
 /* ---------------- lojas cadastradas neste aparelho ---------------- */
 const STORE_TYPES = { "local-shop": "Loja", mall: "Shopping", outlet: "Outlet" };
+const STORE_OSM_ID = /^(node|way|relation)\/([1-9]\d{0,15})$/;
+const STORE_OSM_TYPES = { N: "node", W: "way", R: "relation" };
+const storeLookupCache = new Map();
 state.stores = [];
 
 function cleanStores(records) {
@@ -3031,7 +3050,8 @@ function cleanStores(records) {
     return {
       sid: str(record.sid, 70), n: str(record.n, 100), a: str(record.a, 200),
       c: tripCategory(STORE_TYPES, record.c, "local-shop"),
-      h: str(record.h, 120), dica: str(record.dica, 600), site: tripLink(record.site),
+      h: str(record.h, 120), dica: str(record.dica, 600), site: tripLink(record.site), phone: str(record.phone, 60),
+      osm: typeof record.osm === "string" && STORE_OSM_ID.test(record.osm) ? record.osm : "",
       la: la != null && lo != null ? la : null, lo: la != null && lo != null ? lo : null
     };
   }).filter(store => {
@@ -3065,7 +3085,7 @@ function myStores() {
 }
 function storeActions() {
   return h("div", { class: "btns store-actions" },
-    tripButton("Adicionar loja", "plus", () => sheetStore(), "primary"),
+    tripButton("Adicionar loja", "plus", sheetAddStore, "primary"),
     tripButton("Minhas lojas", "bag", myStores, "tonal"));
 }
 function renderStoreResults(box, query, localOnly) {
@@ -3081,19 +3101,133 @@ function renderStoreResults(box, query, localOnly) {
     () => sheetPlace(p), p.sid ? "trip-peach" : ""
   ))));
 }
-function sheetStore(original = null) {
-  const name = h("input", { value: original?.n || "", maxlength: 100, required: true, placeholder: "Ex.: Target da região" });
-  const address = h("input", { value: original?.a || "", maxlength: 200, required: true, placeholder: "Rua, número, cidade e estado" });
-  const type = tripSelect(STORE_TYPES, original?.c || "local-shop");
-  const hours = h("input", { value: original?.h || "", maxlength: 120, placeholder: "Ex.: seg a sáb, 9h–21h" });
-  const site = h("input", { type: "url", value: original?.site || "", maxlength: 1000, placeholder: "https://…" });
-  const notes = h("textarea", { maxlength: 600, rows: 3 }, original?.dica || "");
+function storeOSMDetails(tags) {
+  const website = str(tags.website || tags["contact:website"], 1000);
+  return {
+    h: str(tags.opening_hours, 120), phone: str(tags.phone || tags["contact:phone"], 60),
+    site: tripLink(website.replace(/^http:\/\//i, "https://"))
+  };
+}
+
+async function lookupStores(term) {
+  const key = norm(term);
+  if (storeLookupCache.has(key)) return storeLookupCache.get(key);
+  const params = new URLSearchParams({ q: term, bbox: "-87.65,24.39,-79.95,31.01", lat: "28.54", lon: "-81.38", countrycode: "US", limit: "7", osm_tag: "shop" });
+  const data = await getJSON("https://photon.komoot.io/api/?" + params, 7000);
+  const stores = tripList(data?.features, 7).flatMap(feature => {
+    const p = feature.properties;
+    const [lo, la] = Array.isArray(feature.geometry?.coordinates) ? feature.geometry.coordinates : [];
+    const n = str(p?.name, 100);
+    if (!n || !["FL", "Florida"].includes(p.state) || !Number.isFinite(la) || !Number.isFinite(lo)) return [];
+    const locality = str([p.city || p.locality || p.county, ["FL", p.postcode].filter(Boolean).join(" ")].filter(Boolean).join(", "), 120);
+    const a = p.street ? str([[p.housenumber, p.street].filter(Boolean).join(" "), locality].join(", "), 200) : "";
+    const osm = STORE_OSM_TYPES[p.osm_type] + "/" + p.osm_id;
+    const c = /\boutlets?\b/i.test(n) ? "outlet" : p.osm_value === "mall" ? "mall" : "local-shop";
+    return [{ n, a, c, la, lo, locality, osm: STORE_OSM_ID.test(osm) ? osm : "", ...storeOSMDetails(p.extra || {}) }];
+  });
+  if (storeLookupCache.size >= 24) storeLookupCache.delete(storeLookupCache.keys().next().value);
+  storeLookupCache.set(key, stores);
+  return stores;
+}
+
+function existingStore(candidate) {
+  const name = norm(candidate.n);
+  return allPlaces().find(p => {
+    if (candidate.osm && p.osm === candidate.osm) return true;
+    const label = norm(placeName(p));
+    if (label === name && norm(p.a) === norm(candidate.a)) return true;
+    const sameBrand = label === name || label.startsWith(name + " ") || name.startsWith(label + " ") || norm(p.marca) === name;
+    return sameBrand && placeHasCoordinates(p) && placeHasCoordinates(candidate) && kmBetween(p.la, p.lo, candidate.la, candidate.lo) < 0.15;
+  });
+}
+
+async function fillStoreDetails(draft) {
+  const id = STORE_OSM_ID.exec(draft.osm);
+  if (!id || (draft.h && draft.site && draft.phone)) return draft;
+  try {
+    const request = "[out:json][timeout:4];" + id[1] + "(" + id[2] + ");out tags;";
+    const data = await getJSON("https://overpass.private.coffee/api/interpreter?data=" + encodeURIComponent(request), 5000);
+    const tags = data?.elements?.[0]?.tags;
+    if (!tags) return draft;
+    const details = storeOSMDetails(tags);
+    const street = [tags["addr:housenumber"], tags["addr:street"]].filter(Boolean).join(" ");
+    const a = tags["addr:street"] ? str(street + ", " + draft.locality, 200) : "";
+    return { ...draft, a: draft.a || a, h: details.h || draft.h, site: details.site || draft.site, phone: details.phone || draft.phone };
+  } catch { return draft; }
+}
+
+function sheetAddStore() {
+  const name = h("input", { type: "search", maxlength: 100, autocomplete: "off", placeholder: "Ex.: Target Kissimmee" });
+  const status = h("p", { class: "small muted", role: "status" });
+  const results = h("div", { class: "list store-results" });
+  let timer, version = 0;
+
+  function update() {
+    clearTimeout(timer);
+    const current = ++version;
+    const term = str(name.value, 100);
+    results.replaceChildren();
+    if (norm(term).length < 3) {
+      status.textContent = navigator.onLine ? "Digite pelo menos 3 letras para buscar lojas na Flórida." : "Sem internet. Você ainda pode buscar no guia ou preencher manualmente.";
+      return;
+    }
+    const catalog = allPlaces().filter(p => !["comida", "park", "train"].includes(p.c));
+    const local = storeSearch(term, catalog).slice(0, 3);
+    for (const p of local) results.appendChild(tripRow("bag", placeName(p), p.a + (p.sid ? " · Minha loja" : " · No guia"), () => sheetPlace(p)));
+    if (!navigator.onLine) { status.textContent = local.length ? "Resultados do guia disponíveis offline." : "Sem resultados no guia. Conecte-se para buscar mais unidades."; return; }
+    status.textContent = "Buscando unidades na Flórida…";
+    timer = setTimeout(async () => {
+      if (!results.isConnected) return;
+      try {
+        const online = await lookupStores(term);
+        if (current !== version || !results.isConnected) return;
+        const used = new Set(local.map(placeId));
+        let added = 0;
+        for (const draft of online) {
+          if (local.length + added >= 7) break;
+          const saved = existingStore(draft);
+          const key = saved ? placeId(saved) : draft.osm || norm(draft.n + " " + draft.a);
+          if (used.has(key)) continue;
+          used.add(key);
+          added++;
+          const row = tripRow("pin", saved ? placeName(saved) : draft.n,
+            saved ? saved.a + (saved.sid ? " · Minha loja" : " · No guia") : draft.a || draft.locality + " · endereço a confirmar",
+            () => saved ? sheetPlace(saved) : sheetStore(null, draft));
+          results.appendChild(row);
+        }
+        status.textContent = local.length + added ? "Selecione a unidade pelo endereço." : "Nenhuma unidade encontrada. Tente incluir a cidade ou preencha manualmente.";
+      } catch {
+        if (current === version && results.isConnected) status.textContent = "Busca online indisponível. Edite o nome para tentar de novo ou preencha manualmente.";
+      }
+    }, 650);
+  }
+
+  name.addEventListener("input", update);
+  name.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); update(); } });
+  update();
+  openSheet(h("h2", { text: "Adicionar loja" }), tripField("Nome da loja", name), status,
+    tripButton("Preencher manualmente", null, () => sheetStore(null, { n: str(name.value, 100) }), "sm"), results,
+    h("p", { class: "small muted" }, "Dados de ", h("a", { href: "https://www.openstreetmap.org/copyright" }, "© OpenStreetMap")));
+  name.focus({ preventScroll: true });
+}
+
+function sheetStore(original = null, draft = null) {
+  const place = original || draft;
+  const name = h("input", { value: place?.n || "", maxlength: 100, required: true, placeholder: "Ex.: Target da região" });
+  const address = h("input", { value: place?.a || "", maxlength: 200, required: true, placeholder: "Rua, número, cidade e estado" });
+  const type = tripSelect(STORE_TYPES, place?.c || "local-shop");
+  const hours = h("input", { value: place?.h || "", maxlength: 120, placeholder: "Ex.: seg a sáb, 9h–21h" });
+  const site = h("input", { type: "url", value: place?.site || "", maxlength: 1000, placeholder: "https://…" });
+  const phone = h("input", { type: "tel", value: place?.phone || "", maxlength: 60 });
+  const notes = h("textarea", { maxlength: 600, rows: 3 }, place?.dica || "");
   const status = h("p", { class: "small muted", role: "status", text: "O endereço já permite incluir a loja no roteiro. Localizar no mapa é opcional e usa internet." });
   const error = h("p", { class: "small store-error", role: "alert" });
-  let location = original && placeHasCoordinates(original) ? { ...original, address: original.a } : null;
-  if (location) status.textContent = "Localização guardada no aparelho.";
+  let location = place && placeHasCoordinates(place) ? { ...place, address: place.a } : null;
+  if (location) status.textContent = draft ? "Ponto no mapa encontrado. Confira o endereço antes de salvar." : "Localização guardada no aparelho.";
   address.addEventListener("input", () => {
-    if (location && str(address.value, 200) === location.address) status.textContent = "Localização guardada para este endereço.";
+    const located = location?.address === str(address.value, 200);
+    locate.classList.toggle("hidden", located);
+    if (located) status.textContent = "Localização guardada para este endereço.";
     else status.textContent = "Para mostrar a loja no mapa, localize o endereço com internet.";
   });
   const locate = tripButton("Localizar no mapa", "pin", async () => {
@@ -3109,10 +3243,12 @@ function sheetStore(original = null) {
       if (!result) { status.textContent = "Endereço não encontrado. Confira o texto ou salve para localizar depois."; return; }
       location = { ...result, address: query };
       status.textContent = "Encontrado: " + result.label;
+      locate.classList.add("hidden");
     } catch {
       if (str(address.value, 200) === query) status.textContent = "A localização está indisponível. Você pode salvar o endereço.";
     } finally { locate.disabled = false; }
   }, "tonal sm");
+  locate.classList.toggle("hidden", !!location);
 
   function submit(event) {
     event.preventDefault();
@@ -3122,12 +3258,13 @@ function sheetStore(original = null) {
     if (!n || !a) { error.textContent = "Preencha o nome e o endereço da loja."; (n ? address : name).focus(); return; }
     if (site.value.trim() && !website) { error.textContent = "Use um link que comece com https://."; site.focus(); return; }
     if (!original && state.stores.length >= 200) { error.textContent = "Você pode guardar até 200 lojas neste aparelho."; return; }
-    const duplicate = allPlaces().find(p => (!original || p.sid !== original.sid) && norm(placeName(p)) === norm(n) && norm(p.a) === norm(a));
-    if (duplicate) { error.textContent = "Já existe uma loja com esse nome e endereço."; return; }
     const point = location?.address === a ? location : null;
+    const duplicate = allPlaces().find(p => (!original || p.sid !== original.sid) &&
+      ((point?.osm && p.osm === point.osm) || (norm(placeName(p)) === norm(n) && norm(p.a) === norm(a))));
+    if (duplicate) { error.textContent = "Já existe uma loja com esse nome e endereço."; return; }
     const [store] = cleanStores([{
       sid: original?.sid || "store_" + uid(), n, a, c: type.value,
-      h: hours.value, dica: notes.value, site: website, la: point?.la, lo: point?.lo
+      h: hours.value, dica: notes.value, site: website, phone: phone.value, osm: point?.osm, la: point?.la, lo: point?.lo
     }]);
     if (original) {
       state.stores = state.stores.map(p => p.sid === store.sid ? store : p);
@@ -3142,16 +3279,34 @@ function sheetStore(original = null) {
     toast("Loja salva em Minhas lojas");
     sheetPlace(store);
   }
+  const detailLabel = h("span", { role: "status" });
   const form = h("form", { class: "store-form" },
-    tripField("Nome da loja (obrigatório)", name), tripField("Tipo", type), tripField("Endereço (obrigatório)", address),
-    locate, status, tripField("Horário", hours), tripField("Site da loja", site), tripField("Observações", notes), error,
+    tripField("Nome da loja (obrigatório)", name), tripField("Endereço (obrigatório)", address), tripField("Tipo", type),
+    locate, status,
+    h("details", { class: "store-optional", open: !!original },
+      h("summary", {}, "Horário e contato", detailLabel), tripField("Horário", hours), tripField("Site da loja", site), tripField("Telefone", phone), tripField("Observações", notes)), error,
     h("div", { class: "btns" },
       h("button", { class: "btn primary", type: "submit" }, icon("check"), "Salvar loja"),
       original ? tripButton("Remover de Minhas lojas", "x", () => removeStore(original), "danger sm") : null,
-      tripButton("Cancelar", null, () => original ? sheetPlace(original) : closeSheet())));
+      tripButton(original ? "Cancelar" : "Voltar à busca", null, () => original ? sheetPlace(original) : sheetAddStore())));
   form.addEventListener("submit", submit);
+  form.addEventListener("invalid", event => { const details = event.target.closest("details"); if (details) details.open = true; }, true);
   openSheet(h("h2", { text: original ? "Editar loja" : "Adicionar loja" }),
-    h("p", { class: "small muted", text: "Cadastre uma loja, shopping ou outlet. Seu cadastro fica neste aparelho." }), form);
+    h("p", { class: "small muted", text: draft?.osm ? "Confira a unidade e salve em Minhas lojas." : "Seu cadastro fica neste aparelho." }), form);
+  if (draft?.osm) {
+    detailLabel.textContent = " · buscando…";
+    fillStoreDetails(draft).then(details => {
+      if (!form.isConnected) return;
+      if (location?.osm === draft.osm && address.value === draft.a && details.a !== draft.a) {
+        address.value = details.a;
+        location.address = details.a;
+      }
+      if (hours.value === draft.h) hours.value = details.h;
+      if (site.value === draft.site) site.value = details.site;
+      if (phone.value === draft.phone) phone.value = details.phone;
+      detailLabel.textContent = hours.value || site.value || phone.value ? " · dados encontrados" : " · opcional";
+    });
+  }
 }
 function removeStore(store) {
   if (!confirm("Remover " + store.n + " de Minhas lojas? As paradas já programadas manterão o nome e o endereço.")) return;

@@ -173,15 +173,19 @@ function liveTripCard() {
 }
 function renderExplore() {
   const v = $("#view-explorar");
-  v.replaceChildren(h("div", { class: "trip-subhead" }, h("div", { class: "trip-eyebrow", text: "Guia de Orlando" }),
-    h("h1", { text: "Explore Orlando" }), h("p", { class: "small muted", text: "Encontre lugares e leve os favoritos para a programação." })),
-    storeActions(),
-    h("div", { class: "list" },
-      tripRow("bag", "Marcas, lojas e outlets", "Busque pelo logo, região ou tipo de loja", () => go("lojas")),
-      tripRow("pin", "Lugares por perto", "Explore por região, endereço ou localização", () => go("perto"), "trip-sun"),
-      tripRow("cal", "Eventos e ofertas", "Descubra o que acontece no dia escolhido", () => go("agenda")),
-      tripRow("bulb", "Dicas de viagem", "Cupons, tamanhos, transporte e muito mais", () => go("dicas"), "trip-peach"),
-      tripRow("sun", "Hoje no guia", "Clima, descontos e frases para o caixa", () => go("hoje"))));
+  const shortcuts = [
+    ["bag", "Marcas e lojas", "Outlets e shoppings", () => { seg = "compras"; storeQuery = ""; go("lojas"); }],
+    ["pin", "Lugares por perto", "Por região ou endereço", () => go("perto")],
+    ["cal", "Eventos e ofertas", "Veja por dia", () => go("agenda")],
+    ["tag", "Minhas lojas", "Seus lugares salvos", myStores],
+    ["bulb", "Dicas de viagem", "Cupons, tamanhos e mais", () => go("dicas")],
+    ["sun", "Hoje no guia", "Clima, descontos e frases", () => go("hoje")]
+  ];
+  v.replaceChildren(h("h1", { class: "explore-title", text: "Explore Orlando" }),
+    h("div", { class: "store-actions" }, tripButton("Adicionar loja", "search", sheetAddStore, "primary sm block")),
+    h("div", { class: "tiles explore-grid" }, ...shortcuts.map(([symbol, label, description, run]) =>
+      h("button", { class: "tile", type: "button", onClick: run }, h("span", { class: "ico" }, icon(symbol)),
+        h("div", {}, h("b", { text: label }), h("span", { text: description }))))));
 }
 
 /* A Agenda preserva os registros antigos e acrescenta horários editáveis. */

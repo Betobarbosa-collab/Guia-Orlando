@@ -462,7 +462,7 @@ function renderLojas() {
   const v = $("#view-lojas"); v.replaceChildren();
   v.append(h("h1", { text: "Lojas e lugares" }),
     h("p", { class: "small muted", text: "Encontre um endereço no guia ou cadastre suas próprias lojas." }),
-    h("div", { class: "btns store-actions" }, tripButton("Adicionar loja", "plus", () => sheetStore(), "primary")));
+    h("div", { class: "btns store-actions" }, tripButton("Adicionar loja", "plus", sheetAddStore, "primary")));
   const options = [["compras", "Compras"], ["minhas", "Minhas lojas"], ["redes", "Redes"], ["lugares", "Regiões"], ["parques", "Parques"], ["miami", "Miami"]];
   const sg = h("div", { class: "seg store-tabs", role: "group", "aria-label": "Categorias de lojas e lugares" },
     ...options.map(([k, label]) => h("button", { class: k === seg ? "on" : "", dataset: { storeTab: k }, "aria-pressed": String(k === seg),
@@ -688,15 +688,17 @@ function sheetPlace(p) {
   const st = openStatus(p);
   openSheet(h("h2", { text: placeName(p) }), h("div", { class: "tags" }, h("span", { class: "badge " + (t.bc || "sky"), text: placeTypeLabel(p) }), p.sid ? h("span", { class: "badge coral", text: "Minha loja" }) : null, p.r ? h("span", { class: "badge gray", text: ratingText(p) + " no Google" }) : null, st ? h("span", { class: "badge " + (st.open ? "leaf" : "coral"), text: st.txt + (st.approx ? " (aprox.)" : "") }) : null),
     h("p", { text: p.a }), p.h ? h("p", { class: "small muted", text: "Horário: " + p.h }) : null,
+    p.phone ? h("p", { class: "small muted", text: "Telefone: " + p.phone }) : null,
+    p.osm ? h("p", { class: "small muted" }, "Dados de ", h("a", { href: "https://www.openstreetmap.org/" + p.osm }, "© OpenStreetMap")) : null,
     p.cupom ? h("div", { class: "callout info" }, h("b", { text: "Livro de cupons: " }), p.cupom) : null,
     p.dica ? h("div", { class: "callout ok", [p.sid ? "text" : "html"]: p.dica }) : null,
-    pedidosSection(pedidosPonto(p), () => sheetPlace(p)),
     h("div", { class: "btns" }, tripButton(inPlan ? "Programar em outro dia" : "Adicionar à programação", inPlan ? "check" : "cal", () => sheetProgramarLugar(p), "primary"),
       p.sid ? tripButton("Editar loja", "gear", () => sheetStore(p), "tonal") : null,
       h("a", { class: "btn", href: mapsDir(p.sid ? p.a : placeName(p) + ", " + p.a) }, icon("nav"), "Como chegar"),
       h("a", { class: "btn", href: mapsSearch(placeName(p) + ", " + p.a) }, "Ver no Maps"),
       p.site ? h("a", { class: "btn", href: p.site }, "Site da loja") : null,
       placeHasCoordinates(p) ? tripButton("Ver o que tem perto", "pin", () => { here = { la: p.la, lo: p.lo, label: placeName(p) }; state.region = ""; save(); closeSheet(); go("perto"); }, "tonal") : null),
+    pedidosSection(pedidosPonto(p), () => sheetPlace(p)),
     h("div", { class: "btns" }, closeBtn()));
 }
 function eventPlaces(event) {
@@ -1022,6 +1024,7 @@ async function geocodeNow(q) {
 /* "aberto agora": usa horários por dia (hd) quando existem; senão tenta ler o texto (h) */
 function parseRange(txt) { const m = /(\d{1,2})(?:[:h](\d{2}))?\s*[–\-]\s*(\d{1,2})(?:[:h](\d{2}))?/.exec(txt || ""); if (!m) return null; const a = +m[1] * 60 + (+(m[2] || 0)), b = +m[3] * 60 + (+(m[4] || 0)); return { a, b: b <= a ? b + 1440 : b }; }
 function openStatus(p) {
+  if (p.osm) return null;
   const now = new Date(); const dow = now.getDay(); const cur = now.getHours() * 60 + now.getMinutes();
   let rg = null, approx = false;
   if (Array.isArray(p.hd) && p.hd.length === 7) { if (/^fechad/i.test(p.hd[dow] || "")) return { open: false, txt: "Fechado hoje", approx: false }; rg = parseRange(p.hd[dow]); } else if (p.h) { rg = parseRange(p.h); approx = true; }
